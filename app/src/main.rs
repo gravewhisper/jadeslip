@@ -38,12 +38,12 @@ fn navigation_allowed(url: &Url) -> bool {
 }
 
 fn main() {
+    let mut args: Vec<_> = std::env::args_os().skip(1).collect();
     if std::env::var_os("APPIMAGE").is_some()
         && let Some(launched_from) = std::env::var_os("OWD")
     {
-        let _ = std::env::set_current_dir(launched_from);
+        cli::resolve_book_from(&mut args, std::path::Path::new(&launched_from));
     }
-    let args: Vec<_> = std::env::args_os().skip(1).collect();
     if cli::wants_cli(&args) {
         std::process::exit(cli::run(&args));
     }
