@@ -1,0 +1,317 @@
+{
+ "sync_commit": "ba47b58a31408e289205fc06f0b554e6e6063002",
+ "items": [
+  {
+   "file": "crates/core/src/history.rs",
+   "owner": "",
+   "fn": "frame",
+   "sha256": "ef8065a520a78993cef910c0efd228646ac009276411564f8a40c554d0085f33"
+  },
+  {
+   "file": "crates/core/src/history.rs",
+   "owner": "",
+   "fn": "read_frame",
+   "sha256": "79fd2cfad23a91d1f2f105a4cb7e9825cc8a4e35136132addf004f88b1917676"
+  },
+  {
+   "file": "crates/core/src/history.rs",
+   "owner": "",
+   "fn": "next_frame",
+   "sha256": "327a4362e7ae604cf65681abd57be71926ed48cb2351f4c58bb069034aaf7c0f"
+  },
+  {
+   "file": "crates/core/src/history.rs",
+   "owner": "",
+   "fn": "scan_from",
+   "sha256": "2387372319dfdcd91796b34dbdef8f424dcf537356c96e526587bbcc8e72ea32"
+  },
+  {
+   "file": "crates/core/src/history.rs",
+   "owner": "History",
+   "fn": "refresh",
+   "sha256": "6f4d412942c5838f1507783f99d19adbc0bf6716b8154483df39bb21cf7edda2"
+  },
+  {
+   "file": "crates/core/src/history.rs",
+   "owner": "History",
+   "fn": "records",
+   "sha256": "75a9053185fffccf1f2c7846bb834eb97c7d0e46ff7d3a25af8a43793201352f"
+  },
+  {
+   "file": "crates/core/src/history.rs",
+   "owner": "History",
+   "fn": "blob",
+   "sha256": "7ffe979e5edbf6a12d00483ffd88c98761a7c26158cda2a844306f93c1a13e15"
+  },
+  {
+   "file": "crates/core/src/history.rs",
+   "owner": "History",
+   "fn": "stored",
+   "sha256": "5ff1bd4bc0997a872fe854be1a4cce8feeadccb89cd21f4a307600c9f6d946a3"
+  },
+  {
+   "file": "crates/core/src/history.rs",
+   "owner": "History",
+   "fn": "text_from",
+   "sha256": "1b5862ddf2272f523cc189a2a6ead263c04994e37fb89dabfe011ba0ad834ef6"
+  },
+  {
+   "file": "crates/core/src/history.rs",
+   "owner": "History",
+   "fn": "readable",
+   "sha256": "96d29bb834954c4f1ce2c0e48fc056b663b4f399b2a3d0413bad842558ca857e"
+  },
+  {
+   "file": "crates/core/src/history.rs",
+   "owner": "History",
+   "fn": "copy_of",
+   "sha256": "a06efe4fb81b56671416e2302e5925ea99228105931cd618c92247bd1b06e67c"
+  },
+  {
+   "file": "crates/core/src/history.rs",
+   "owner": "",
+   "fn": "text_within",
+   "sha256": "525a4bef3aacd6f6ccefd5d3f57be036142410edb13ea694edaaf8f882520ccf"
+  },
+  {
+   "file": "crates/core/src/history.rs",
+   "owner": "",
+   "fn": "checked_payload",
+   "sha256": "a8b18276684860a7fbe02cbc92fe5110268f92e80891e85bcbd5e71a5c79c5ac"
+  },
+  {
+   "file": "crates/core/src/history.rs",
+   "owner": "",
+   "fn": "packed_from",
+   "sha256": "3c64a46d820da76f64949ae66da6fc4ee906ce596d9d2958592758c67b7da6d0"
+  },
+  {
+   "file": "crates/core/src/history.rs",
+   "owner": "",
+   "fn": "rebuilt",
+   "sha256": "6803eb89c36f4da3cd4e2bbcf33bdc76c5dcfa079ea19b035a57aa7c81e58773"
+  },
+  {
+   "file": "crates/core/src/history.rs",
+   "owner": "History",
+   "fn": "append",
+   "sha256": "2a9a74b166d5b0f529b686ad157d04d1c2dc41848e2c2304023f5b509181780d"
+  },
+  {
+   "file": "crates/core/src/history.rs",
+   "owner": "History",
+   "fn": "stage",
+   "sha256": "5a34b452710104c73ea8928d0988332655faeee9b6718a0d6ebe2c93697d6eda"
+  },
+  {
+   "file": "crates/core/src/history.rs",
+   "owner": "Staged",
+   "fn": "sync",
+   "sha256": "cbc3558025527171de9330e7154841c3c3fe268328f62cc2aeb89cad7e2882e8"
+  },
+  {
+   "file": "crates/core/src/history.rs",
+   "owner": "Staged",
+   "fn": "finish",
+   "sha256": "d0c902fe6c65bd1bd1c62418de49e93564a483710df95d5e5d82b0b38f83f80e"
+  },
+  {
+   "file": "crates/core/src/history.rs",
+   "owner": "",
+   "fn": "landed",
+   "sha256": "c263c034321b91c1166934955b62270aaf934294810c24f153ff627634006a5c"
+  },
+  {
+   "file": "crates/core/src/history.rs",
+   "owner": "Record",
+   "fn": "id",
+   "sha256": "dc52772c880f066ce431ae404ce823dd648c6969ccaa4799d1a952c0c701abce"
+  },
+  {
+   "file": "crates/core/src/history.rs",
+   "owner": "Landed",
+   "fn": "find",
+   "sha256": "e604edbd3a412264567f4ed77275422a6e17bbc1352e6b11d2d14622b64d24b6"
+  },
+  {
+   "file": "crates/core/src/history.rs",
+   "owner": "Landed",
+   "fn": "state_at",
+   "sha256": "a68434a81de8a4228e1b532d92c26b0e75c59fff947bf025fa1016d3e5722620"
+  },
+  {
+   "file": "crates/core/src/history.rs",
+   "owner": "StateAt",
+   "fn": "version",
+   "sha256": "6072fa638c7f360fc750a5c595ebdf143b681b5e4453206e61747715eaaea978"
+  },
+  {
+   "file": "crates/core/src/commit/history.rs",
+   "owner": "",
+   "fn": "start",
+   "sha256": "6f7f9cbccc9460e8d1fceaf6f966cca6cba11fe4c80e9a0f883fd1221b923bb2"
+  },
+  {
+   "file": "crates/core/src/commit/history.rs",
+   "owner": "",
+   "fn": "rewritten_names",
+   "sha256": "341dd3a90f2a4d7f916ad70bb29ee0c1b046ee953866dc55e509d9a998f0158f"
+  },
+  {
+   "file": "crates/core/src/commit/history.rs",
+   "owner": "",
+   "fn": "diffed_names",
+   "sha256": "7103a6064e38ee86a05452251564c0030aa67f0de736b4fe1fd756704865a2b6"
+  },
+  {
+   "file": "crates/core/src/commit/history.rs",
+   "owner": "Syncing",
+   "fn": "finish",
+   "sha256": "78de644c23510f203143fc40ae513d924e12b3be7967589cde8aaf189e1d80af"
+  },
+  {
+   "file": "crates/core/src/commit/history.rs",
+   "owner": "Cause",
+   "fn": "record",
+   "sha256": "fa1bdb8b35bbc409bff74ea69cbc14f0e899b05d604f692767c53e40065f8c64"
+  },
+  {
+   "file": "crates/core/src/commit/history.rs",
+   "owner": "Book",
+   "fn": "state_at",
+   "sha256": "388eff723ce976f72912cef9eb05dc6012d9a4a535c353e1e2ad2d16f21c16da"
+  },
+  {
+   "file": "crates/core/src/commit/history.rs",
+   "owner": "Book",
+   "fn": "history",
+   "sha256": "a7d7141cd7978f5941ad373ebf29525291709dceec19c879fb35ea9fffccb2b0"
+  },
+  {
+   "file": "crates/core/src/commit/history.rs",
+   "owner": "Book",
+   "fn": "take_snapshot",
+   "sha256": "8097957d7a31fe882e9a249485d90ac47d6f02b9369345b01f347831a4c5b189"
+  },
+  {
+   "file": "crates/core/src/commit/history.rs",
+   "owner": "Book",
+   "fn": "restore_point",
+   "sha256": "e619d7eabe64f7518ada36deadb17b213863385667d3ed6e3f0516e3b33f8c3f"
+  },
+  {
+   "file": "crates/core/src/commit/draft.rs",
+   "owner": "Book",
+   "fn": "file_hash",
+   "sha256": "cece91b1079930f7c9ff26d8c720fda3e32f122271c4d919de2b65b5a3e4722b"
+  },
+  {
+   "file": "crates/core/src/commit.rs",
+   "owner": "Book",
+   "fn": "open_with",
+   "sha256": "71bf99688a772d96d09d1a9b15ad30a7bcb0466d871672f00769fe2f6ecfc186"
+  },
+  {
+   "file": "crates/core/src/commit.rs",
+   "owner": "Book",
+   "fn": "check_unchanged",
+   "sha256": "14e8e8775fbf15b2eee40ef7cbbca00662e1f6b5447545f6aed1a157a25eb025"
+  },
+  {
+   "file": "crates/core/src/commit.rs",
+   "owner": "Book",
+   "fn": "ensure_slot",
+   "sha256": "55c69a68c05a740fffa674c8868b2438fa974d1a22cdad53b06736560676312e"
+  },
+  {
+   "file": "crates/core/src/commit.rs",
+   "owner": "Book",
+   "fn": "commit",
+   "sha256": "d242afe80312e535ac582086305305684317346bb41264322084869ce0f03f30"
+  },
+  {
+   "file": "crates/core/src/backup.rs",
+   "owner": "Slot",
+   "fn": "settle",
+   "sha256": "8040d6be95cfe8c595d66571eda22bf071526ddc2dd24a83a885fe04dde8b309"
+  },
+  {
+   "file": "crates/core/src/backup.rs",
+   "owner": "BookData",
+   "fn": "find_valid",
+   "sha256": "03eac03e4b0c9e143528650db22eaa62cd37a3f7bd94e1662746a807e9ee1a6e"
+  },
+  {
+   "file": "crates/core/src/history/prune.rs",
+   "owner": "",
+   "fn": "fold",
+   "sha256": "a6526b19c38df256a8197fa1f921d908a4f825d3c5577ea13a3cff3ed69d7b10"
+  },
+  {
+   "file": "crates/core/src/history/prune.rs",
+   "owner": "",
+   "fn": "plan",
+   "sha256": "70674d88dd8054b8cbad3df67166d0c48ebecaf8d964aad403edc2d037921609"
+  },
+  {
+   "file": "crates/core/src/history/prune.rs",
+   "owner": "",
+   "fn": "links",
+   "sha256": "2d74fb11902d25423df6d9f8ee7c8c9517f7f5c5336b25825e348125e824998f"
+  },
+  {
+   "file": "crates/core/src/history/prune.rs",
+   "owner": "",
+   "fn": "limit_chains",
+   "sha256": "3fdb47d01045ca0a866a19f3243a7b27f1b20d467091da4b624f5e48f075c92f"
+  },
+  {
+   "file": "crates/core/src/history/prune.rs",
+   "owner": "Newest",
+   "fn": "read",
+   "sha256": "fa2f4f509684138640893b040b0b5d912bc501072f5164bcd75e7851963ad8ab"
+  },
+  {
+   "file": "crates/core/src/history/prune.rs",
+   "owner": "Plan",
+   "fn": "compact",
+   "sha256": "77543318cda20eae390278349dff498fe56d59e96b12e9e311a276fc5a4ffe7a"
+  },
+  {
+   "file": "crates/core/src/history/prune.rs",
+   "owner": "Plan",
+   "fn": "write",
+   "sha256": "47d5eae483a9a2826e81050b3f6e85e9184b770c4a275910d41d72f6c9433b88"
+  },
+  {
+   "file": "crates/core/src/history/prune.rs",
+   "owner": "Plan",
+   "fn": "verify",
+   "sha256": "16bfd6c17f41c5959b7553c5b1b4c433ab1c608cf791950a965f9d18aa355d11"
+  },
+  {
+   "file": "crates/core/src/history/prune.rs",
+   "owner": "History",
+   "fn": "replace_with",
+   "sha256": "07d671c96e730e1bd1a715d4ec1b36d23a4c5889c421047c3026b59b86210c40"
+  },
+  {
+   "file": "crates/core/src/history/prune.rs",
+   "owner": "History",
+   "fn": "prune",
+   "sha256": "215cc13b2be6fb05938c14770ef6fe27cfe6a48003ef38a76f137d3a7bb35d28"
+  },
+  {
+   "file": "crates/core/src/commit/history.rs",
+   "owner": "Book",
+   "fn": "prune_history",
+   "sha256": "7b794407397e58caed9a99074d17c70d8d2169b28fb00e2c1d2b877783cd2a88"
+  },
+  {
+   "file": "crates/core/src/storage.rs",
+   "owner": "",
+   "fn": "prune_closed",
+   "sha256": "cc5d4b5369c75e210a55f071dc913460615efb68cabb93d3ecf92bf14659b3e9"
+  }
+ ]
+}

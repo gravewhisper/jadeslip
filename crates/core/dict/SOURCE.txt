@@ -1,0 +1,12 @@
+en_US.aff, en_US.dic and README_en_US.txt are unmodified copies from
+https://github.com/LibreOffice/dictionaries/tree/master/en
+at commit 4f1df64b2e8e14751aa7c2205d170ca016071315, fetched 2026-11-05.
+
+sha256
+e746c882dd6f303c2c46e7452804b9201115a6942cfeb15f18f8edf774d2e24e  en_US.aff
+f0b1a234bd178bdd01875b2a392a9647f888b8fe879f79c52aae62c2759b3647  en_US.dic
+168b4c01cb841f766a72f310b065c04d09cff46376c37a81d799593ce751c371  README_en_US.txt
+
+The word list is SCOWL size 60, built by Kevin Atkinson. The licence notices
+for every source of the list and the affix file are in README_en_US.txt,
+which must travel with any copy.

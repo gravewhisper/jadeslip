@@ -1,0 +1,608 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Jadeslip</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+.dark{--bg:#14161B;--panel:#1A1D23;--raise:#23272F;--line:#2E333C;--ink:#E8E6E1;--muted:#A0A6B1;--accent:#8FD3B6;--on:#0E1F18;--tint:#20342C;--mark:#6B5A1E;--warn:#F2B66D;--scrim:rgba(5,6,8,.62)}
+.light{--bg:#F4F5F3;--panel:#FBFBFA;--raise:#E9EBE7;--line:#D5D8D2;--ink:#1B1D22;--muted:#565C66;--accent:#0B6B52;--on:#FFFFFF;--tint:#DCEEE6;--mark:#F6E08A;--warn:#8F4F00;--scrim:rgba(20,22,27,.36)}
+.app{height:100vh;min-height:720px;display:flex;flex-direction:column;background:var(--bg);color:var(--ink);font-family:'IBM Plex Sans',system-ui,sans-serif;font-size:14px;position:relative;overflow:hidden}
+.app *{box-sizing:border-box}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;border-radius:6px}
+button:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.top{height:52px;flex:none;display:flex;align-items:center;gap:8px;padding:0 14px;border-bottom:1px solid var(--line);background:var(--panel)}
+.brand{font-weight:600;letter-spacing:-.01em;padding:8px 10px}
+.crumb{color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.grow{flex:1;min-width:0}
+.btn{min-height:36px;padding:0 12px;display:inline-flex;align-items:center;gap:8px;white-space:nowrap}
+.btn:hover{background:var(--raise)}
+.btn.on{background:var(--tint);color:var(--ink)}
+.btn.primary{background:var(--accent);color:var(--on);font-weight:600}
+.btn.primary:hover{opacity:.9;background:var(--accent)}
+.btn.line{border:1px solid var(--line)}
+.key{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--muted);border:1px solid var(--line);border-radius:4px;padding:1px 5px}
+.btn.primary .key{color:var(--on);border-color:currentColor}
+.body{flex:1;min-height:0;display:flex}
+.rail{width:296px;flex:none;border-right:1px solid var(--line);background:var(--panel);display:flex;flex-direction:column;min-height:0}
+.rail.right{border-right:0;border-left:1px solid var(--line);width:360px}
+.railhead{padding:12px;display:flex;flex-direction:column;gap:10px;border-bottom:1px solid var(--line)}
+.field{width:100%;height:36px;border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:6px;padding:0 10px;font:inherit}
+.field::placeholder{color:var(--muted)}
+.scroll{flex:1;min-height:0;overflow:auto;padding:6px}
+.vol{display:flex;width:100%;text-align:left;gap:8px;min-height:34px;align-items:center;padding:4px 8px;font-weight:600}
+.vol:hover,.row:hover{background:var(--raise)}
+.vol .n{margin-left:auto;font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:400;color:var(--muted)}
+.row{display:flex;width:100%;text-align:left;gap:10px;min-height:34px;align-items:center;padding:4px 8px 4px 22px}
+.row.cur{background:var(--tint)}
+.row .num{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--muted);flex:none;width:38px}
+.row .t{overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.count{padding:9px 14px;border-top:1px solid var(--line);color:var(--muted);font-size:12px}
+.page{flex:1;min-width:0;overflow:auto;display:flex;flex-direction:column}
+.sheet{width:100%;margin:0 auto;padding:44px 32px 72px}
+.kicker{font-size:12px;color:var(--muted);margin:0 0 8px}
+.chap{font-family:'Literata',Georgia,serif;font-weight:600;font-size:30px;line-height:1.2;margin:0 0 28px;letter-spacing:-.01em}
+.prose{font-family:'Literata',Georgia,serif;line-height:1.72}
+.prose p{margin:0 0 1.05em}
+.mark{background:var(--mark);border-radius:2px;padding:0 2px}
+.typo{text-decoration:underline wavy var(--warn) 1.5px;text-underline-offset:3px}
+.fixed{background:var(--tint);border-radius:2px}
+.editing{outline:1px dashed var(--line);outline-offset:18px;border-radius:2px;caret-color:var(--accent)}
+.foot{flex:none;background:var(--panel);border-top:1px solid var(--line)}
+.bar{height:3px;background:var(--raise)}
+.fill{height:3px;background:var(--accent)}
+.footrow{height:46px;display:flex;align-items:center;gap:6px;padding:0 10px;color:var(--muted)}
+.mono{font-family:'IBM Plex Mono',monospace;font-size:12px}
+.toolbar{flex:none;display:flex;flex-wrap:wrap;align-items:center;gap:4px;padding:7px 12px;background:var(--panel);border-bottom:1px solid var(--line)}
+.sep{width:1px;height:22px;background:var(--line);margin:0 6px}
+.tool{min-width:36px;height:36px;font-weight:500}
+.tool:hover{background:var(--raise)}
+.spell{display:inline-flex;align-items:center;gap:8px;padding:0 4px 0 10px;min-height:36px;border:1px solid var(--line);border-radius:6px;color:var(--muted)}
+.seg{display:flex;padding:3px;background:var(--bg);border:1px solid var(--line);border-radius:8px}
+.seg button{flex:1;min-height:30px;padding:0 12px;border-radius:5px;color:var(--muted)}
+.seg button.on{background:var(--raise);color:var(--ink);font-weight:500}
+.status{display:flex;align-items:center;gap:10px;color:var(--muted);font-size:12px}
+.track{flex:1;height:4px;border-radius:2px;background:var(--raise);overflow:hidden}
+.result{display:block;width:100%;text-align:left;padding:10px;border-bottom:1px solid var(--line);border-radius:0}
+.result:hover{background:var(--raise)}
+.result .where{display:block;font-size:12px;color:var(--muted);margin-bottom:4px}
+.result .snip{display:block;font-family:'Literata',Georgia,serif;line-height:1.45}
+.pop{position:absolute;right:14px;top:58px;width:280px;z-index:5;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px;display:flex;flex-direction:column;gap:12px;box-shadow:0 14px 34px rgba(0,0,0,.28)}
+.poplabel{font-size:12px;color:var(--muted);margin-bottom:6px}
+.scrim{position:absolute;inset:0;z-index:8;background:var(--scrim);display:flex;align-items:center;justify-content:center;padding:20px}
+.dialog{width:420px;max-width:100%;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:22px}
+.dialog h2{margin:0 0 8px;font-size:17px}
+.dialog p{margin:0 0 18px;color:var(--muted);line-height:1.5}
+.actions{display:flex;justify-content:flex-end;flex-wrap:wrap;gap:8px}
+.toast{position:absolute;left:50%;bottom:66px;transform:translateX(-50%);z-index:9;background:var(--ink);color:var(--bg);padding:10px 14px;border-radius:8px;font-weight:500;white-space:nowrap}
+.lib{flex:1;overflow:auto}
+.libin{max-width:1040px;margin:0 auto;padding:44px 32px 60px}
+.h1{font-size:26px;font-weight:600;letter-spacing:-.015em;margin:0}
+.h2{font-size:13px;font-weight:600;margin:36px 0 12px;color:var(--muted)}
+.cont{display:flex;width:100%;text-align:left;gap:26px;padding:22px;border:1px solid var(--line);background:var(--panel);border-radius:12px;align-items:center}
+.cont:hover,.card:hover{border-color:var(--accent)}
+.cover{width:92px;height:132px;flex:none;border-radius:4px;padding:10px;display:flex;align-items:flex-end;font-family:'Literata',Georgia,serif;font-weight:600;font-size:13px;line-height:1.2;color:#F4F2EC}
+.cover.small{width:58px;height:84px;font-size:9px;padding:6px}
+.c1{background:#23483F}.c2{background:#54304A}.c3{background:#2E4266}.c4{background:#5A4A25}.c5{background:#3B3F46}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
+.card{display:flex;width:100%;text-align:left;gap:14px;padding:12px;border:1px solid var(--line);background:var(--panel);border-radius:10px;align-items:center}
+.ctitle{display:block;font-weight:600;line-height:1.3}
+.cmeta{display:block;font-size:12px;color:var(--muted);margin:4px 0 9px}
+.ptrack{display:block;height:4px;background:var(--raise);border-radius:2px;overflow:hidden}
+.pfill{display:block;height:4px;background:var(--accent)}
+.exitfocus{position:absolute;top:10px;right:14px;z-index:6;background:var(--panel);border:1px solid var(--line);opacity:.72}
+.exitfocus:hover,.exitfocus:focus-visible{opacity:1}
+.scrim.upper{align-items:flex-start;padding-top:96px}
+.palette{width:580px;max-width:100%;background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden;box-shadow:0 18px 44px rgba(0,0,0,.34)}
+.palinput{width:100%;height:52px;border:0;border-bottom:1px solid var(--line);background:none;color:var(--ink);font:inherit;font-size:16px;padding:0 16px}
+.palinput::placeholder{color:var(--muted)}
+.palrow{display:flex;width:100%;text-align:left;justify-content:space-between;align-items:center;gap:16px;min-height:42px;padding:8px 16px;border-radius:0}
+.palrow:hover{background:var(--raise)}
+.palhint{font-size:12px;color:var(--muted);white-space:nowrap}
+.palfoot{display:flex;justify-content:space-between;align-items:center;padding:6px 8px 6px 16px;border-top:1px solid var(--line);font-size:12px;color:var(--muted)}
+.note{display:flex;align-items:flex-start;border-bottom:1px solid var(--line)}
+.notejump{flex:1;min-width:0;text-align:left;padding:10px;border-radius:0}
+.notejump:hover{background:var(--raise)}
+.notewhere{display:block;font-size:12px;color:var(--muted);margin-bottom:4px}
+.notetext{display:block;line-height:1.45}
+.b1{--book:#23483F}.b2{--book:#54304A}.b3{--book:#2E4266}.b4{--book:#5A4A25}.b5{--book:#3B3F46}.b6{--book:#6A2E2B}.b7{--book:#1F4F5C}.b8{--book:#44356B}.b9{--book:#4A5526}
+.a1{background-image:repeating-radial-gradient(circle at 74% 26%,transparent 0 15px,rgba(255,255,255,.11) 15px 17px)}
+.a2{background-image:repeating-linear-gradient(135deg,transparent 0 13px,rgba(255,255,255,.1) 13px 15px)}
+.a3{background-image:linear-gradient(rgba(255,255,255,.09) 2px,transparent 2px),linear-gradient(90deg,rgba(255,255,255,.09) 2px,transparent 2px);background-size:30px 30px}
+.a4{background-image:radial-gradient(rgba(255,255,255,.17) 3px,transparent 4px);background-size:22px 22px}
+.a5{background-image:repeating-linear-gradient(0deg,transparent 0 11px,rgba(255,255,255,.1) 11px 13px)}
+.hero{background:var(--book);color:#F7F5EF;flex:none}
+.heroin{max-width:1180px;margin:0 auto;padding:40px 40px;display:flex;flex-wrap:wrap;gap:40px;align-items:center}
+.bigcover{width:190px;height:278px;flex:none;border-radius:3px 7px 7px 3px;background-color:var(--book);display:flex;align-items:flex-end;padding:18px 16px;font-family:'Literata',Georgia,serif;font-weight:600;font-size:21px;line-height:1.18;color:#F7F5EF;box-shadow:inset 7px 0 0 rgba(0,0,0,.22),0 0 0 1px rgba(255,255,255,.2),0 20px 40px rgba(0,0,0,.42)}
+.herotext{flex:1 1 420px;min-width:0}
+.herokick{margin:0 0 10px;font-size:13px;font-weight:500;color:rgba(247,245,239,.88)}
+.herotitle{margin:0;font-family:'Literata',Georgia,serif;font-weight:600;font-size:42px;line-height:1.1;letter-spacing:-.015em}
+.heroline{margin:12px 0 0;font-size:15px;color:rgba(247,245,239,.9)}
+.heroquote{margin:20px 0 0;max-width:640px;font-family:'Literata',Georgia,serif;font-style:italic;font-size:18px;line-height:1.55}
+.herobar{height:6px;max-width:640px;margin-top:22px;background:rgba(255,255,255,.2);border-radius:3px;overflow:hidden}
+.herofill{height:6px;background:#F7F5EF}
+.herometa{margin:9px 0 0;font-size:12.5px;color:rgba(247,245,239,.88)}
+.heroacts{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+.herobtn{min-height:44px;padding:0 20px;font-weight:600}
+.herobtn.main{background:#F7F5EF;color:#17191D}
+.herobtn.main:hover{background:#FFFFFF}
+.herobtn.alt{border:1px solid rgba(247,245,239,.6);color:#F7F5EF}
+.herobtn.alt:hover{background:rgba(255,255,255,.14)}
+.shelfin{max-width:1180px;margin:0 auto;padding:30px 40px 34px}
+.shelfhead{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:6px}
+.shelftitle{margin:0;font-size:15px;font-weight:600}
+.shelfnote{font-size:12.5px;color:var(--muted)}
+.shelf{display:flex;align-items:flex-end;gap:4px;overflow-x:auto;padding:22px 8px 0;min-height:326px}
+.spine{position:relative;flex:none;background-color:var(--book);color:#F7F5EF;border-radius:3px 3px 0 0;display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:14px 0 10px;overflow:visible;transition:transform .16s ease;box-shadow:inset 3px 0 0 rgba(255,255,255,.1),inset -3px 0 0 rgba(0,0,0,.2)}
+.spine:hover{transform:translateY(-8px)}
+.spine.sel{transform:translateY(-16px);outline:2px solid var(--accent);outline-offset:1px}
+.spinetitle{writing-mode:vertical-rl;font-family:'Literata',Georgia,serif;font-weight:600;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-height:78%;min-height:0}
+.spinecount{font-family:'IBM Plex Mono',monospace;font-size:10px;color:rgba(247,245,239,.9)}
+.ribbon{position:absolute;right:-3px;width:10px;height:4px;background:#F7F5EF;border-radius:1px;box-shadow:0 0 0 1px rgba(0,0,0,.35)}
+.newspine{flex:none;width:58px;height:262px;margin-left:10px;border:1.5px dashed var(--muted);border-radius:3px 3px 0 0;color:var(--muted);display:flex;align-items:center;justify-content:center}
+.newspine:hover{color:var(--ink);border-color:var(--ink)}
+.newspine span{writing-mode:vertical-rl;font-weight:500}
+.plank{height:12px;background:var(--raise);border-top:1px solid var(--line);border-radius:0 0 4px 4px}
+@media (prefers-reduced-motion:reduce){.spine{transition:none}}
+@media (max-width:820px){.heroin,.shelfin{padding:24px 16px}.herotitle{font-size:30px}.bigcover{width:130px;height:190px;font-size:15px}}
+.drop{margin-top:30px;border:1px dashed var(--line);border-radius:10px;padding:18px;text-align:center;color:var(--muted)}
+.binderrow{display:flex;align-items:center;gap:2px;border-radius:6px}
+.binderrow.cur{background:var(--tint)}
+.binderrow:hover{background:var(--raise)}
+.binderrow.cur:hover{background:var(--tint)}
+.bindername{flex:1;min-width:0;display:flex;gap:9px;align-items:center;text-align:left;min-height:40px;padding:0 8px}
+.bindername .t{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mini{width:28px;height:30px;flex:none;color:var(--muted)}
+.mini:hover{background:var(--line);color:var(--ink)}
+.titleinput{width:100%;background:none;border:0;color:var(--ink);font-family:'Literata',Georgia,serif;font-weight:600;font-size:30px;margin:0 0 20px;padding:2px 0;letter-spacing:-.01em}
+.draft{width:100%;flex:1;min-height:440px;background:none;border:0;resize:none;color:var(--ink);font-family:'Literata',Georgia,serif;line-height:1.72;padding:0}
+.draft:focus-visible{outline:none}
+.titleinput:focus-visible{outline:none}
+@media (max-width:820px){.app{height:auto;overflow:visible}.body{flex-wrap:wrap}.rail,.rail.right{width:100%;max-height:320px;border:0;border-bottom:1px solid var(--line)}.page{flex-basis:100%}.top{flex-wrap:wrap;height:auto;padding:8px}.footrow{flex-wrap:wrap;height:auto;padding:8px}.toast{white-space:normal;width:90%}}
+</style>
+</helmet>
+<div class="app {{themeClass}}">
+
+<sc-if value="{{isLibrary}}" hint-placeholder-val="{{ true }}">
+<header class="top">
+<span class="brand">Jadeslip</span>
+<span class="grow"></span>
+<input class="field" style="max-width: 260px" aria-label="Filter your shelf" placeholder="Filter your shelf" value="{{libFilter}}" onChange="{{setLibFilter}}">
+<button class="btn" onClick="{{toggleTheme}}">{{themeLabel}}</button>
+<button class="btn line" onClick="{{newBook}}">New book</button>
+<button class="btn primary" onClick="{{openBook}}">Open EPUB</button>
+</header>
+<main class="lib">
+<section class="hero {{hero.cls}}" aria-label="Selected book"><div class="heroin">
+<div class="bigcover {{hero.cls}} {{hero.art}}">{{hero.title}}</div>
+<div class="herotext">
+<p class="herokick">{{hero.kicker}}</p>
+<h1 class="herotitle">{{hero.title}}</h1>
+<p class="heroline">{{hero.line}}</p>
+<p class="heroquote">{{hero.quote}}</p>
+<div class="herobar"><div class="herofill" style="width: {{hero.pct}}"></div></div>
+<p class="herometa">{{hero.meta}}</p>
+<div class="heroacts"><button class="btn herobtn main" onClick="{{hero.go}}">{{hero.goLabel}}</button><button class="btn herobtn alt" onClick="{{hero.alt}}">{{hero.altLabel}}</button></div>
+</div>
+</div></section>
+<section class="shelfin" aria-label="Your shelf">
+<div class="shelfhead"><h2 class="shelftitle">Your shelf</h2><span class="shelfnote">Thicker spines are longer books. The light tab marks your place.</span></div>
+<div class="shelf">
+<sc-for list="{{spines}}" as="b" hint-placeholder-count="9">
+<button class="spine {{b.cls}} {{b.selCls}}" style="width: {{b.w}}; height: {{b.h}}" aria-label="{{b.label}}" aria-pressed="{{b.pressed}}" onClick="{{b.pick}}"><span class="spinetitle">{{b.title}}</span><span class="spinecount">{{b.count}}</span><span class="ribbon" style="bottom: {{b.pct}}"></span></button>
+</sc-for>
+<sc-if value="{{shelfEmpty}}" hint-placeholder-val="{{ false }}"><p style="align-self: center; color: var(--muted); margin: 0 12px">No books match that filter.</p></sc-if>
+<button class="newspine" aria-label="Start a new book" onClick="{{newBook}}"><span>+ New book</span></button>
+</div>
+<div class="plank"></div>
+<div class="drop" style="margin-top: 22px">Drop an EPUB anywhere in this window to add it to your shelf</div>
+</section>
+</main>
+</sc-if>
+
+<sc-if value="{{isReader}}" hint-placeholder-val="{{ false }}">
+<sc-if value="{{notFocus}}" hint-placeholder-val="{{ true }}">
+<header class="top">
+<button class="btn" onClick="{{goLibrary}}">Library</button>
+<span class="crumb grow">The Long Road to Ninefold Peak</span>
+<sc-if value="{{dirty}}" hint-placeholder-val="{{ false }}"><span class="status" style="color: var(--warn)">Unsaved changes</span></sc-if>
+<button class="btn line" onClick="{{openPalette}}">Jump <span class="key">Ctrl K</span></button>
+<button class="btn {{tocOn}}" onClick="{{toggleToc}}">Contents</button>
+<button class="btn {{searchOn}}" onClick="{{toggleSearch}}">Search <span class="key">Ctrl F</span></button>
+<button class="btn {{notesOnCls}}" onClick="{{toggleNotes}}">Notes</button>
+<button class="btn" onClick="{{enterFocus}}">Focus <span class="key">F</span></button>
+<button class="btn {{comfortOn}}" onClick="{{toggleComfort}}">Aa</button>
+<sc-if value="{{editing}}" hint-placeholder-val="{{ false }}"><button class="btn primary" onClick="{{save}}">Save <span class="key">Ctrl S</span></button></sc-if>
+<div class="seg" role="group" aria-label="Mode"><button class="{{readOn}}" onClick="{{stopEdit}}">Read <span class="key">Esc</span></button><button class="{{editOn}}" onClick="{{startEdit}}">Edit <span class="key">E</span></button></div>
+</header>
+</sc-if>
+<sc-if value="{{editToolbar}}" hint-placeholder-val="{{ false }}">
+<div class="toolbar" role="toolbar" aria-label="Formatting">
+<button class="tool" aria-label="Bold" style="font-weight: 700">B</button>
+<button class="tool" aria-label="Italic" style="font-style: italic">I</button>
+<button class="tool">H2</button>
+<button class="tool">Quote</button>
+<span class="sep"></span>
+<button class="tool">Undo</button>
+<button class="tool">Redo</button>
+<span class="sep"></span>
+<sc-if value="{{hasTypo}}" hint-placeholder-val="{{ true }}"><span class="spell">recieved
+<button class="btn primary" style="min-height: 28px" onClick="{{fixTypo}}">Change to received</button></span></sc-if>
+<sc-if value="{{offerFixAll}}" hint-placeholder-val="{{ false }}"><span class="spell">Fixed here. 37 more copies in this book.
+<button class="btn primary" style="min-height: 28px" onClick="{{askFixAll}}">Fix everywhere</button></span></sc-if>
+<span class="grow"></span>
+<button class="btn" onClick="{{askRevert}}">Revert chapter</button>
+</div>
+</sc-if>
+<div class="body">
+<sc-if value="{{showToc}}" hint-placeholder-val="{{ true }}">
+<nav class="rail" aria-label="Table of contents">
+<div class="railhead"><input class="field" aria-label="Filter chapters" placeholder="Filter 6,193 chapters" value="{{filter}}" onChange="{{setFilter}}"></div>
+<div class="scroll">
+<button class="vol"><span aria-hidden="true">›</span>Volume 6: Salt Lanterns<span class="n">1621-1967</span></button>
+<button class="vol"><span aria-hidden="true">⌄</span>Volume 7: The Ferry Road<span class="n">1968-2204</span></button>
+<sc-for list="{{tocRows}}" as="r" hint-placeholder-count="10">
+<button class="row {{r.cls}}" onClick="{{r.pick}}"><span class="num">{{r.label}}</span><span class="t">{{r.title}}</span></button>
+</sc-for>
+<sc-if value="{{tocEmpty}}" hint-placeholder-val="{{ false }}"><p style="padding: 12px; color: var(--muted)">No chapters match in this sample.</p></sc-if>
+<button class="vol"><span aria-hidden="true">›</span>Volume 8: Glass Winter<span class="n">2205-2610</span></button>
+</div>
+<div class="count">Sample of a virtualised list of 6,193 entries</div>
+</nav>
+</sc-if>
+<main class="page">
+<article class="sheet" style="max-width: {{measure}}">
+<p class="kicker">Volume 7: The Ferry Road</p>
+<h1 class="chap">{{chapterTitle}}</h1>
+<div class="prose {{editCls}}" style="font-size: {{fontPx}}">
+<sc-for list="{{paras}}" as="p" hint-placeholder-count="5"><p><sc-for list="{{p.segs}}" as="s"><span class="{{s.cls}}">{{s.text}}</span></sc-for></p></sc-for>
+</div>
+</article>
+</main>
+<sc-if value="{{showSearch}}" hint-placeholder-val="{{ false }}">
+<aside class="rail right" aria-label="Search">
+<div class="railhead">
+<input class="field" aria-label="Search this book" placeholder="Search the whole book" value="{{query}}" onChange="{{setQuery}}">
+<div class="seg" role="group" aria-label="Search mode">
+<button class="{{plainOn}}" onClick="{{setPlain}}">Plain</button>
+<button class="{{regexOn}}" onClick="{{setRegex}}">Regex</button>
+</div>
+<div class="status"><span class="mono">{{scanned}}</span><span class="track"><span class="fill" style="display: block; width: {{scanPct}}"></span></span><button class="btn" style="min-height: 28px; padding: 0 8px" onClick="{{toggleScan}}">{{scanAction}}</button></div>
+<button class="btn line" onClick="{{toggleReplace}}">{{replaceLabel}}</button>
+<sc-if value="{{showReplace}}" hint-placeholder-val="{{ false }}">
+<input class="field" aria-label="Replace with" placeholder="Replace with" value="{{replacement}}" onChange="{{setReplacement}}">
+<div class="status" style="line-height: 1.45">Preview: 412 changes in 396 chapters. Applied as one atomic save.</div>
+<button class="btn primary" style="justify-content: center" onClick="{{applyReplace}}">Apply to whole book</button>
+</sc-if>
+</div>
+<div class="scroll" style="padding: 0">
+<sc-for list="{{results}}" as="r" hint-placeholder-count="5">
+<button class="result" onClick="{{r.pick}}"><span class="where">{{r.where}}</span><span class="snip">{{r.pre}}<span class="mark">{{r.hit}}</span>{{r.post}}</span></button>
+</sc-for>
+</div>
+<div class="count">Showing 5 of 412 sample matches. Results stop at 1,000.</div>
+</aside>
+</sc-if>
+<sc-if value="{{showNotes}}" hint-placeholder-val="{{ false }}">
+<aside class="rail right" aria-label="Bookmarks and notes">
+<div class="railhead">
+<input class="field" aria-label="Note for this chapter" placeholder="Note on this chapter (optional)" value="{{noteText}}" onChange="{{setNoteText}}">
+<button class="btn primary" style="justify-content: center" onClick="{{addNote}}">Bookmark this chapter</button>
+</div>
+<div class="scroll" style="padding: 0">
+<sc-for list="{{noteRows}}" as="n" hint-placeholder-count="2">
+<div class="note"><button class="notejump" onClick="{{n.pick}}"><span class="notewhere">{{n.where}}</span><span class="notetext">{{n.text}}</span></button><button class="mini" style="margin: 6px 6px 0 0" aria-label="Delete note" onClick="{{n.del}}">×</button></div>
+</sc-for>
+</div>
+<div class="count">Kept outside the EPUB, so the book file stays unchanged.</div>
+</aside>
+</sc-if>
+</div>
+<footer class="foot">
+<div class="bar"><div class="fill" style="width: {{bookPct}}"></div></div>
+<sc-if value="{{notFocus}}" hint-placeholder-val="{{ true }}">
+<div class="footrow">
+<button class="btn" aria-label="Previous chapter" onClick="{{prev}}">← Previous</button>
+<span class="grow" style="text-align: center">Chapter <span class="mono">{{chapterNum}}</span> of <span class="mono">6,193</span></span>
+<span class="mono" style="padding-right: 8px">{{bookPctLabel}}</span>
+<button class="btn" aria-label="Next chapter" onClick="{{next}}">Next →</button>
+</div>
+</sc-if>
+</footer>
+<sc-if value="{{showComfort}}" hint-placeholder-val="{{ false }}">
+<div class="pop">
+<div><div class="poplabel">Text size</div><div class="seg"><button onClick="{{smaller}}" aria-label="Smaller text">A−</button><button class="on" disabled="{{ true }}">{{fontPx}}</button><button onClick="{{bigger}}" aria-label="Larger text">A+</button></div></div>
+<div><div class="poplabel">Line width</div><div class="seg"><button class="{{w1}}" onClick="{{narrow}}">Narrow</button><button class="{{w2}}" onClick="{{medium}}">Medium</button><button class="{{w3}}" onClick="{{wide}}">Wide</button></div></div>
+<div><div class="poplabel">Theme</div><div class="seg"><button class="{{t1}}" onClick="{{setDark}}">Dark</button><button class="{{t2}}" onClick="{{setLight}}">Light</button></div></div>
+</div>
+</sc-if>
+</sc-if>
+
+<sc-if value="{{isWriting}}" hint-placeholder-val="{{ false }}">
+<sc-if value="{{notFocus}}" hint-placeholder-val="{{ true }}">
+<header class="top">
+<button class="btn" onClick="{{goLibrary}}">Library</button>
+<span class="crumb grow">The Salt Archive</span>
+<span class="status">{{draftSaved}}</span>
+<button class="btn" onClick="{{toggleTheme}}">{{themeLabel}}</button>
+<button class="btn line" onClick="{{exportBook}}">Export copy</button>
+<button class="btn line" onClick="{{openPalette}}">Jump <span class="key">Ctrl K</span></button>
+<button class="btn {{draftNotesCls}}" onClick="{{toggleDraftNotes}}">Notes</button>
+<button class="btn" onClick="{{enterFocus}}">Focus <span class="key">F</span></button>
+<div class="seg" role="group" aria-label="Mode"><button class="{{dReadOn}}" onClick="{{setDraftRead}}">Read <span class="key">Esc</span></button><button class="{{dEditOn}}" onClick="{{setDraftEdit}}">Edit <span class="key">E</span></button></div>
+</header>
+</sc-if>
+<sc-if value="{{draftToolbar}}" hint-placeholder-val="{{ true }}">
+<div class="toolbar" role="toolbar" aria-label="Formatting">
+<button class="tool" aria-label="Bold" style="font-weight: 700">B</button>
+<button class="tool" aria-label="Italic" style="font-style: italic">I</button>
+<button class="tool">H2</button>
+<button class="tool">Quote</button>
+<span class="sep"></span>
+<button class="tool">Undo</button>
+<button class="tool">Redo</button>
+</div>
+</sc-if>
+<div class="body">
+<sc-if value="{{notFocus}}" hint-placeholder-val="{{ true }}">
+<nav class="rail" aria-label="Chapters">
+<sc-if value="{{draftEditing}}" hint-placeholder-val="{{ true }}"><div class="railhead"><button class="btn primary" style="justify-content: center" onClick="{{addChapter}}">Add chapter</button></div></sc-if>
+<div class="scroll">
+<sc-for list="{{draftRows}}" as="d" hint-placeholder-count="5">
+<div class="binderrow {{d.cls}}">
+<button class="bindername" onClick="{{d.pick}}"><span class="mono" style="color: var(--muted)">{{d.n}}</span><span class="t">{{d.title}}</span></button>
+<sc-if value="{{draftEditing}}" hint-placeholder-val="{{ true }}"><button class="mini" aria-label="Move up" onClick="{{d.up}}">↑</button>
+<button class="mini" aria-label="Move down" onClick="{{d.down}}">↓</button>
+<button class="mini" aria-label="Delete chapter" onClick="{{d.del}}">×</button></sc-if>
+</div>
+</sc-for>
+</div>
+<div class="count">{{draftMeta}}. Saved as a valid EPUB.</div>
+</nav>
+</sc-if>
+<main class="page">
+<div class="sheet" style="max-width: 740px; flex: 1; display: flex; flex-direction: column">
+<sc-if value="{{draftEditing}}" hint-placeholder-val="{{ true }}"><input class="titleinput" aria-label="Chapter title" value="{{draftTitle}}" onChange="{{setDraftTitle}}">
+<textarea class="draft" aria-label="Chapter text" style="font-size: 18px" placeholder="Start writing" value="{{draftText}}" onChange="{{setDraftText}}"></textarea></sc-if>
+<sc-if value="{{draftIsRead}}" hint-placeholder-val="{{ false }}"><h1 class="chap">{{draftTitle}}</h1>
+<div class="prose" style="font-size: 19px"><sc-for list="{{draftParas}}" as="p" hint-placeholder-count="2"><p>{{p.text}}</p></sc-for></div></sc-if>
+</div>
+</main>
+<sc-if value="{{showDraftNotes}}" hint-placeholder-val="{{ false }}">
+<aside class="rail right" aria-label="Book notes">
+<div class="railhead">
+<input class="field" aria-label="New note" placeholder="Character, plot thread, reminder" value="{{draftNoteText}}" onChange="{{setDraftNoteText}}">
+<button class="btn primary" style="justify-content: center" onClick="{{addDraftNote}}">Add note</button>
+</div>
+<div class="scroll" style="padding: 0">
+<sc-for list="{{draftNoteRows}}" as="n" hint-placeholder-count="2">
+<div class="note"><div class="notejump"><span class="notewhere">{{n.where}}</span><span class="notetext">{{n.text}}</span></div><button class="mini" style="margin: 6px 6px 0 0" aria-label="Delete note" onClick="{{n.del}}">×</button></div>
+</sc-for>
+</div>
+<div class="count">Kept outside the EPUB, so readers never see them.</div>
+</aside>
+</sc-if>
+</div>
+<footer class="foot"><div class="footrow"><span class="grow"></span><span class="mono">{{draftWords}} words in this chapter</span></div></footer>
+</sc-if>
+
+<sc-if value="{{focus}}" hint-placeholder-val="{{ false }}"><button class="btn exitfocus" onClick="{{exitFocus}}">Exit focus <span class="key">Esc</span></button></sc-if>
+<sc-if value="{{palette}}" hint-placeholder-val="{{ false }}">
+<div class="scrim upper"><div class="palette" role="dialog" aria-modal="true" aria-label="Quick jump">
+<input class="palinput" aria-label="Jump to a chapter or run a command" placeholder="Chapter number, title or command" value="{{pq}}" onChange="{{setPq}}">
+<sc-for list="{{palRows}}" as="r" hint-placeholder-count="6"><button class="palrow" onClick="{{r.run}}"><span>{{r.label}}</span><span class="palhint">{{r.hint}}</span></button></sc-for>
+<sc-if value="{{palEmpty}}" hint-placeholder-val="{{ false }}"><p style="padding: 12px 16px; margin: 0; color: var(--muted)">Nothing matches.</p></sc-if>
+<div class="palfoot"><span>Try 1973, ferry or theme</span><button class="btn" style="min-height: 30px" onClick="{{closePalette}}">Close <span class="key">Esc</span></button></div>
+</div></div>
+</sc-if>
+<sc-if value="{{hasDialog}}" hint-placeholder-val="{{ false }}">
+<div class="scrim"><div class="dialog" role="dialog" aria-modal="true">
+<h2>{{dialogTitle}}</h2>
+<p>{{dialogText}}</p>
+<div class="actions">
+<button class="btn line" onClick="{{closeDialog}}">{{dialogCancel}}</button>
+<sc-if value="{{dialogHasAlt}}" hint-placeholder-val="{{ false }}"><button class="btn line" onClick="{{dialogAlt}}">{{dialogAltLabel}}</button></sc-if>
+<button class="btn primary" onClick="{{dialogOk}}">{{dialogOkLabel}}</button>
+</div>
+</div></div>
+</sc-if>
+<sc-if value="{{hasToast}}" hint-placeholder-val="{{ false }}"><div class="toast" role="status">{{toast}}</div></sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"startView":{"editor":"enum","options":["library","reader","writing"],"default":"library"},"dark":{"editor":"boolean","default":true},"$preview":{"width":1440,"height":900}}'>
+const TITLES = ["A Lantern for the Drowned","Nine Bells at Low Tide","The Salt Clerk's Ledger","What the River Kept","Oaths in Wet Ink","The Ferryman's First Toll","Hands of Old Rope","Fog Over Cinder Quay","The Ferryman's Second Toll","A Seat at the Stern","Three Coins, One Lie","The Tide Turns Late","Across the Black Water"];
+const PASSAGES = [
+["The ferry came out of the fog without a sound, its lantern burning low and blue. Wen Sui stood on the last stone of the quay and counted the coins in his sleeve for the third time.","\"Two coins to cross,\" the ferryman said. His voice was dry, like rope left too long in the sun. \"One more if you mean to come back.\"","Wen Sui had {t} a letter that morning, sealed with grey wax and bearing the mark of {m}. It asked for nothing and explained nothing. It only gave a date, and the date was tonight.","He set three coins on the rail. The ferryman looked at them for a long moment, then pushed one back across the wet wood with a single finger.","\"Nobody who reads that seal comes back,\" he said. \"Keep it. You will want something to hold.\""],
+["By the second hour the far shore had vanished as completely as the near one. Only the pole moved, rising and falling, trailing a thread of water that never seemed to land.","Wen Sui unfolded the letter again. The road beyond the river was marked in a careful hand, each inn and toll gate named, all the way up the mountain to {m}.","\"You have walked far for a man with so little luggage,\" said the ferryman.","\"I sold most of it,\" Wen Sui said. \"The rest I forgot on purpose.\""],
+["The bell on the far quay rang once as the hull touched stone. No one stood waiting, and no lamp burned in the toll house, though the door had been left politely open.","Inside, a ledger lay on the counter with a pen across it. Every name on the page had been struck through except the last, and the ink beside it had not yet dried.","Above the rooftops the mountain was just visible now, a darker shape on the dark, and at its summit the nine fires of {m} burned without flickering.","Wen Sui took up the pen. He had come too far to be careful, so he signed."]
+];
+const RESULTS = [
+{i:1,n:"1,969",t:"Nine Bells at Low Tide",pre:"…pilgrims bound for ",hit:"Ninefold",post:" Peak slept on the deck…"},
+{i:3,n:"1,971",t:"What the River Kept",pre:"…a coin stamped with the ",hit:"Ninefold",post:" seal, worn nearly flat…"},
+{i:8,n:"1,976",t:"The Ferryman's Second Toll",pre:"…bearing the mark of ",hit:"Ninefold",post:" Peak. It asked for nothing…"},
+{i:9,n:"1,977",t:"A Seat at the Stern",pre:"…all the way up to ",hit:"Ninefold",post:" Peak. He folded it again…"},
+{i:11,n:"1,979",t:"The Tide Turns Late",pre:"…the nine fires of ",hit:"Ninefold",post:" Peak burned without…"}
+];
+const DRAFT = [
+{id:1,title:"The Inventory",text:"The archive had four thousand drawers, and Ilse had opened all but one.\n\nShe kept the count on the inside of her wrist, in pencil, because paper was what the salt ate first."},
+{id:2,title:"Low Water",text:"Every spring the sea drew back farther than it had the year before, and every spring the town pretended not to measure it."},
+{id:3,title:"The Last Drawer",text:"The key was never lost. That was the first thing Ilse understood when she finally stopped looking for it."},
+{id:4,title:"Visitors",text:""}
+];
+const BOOKS = [
+{id:1,title:'The Long Road to Ninefold Peak',chapters:6193,at:1973,cls:'b1',art:'a1',h:300,chap:"The Ferryman's Second Toll",quote:'"Nobody who reads that seal comes back," he said. "Keep it. You will want something to hold."',meta:'3 edits saved, original backed up'},
+{id:2,title:'Ashes of the Ninth Sea',chapters:2520,at:1995,cls:'b2',art:'a2',h:276,chap:'A Harbour Without Bells',quote:'The tide had gone out in the night and taken the harbour with it, and nobody on the wall would say where.',meta:'No edits yet'},
+{id:3,title:'The Salt Archive',chapters:4,at:0,cls:'b5',art:'a5',h:236,own:true,chap:'',quote:'The key was never lost. That was the first thing Ilse understood when she finally stopped looking for it.',meta:''},
+{id:4,title:'The Moth Emperor\'s Ledger',chapters:3104,at:412,cls:'b6',art:'a3',h:288,chap:'Debts Paid in Wax',quote:'Every empire keeps two sets of books, and only one of them is ever burned.',meta:'1 edit saved, original backed up'},
+{id:5,title:'Designing Quiet Systems',chapters:25,at:9,cls:'b3',art:'a3',h:248,chap:'When Nothing Happens',quote:'A good system spends most of its life doing nothing, and doing it reliably.',meta:'No edits yet'},
+{id:6,title:'Iron Monsoon',chapters:1288,at:1288,cls:'b7',art:'a2',h:268,chap:'The Last Rain',quote:'When the rain finally stopped, the whole city stood outside and listened to nothing.',meta:'Finished'},
+{id:7,title:'A Field Guide to Old Gardens',chapters:36,at:2,cls:'b4',art:'a4',h:228,chap:'Reading a Wall',quote:'Begin with the wall. It will tell you who was afraid, and of what.',meta:'No edits yet'},
+{id:8,title:'The Cartographer of Small Rooms',chapters:41,at:0,cls:'b8',art:'a1',h:256,chap:'',quote:'She drew the kitchen first, because it was the only room that had ever changed its mind.',meta:'Not started'},
+{id:9,title:'A Short History of Bells',chapters:18,at:18,cls:'b9',art:'a4',h:214,chap:'The Quiet Tower',quote:'No one remembers who cast the first bell, only who it woke.',meta:'Finished'}
+];
+const fmt = n => n.toLocaleString('en-US');
+const words = s => (s.trim() ? s.trim().split(/\s+/).length : 0);
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { view: props.startView ?? 'library', dark: props.dark ?? true, cur: 8, toc: true, search: false, comfort: false, edit: false, dirty: false, fixed: false, hl: false, font: 19, width: 700, filter: '', query: 'Ninefold', regex: false, scanning: false, replace: false, replacement: '', toast: '', dialog: null, draft: DRAFT, draftCur: 1, nextId: 5, draftSaved: 'All changes saved', draftRead: false, selBook: 1, libFilter: '', focus: false, palette: false, pq: '', notesOn: false, noteText: '', noteId: 3, notes: [{ id: 1, i: 5, text: 'This toll was two coins earlier. Check against the later chapters.' }, { id: 2, i: 8, text: 'The grey wax seal first appears here.' }], fixedAll: false, draftNotesOn: false, draftNoteText: '', draftNotes: [{ id: 1, where: 'Character', text: 'Ilse keeps her count in pencil on the inside of her wrist.' }, { id: 2, where: 'Plot thread', text: 'Who still has the key to the last drawer?' }] };
+  }
+  flash(msg) { this.setState({ toast: msg }); clearTimeout(this._t); this._t = setTimeout(() => this.setState({ toast: '' }), 2600); }
+  leaveEdit(then) { if (this.state.edit && this.state.dirty) { this.setState({ dialog: { kind: 'unsaved', then } }); return; } this.setState({ edit: false }); then && then(); }
+  goChapter(i, hl) { this.leaveEdit(() => this.setState({ cur: Math.max(0, Math.min(TITLES.length - 1, i)), hl: !!hl })); }
+  segs(text, s) {
+    return text.split(/(\{t\}|\{m\})/).filter(Boolean).map(part => {
+      if (part === '{t}') return s.fixed ? { text: 'received', cls: 'fixed' } : { text: 'recieved', cls: s.edit ? 'typo' : '' };
+      if (part === '{m}') return { text: 'Ninefold Peak', cls: s.hl ? 'mark' : '' };
+      return { text: part, cls: '' };
+    });
+  }
+  libraryVals(s, total) {
+    const lf = s.libFilter.trim().toLowerCase();
+    const shown = BOOKS.filter(b => !lf || b.title.toLowerCase().includes(lf));
+    const b = BOOKS.find(x => x.id === s.selBook) || BOOKS[0];
+    const pct = b.own ? 0 : (b.at / b.chapters) * 100;
+    const toReader = edit => () => this.setState({ view: 'reader', edit: !!edit, cur: 8 });
+    const toDraft = read => () => this.setState({ view: 'writing', draftRead: read });
+    const hero = b.own
+      ? { kicker: 'Your book. Where you stopped:', line: 'Last edited in The Last Drawer. ' + s.draft.length + ' chapters, ' + fmt(total) + ' words so far.', meta: 'Draft. Saved as a valid EPUB.', pct: '100%', go: toDraft(false), goLabel: 'Continue writing', alt: toDraft(true), altLabel: 'Read it' }
+      : { kicker: b.at === 0 ? 'Not started' : b.at === b.chapters ? 'Finished' : 'Continue reading', line: b.at === 0 ? fmt(b.chapters) + ' chapters' : 'Chapter ' + fmt(b.at) + ' of ' + fmt(b.chapters) + (b.chap ? '. ' + b.chap + '.' : ''), meta: Math.round(pct) + '% read. ' + b.meta, pct: pct.toFixed(1) + '%', go: toReader(false), goLabel: b.at === 0 ? 'Start reading' : b.at === b.chapters ? 'Read again' : 'Resume', alt: toReader(true), altLabel: 'Open in Edit' };
+    return {
+      hero: { ...hero, title: b.title, quote: b.quote, cls: b.cls, art: b.art },
+      libFilter: s.libFilter, setLibFilter: e => this.setState({ libFilter: e.target.value }),
+      shelfEmpty: shown.length === 0,
+      spines: shown.map(x => {
+        const p = x.own ? 0 : x.at / x.chapters;
+        return { title: x.title, cls: x.cls, selCls: x.id === b.id ? 'sel' : '', pressed: x.id === b.id ? 'true' : 'false', label: x.title + (x.own ? ', your book' : ', chapter ' + fmt(x.at) + ' of ' + fmt(x.chapters)), w: Math.round(Math.max(38, 24 + Math.sqrt(x.chapters) * 0.9)) + 'px', h: x.h + 'px', count: x.chapters >= 1000 ? (x.chapters / 1000).toFixed(1) + 'k' : String(x.chapters), pct: Math.round(p * 100) + '%', pick: () => this.setState({ selBook: x.id }) };
+      })
+    };
+  }
+  renderVals() {
+    const s = this.state;
+    const num = 1968 + s.cur;
+    const f = s.filter.trim().toLowerCase();
+    const tocRows = TITLES.map((t, i) => ({ title: t, n: 1968 + i, label: (1968 + i).toLocaleString('en-US'), cls: i === s.cur ? 'cur' : '', pick: () => this.goChapter(i) })).filter(r => !f || r.title.toLowerCase().includes(f) || String(r.n).includes(f));
+    const pass = PASSAGES[s.cur === 8 ? 0 : s.cur % 2 + 1];
+    const pct = ((num - 0.53) / 6193) * 100;
+    const qOk = s.query.trim().length > 0;
+    const d = s.draft.find(x => x.id === s.draftCur) || s.draft[0] || { title: '', text: '' };
+    const total = s.draft.reduce((a, x) => a + words(x.text), 0);
+    const patch = fn => this.setState({ draft: s.draft.map(x => x.id === s.draftCur ? fn(x) : x), draftSaved: 'Saving…' }, () => { clearTimeout(this._d); this._d = setTimeout(() => this.setState({ draftSaved: 'All changes saved' }), 700); });
+    const move = (i, by) => { const a = [...s.draft]; const j = i + by; if (j < 0 || j >= a.length) return; [a[i], a[j]] = [a[j], a[i]]; this.setState({ draft: a }); };
+    const q = s.pq.trim().toLowerCase();
+    const close = fn => () => { this.setState({ palette: false }); fn(); };
+    const inWriting = s.view === 'writing';
+    const cmds = [
+      { label: 'Switch theme', hint: 'Command', run: close(() => this.setState({ dark: !s.dark })) },
+      { label: 'Focus mode', hint: 'Command', run: close(() => this.setState({ focus: true })) },
+      { label: 'Open notes', hint: 'Command', run: close(() => inWriting ? this.setState({ draftNotesOn: true }) : this.setState({ notesOn: true, search: false })) },
+      { label: 'Go to library', hint: 'Command', run: close(() => this.leaveEdit(() => this.setState({ view: 'library' }))) }
+    ];
+    const chapterItems = inWriting
+      ? s.draft.map((x, i) => ({ label: x.title || 'Untitled chapter', hint: 'Chapter ' + (i + 1), key: String(i + 1), run: close(() => this.setState({ draftCur: x.id })) }))
+      : TITLES.map((t, i) => ({ label: t, hint: 'Chapter ' + (1968 + i).toLocaleString('en-US'), key: String(1968 + i), run: close(() => this.goChapter(i)) }));
+    const asNumber = !inWriting && /^[0-9,]+$/.test(q) ? Number(q.replace(/,/g, '')) : 0;
+    const exact = asNumber >= 1 && asNumber <= 6193 && !(asNumber >= 1968 && asNumber <= 1980) ? [{ label: 'Go to chapter ' + asNumber.toLocaleString('en-US'), hint: 'Outside this sample', run: close(() => this.flash('In the real app, this opens chapter ' + asNumber.toLocaleString('en-US') + '.')) }] : [];
+    const palRows = [...exact, ...[...chapterItems, ...cmds].filter(r => !q || r.label.toLowerCase().includes(q) || (r.key || '').includes(q.replace(/,/g, '')))].slice(0, 7);
+    const dl = s.dialog;
+    const dlg = !dl ? {} : dl.kind === 'unsaved'
+      ? { t: 'Save your changes?', x: 'This chapter has edits that are not saved yet.', c: 'Keep editing', alt: 'Discard', ok: 'Save', okFn: () => { const then = dl.then; this.setState({ dialog: null, dirty: false, edit: false }); this.flash('Saved. Your original is backed up.'); then && then(); }, altFn: () => { const then = dl.then; this.setState({ dialog: null, dirty: false, edit: false, fixed: false }); then && then(); } }
+      : dl.kind === 'fixall'
+      ? { t: 'Fix 37 more copies?', x: 'Sample preview: "recieved" becomes "received" in 31 chapters. Every change is saved at once, and your original stays backed up.', c: 'Cancel', ok: 'Fix everywhere', okFn: () => { this.setState({ dialog: null, fixedAll: true, dirty: false }); this.flash('37 more copies fixed and saved.'); } }
+      : dl.kind === 'revert'
+      ? { t: 'Revert this chapter?', x: 'It goes back to the copy from before your first edit. Other chapters stay as they are.', c: 'Cancel', ok: 'Revert chapter', okFn: () => { this.setState({ dialog: null, dirty: false, fixed: false }); this.flash('Chapter reverted to the original.'); } }
+      : { t: 'Delete "' + dl.title + '"?', x: 'The chapter leaves the book and its table of contents. You can restore it from the backup.', c: 'Cancel', ok: 'Delete chapter', okFn: () => { const rest = s.draft.filter(x => x.id !== dl.id); this.setState({ dialog: null, draft: rest, draftCur: s.draftCur === dl.id ? (rest[0] ? rest[0].id : 0) : s.draftCur }); this.flash('Chapter deleted.'); } };
+    return {
+      themeClass: s.dark ? 'dark' : 'light',
+      themeLabel: s.dark ? 'Light theme' : 'Dark theme',
+      isLibrary: s.view === 'library', isReader: s.view === 'reader', isWriting: s.view === 'writing',
+      goLibrary: () => this.leaveEdit(() => this.setState({ view: 'library', search: false, comfort: false })),
+      openBook: () => this.setState({ view: 'reader' }),
+      newBook: () => this.setState({ view: 'writing' }),
+      toggleTheme: () => this.setState({ dark: !s.dark }),
+      setDark: () => this.setState({ dark: true }), setLight: () => this.setState({ dark: false }),
+      t1: s.dark ? 'on' : '', t2: s.dark ? '' : 'on',
+      dirty: s.dirty, editing: s.edit, notEditing: !s.edit, readOn: s.edit ? '' : 'on', editOn: s.edit ? 'on' : '',
+      tocOn: s.toc ? 'on' : '', searchOn: s.search ? 'on' : '', comfortOn: s.comfort ? 'on' : '',
+      showToc: s.toc && !s.focus, showSearch: s.search && !s.focus, showComfort: s.comfort && !s.focus,
+      toggleToc: () => this.setState({ toc: !s.toc }),
+      toggleSearch: () => this.setState({ search: !s.search, notesOn: false }),
+      toggleNotes: () => this.setState({ notesOn: !s.notesOn, search: false }),
+      notesOnCls: s.notesOn ? 'on' : '', showNotes: s.notesOn && !s.focus,
+      noteText: s.noteText, setNoteText: e => this.setState({ noteText: e.target.value }),
+      addNote: () => { this.setState({ notes: [{ id: s.noteId, i: s.cur, text: s.noteText.trim() || 'Bookmark' }, ...s.notes], noteId: s.noteId + 1, noteText: '' }); this.flash('Bookmark added.'); },
+      noteRows: s.notes.map(n => ({ where: 'Chapter ' + (1968 + n.i).toLocaleString('en-US') + '. ' + TITLES[n.i], text: n.text, pick: () => this.goChapter(n.i), del: () => this.setState({ notes: s.notes.filter(x => x.id !== n.id) }) })),
+      focus: s.focus, notFocus: !s.focus,
+      enterFocus: () => this.setState({ focus: true, comfort: false }), exitFocus: () => this.setState({ focus: false }),
+      palette: s.palette, pq: s.pq, setPq: e => this.setState({ pq: e.target.value }),
+      openPalette: () => this.setState({ palette: true, pq: '', comfort: false }), closePalette: () => this.setState({ palette: false }),
+      palRows, palEmpty: palRows.length === 0,
+      editToolbar: s.edit && !s.focus, draftToolbar: !s.draftRead && !s.focus,
+      offerFixAll: s.fixed && !s.fixedAll && s.cur === 8,
+      askFixAll: () => this.setState({ dialog: { kind: 'fixall' } }),
+      showDraftNotes: s.draftNotesOn && !s.focus, draftNotesCls: s.draftNotesOn ? 'on' : '',
+      toggleDraftNotes: () => this.setState({ draftNotesOn: !s.draftNotesOn }),
+      draftNoteText: s.draftNoteText, setDraftNoteText: e => this.setState({ draftNoteText: e.target.value }),
+      addDraftNote: () => { const t = s.draftNoteText.trim(); if (!t) return; this.setState({ draftNotes: [{ id: Date.now(), where: 'Note', text: t }, ...s.draftNotes], draftNoteText: '' }); },
+      draftNoteRows: s.draftNotes.map(n => ({ where: n.where, text: n.text, del: () => this.setState({ draftNotes: s.draftNotes.filter(x => x.id !== n.id) }) })),
+      toggleComfort: () => this.setState({ comfort: !s.comfort }),
+      startEdit: () => this.setState({ edit: true, hl: false, comfort: false, cur: 8 }),
+      stopEdit: () => this.leaveEdit(),
+      save: () => { this.setState({ dirty: false }); this.flash('Saved. Your original is backed up.'); },
+      hasTypo: s.cur === 8 && !s.fixed,
+      fixTypo: () => this.setState({ fixed: true, dirty: true }),
+      askRevert: () => this.setState({ dialog: { kind: 'revert' } }),
+      filter: s.filter, setFilter: e => this.setState({ filter: e.target.value }),
+      tocRows, tocEmpty: tocRows.length === 0,
+      measure: s.width + 'px', fontPx: s.font + 'px',
+      editCls: s.edit ? 'editing' : '',
+      chapterTitle: TITLES[s.cur],
+      paras: pass.map(t => ({ segs: this.segs(t, s) })),
+      chapterNum: num.toLocaleString('en-US'),
+      bookPct: pct.toFixed(2) + '%', bookPctLabel: pct.toFixed(1) + '%',
+      prev: () => this.goChapter(s.cur - 1), next: () => this.goChapter(s.cur + 1),
+      query: s.query, setQuery: e => this.setState({ query: e.target.value }),
+      plainOn: s.regex ? '' : 'on', regexOn: s.regex ? 'on' : '',
+      setPlain: () => this.setState({ regex: false }), setRegex: () => this.setState({ regex: true }),
+      scanned: s.scanning ? '4,210 / 6,193' : '6,193 / 6,193',
+      scanPct: s.scanning ? '68%' : '100%',
+      scanAction: s.scanning ? 'Stop' : 'Rerun',
+      toggleScan: () => this.setState({ scanning: !s.scanning }),
+      results: qOk ? RESULTS.map(r => ({ ...r, where: 'Chapter ' + r.n + '. ' + r.t, pick: () => this.goChapter(r.i === 8 ? 8 : r.i, true) })) : [],
+      showReplace: s.replace, toggleReplace: () => this.setState({ replace: !s.replace }),
+      replaceLabel: s.replace ? 'Hide replace' : 'Replace across book',
+      replacement: s.replacement, setReplacement: e => this.setState({ replacement: e.target.value }),
+      applyReplace: () => { this.setState({ replace: false }); this.flash('412 changes saved. Your original is backed up.'); },
+      smaller: () => this.setState({ font: Math.max(14, s.font - 1) }), bigger: () => this.setState({ font: Math.min(28, s.font + 1) }),
+      narrow: () => this.setState({ width: 580 }), medium: () => this.setState({ width: 700 }), wide: () => this.setState({ width: 880 }),
+      w1: s.width === 580 ? 'on' : '', w2: s.width === 700 ? 'on' : '', w3: s.width === 880 ? 'on' : '',
+      draftMeta: s.draft.length + ' chapters, ' + total + ' words',
+      draftSaved: s.draftSaved,
+      ...this.libraryVals(s, total),
+      draftIsRead: s.draftRead, draftEditing: !s.draftRead,
+      dReadOn: s.draftRead ? 'on' : '', dEditOn: s.draftRead ? '' : 'on',
+      setDraftRead: () => this.setState({ draftRead: true }), setDraftEdit: () => this.setState({ draftRead: false }),
+      draftParas: d.text.split(/\n+/).filter(Boolean).map(t => ({ text: t })),
+      exportBook: () => this.flash('Copy exported.'),
+      draftRows: s.draft.map((x, i) => ({ n: i + 1, title: x.title || 'Untitled chapter', cls: x.id === s.draftCur ? 'cur' : '', pick: () => this.setState({ draftCur: x.id }), up: () => move(i, -1), down: () => move(i, 1), del: () => this.setState({ dialog: { kind: 'delete', id: x.id, title: x.title || 'Untitled chapter' } }) })),
+      addChapter: () => this.setState({ draft: [...s.draft, { id: s.nextId, title: 'Untitled chapter', text: '' }], draftCur: s.nextId, nextId: s.nextId + 1 }),
+      draftTitle: d.title, draftText: d.text, draftWords: words(d.text),
+      setDraftTitle: e => { const v = e.target.value; patch(x => ({ ...x, title: v })); },
+      setDraftText: e => { const v = e.target.value; patch(x => ({ ...x, text: v })); },
+      hasDialog: !!dl, dialogTitle: dlg.t, dialogText: dlg.x, dialogCancel: dlg.c, dialogOkLabel: dlg.ok, dialogOk: dlg.okFn,
+      dialogHasAlt: !!dlg.alt, dialogAltLabel: dlg.alt, dialogAlt: dlg.altFn,
+      closeDialog: () => this.setState({ dialog: null }),
+      hasToast: !!s.toast, toast: s.toast
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,185 @@
+{
+ "sync_commit": "ba47b58a31408e289205fc06f0b554e6e6063002",
+ "items": [
+  {
+   "file": "crates/core/src/commit.rs",
+   "owner": "FileStamp",
+   "fn": "of",
+   "sha256": "d670cbbd560e8ae7c534be51a875cdfb486641e7cb630d98cbef22424d7c389a"
+  },
+  {
+   "file": "crates/core/src/commit.rs",
+   "owner": "Book",
+   "fn": "open_with",
+   "sha256": "71bf99688a772d96d09d1a9b15ad30a7bcb0466d871672f00769fe2f6ecfc186"
+  },
+  {
+   "file": "crates/core/src/commit.rs",
+   "owner": "Book",
+   "fn": "changed_on_disk",
+   "sha256": "6b53ab0a9bd8612abf0b7a53257d4459bbaaac0fbfd90074d029fc1d95b39b1b"
+  },
+  {
+   "file": "crates/core/src/commit.rs",
+   "owner": "Book",
+   "fn": "recover",
+   "sha256": "b9a5f6078d5f9f8bbdfc4ff45b8fc5dcab75ae6558ec7cb7cd825589a15bef2c"
+  },
+  {
+   "file": "crates/core/src/commit.rs",
+   "owner": "Book",
+   "fn": "recover_locked",
+   "sha256": "9294bfc05be7fb6de42247a16a89b942423ecebefcfc96a7435dca8806616a3f"
+  },
+  {
+   "file": "crates/core/src/commit.rs",
+   "owner": "Book",
+   "fn": "check_unchanged",
+   "sha256": "14e8e8775fbf15b2eee40ef7cbbca00662e1f6b5447545f6aed1a157a25eb025"
+  },
+  {
+   "file": "crates/core/src/commit.rs",
+   "owner": "Book",
+   "fn": "backup_status",
+   "sha256": "185e3f76e77ad70c3414dda264e50d5fc7fb77b84e020b88139d65e15be66957"
+  },
+  {
+   "file": "crates/core/src/commit.rs",
+   "owner": "Book",
+   "fn": "ensure_slot",
+   "sha256": "55c69a68c05a740fffa674c8868b2438fa974d1a22cdad53b06736560676312e"
+  },
+  {
+   "file": "crates/core/src/commit.rs",
+   "owner": "Book",
+   "fn": "valid_slot",
+   "sha256": "675758d7aa426cfcda36f61735fa6246dcccea87f427b3a6ac3dd35c4093b956"
+  },
+  {
+   "file": "crates/core/src/commit.rs",
+   "owner": "Book",
+   "fn": "revert",
+   "sha256": "8f668a6a3eef5cd5840b6e9ae88449940402107d6f4fb3f9991990b3b49538c6"
+  },
+  {
+   "file": "crates/core/src/commit.rs",
+   "owner": "Book",
+   "fn": "commit",
+   "sha256": "d242afe80312e535ac582086305305684317346bb41264322084869ce0f03f30"
+  },
+  {
+   "file": "crates/core/src/commit.rs",
+   "owner": "",
+   "fn": "remove_stale_temps",
+   "sha256": "d7089cbb0faac0654c3df45fb3bb3d67f52c9ea412d092e77144119518b15fce"
+  },
+  {
+   "file": "crates/core/src/commit.rs",
+   "owner": "",
+   "fn": "create_temp",
+   "sha256": "b9f7ffd3eab0dac6268d42da8f97f56c52be5b2a4606f8e51d5c87f232e74dec"
+  },
+  {
+   "file": "crates/core/src/backup.rs",
+   "owner": "BackupLedger",
+   "fn": "matches",
+   "sha256": "3b682e7c163a88da273a755501f50fe46c0eb134ad92743e351ef4455333b8f2"
+  },
+  {
+   "file": "crates/core/src/backup.rs",
+   "owner": "Slot",
+   "fn": "open_verified",
+   "sha256": "66a8310e8c3e018162475600fb092b04bea4f683661b03624d4b3d30e26a1c2a"
+  },
+  {
+   "file": "crates/core/src/backup.rs",
+   "owner": "Slot",
+   "fn": "is_stored",
+   "sha256": "53a673d09c0720951688b0d71bd2dd008154ed3f9449d9e1a8c101153c0eb852"
+  },
+  {
+   "file": "crates/core/src/backup.rs",
+   "owner": "Slot",
+   "fn": "store",
+   "sha256": "dfe9d0d67dd92eefb9c7661293ddd4f01a5e6c666a9692a6f17c26ff9619af76"
+  },
+  {
+   "file": "crates/core/src/backup.rs",
+   "owner": "Slot",
+   "fn": "set_pending",
+   "sha256": "1fb1250f50997a89c4d50088cd9b2be2467a9ac85c1b329785d267ff52b05367"
+  },
+  {
+   "file": "crates/core/src/backup.rs",
+   "owner": "Slot",
+   "fn": "clear_pending",
+   "sha256": "fae11547a815a44082423f6d05df72244b308e1d2064a790df6d0a57b8e1bb2b"
+  },
+  {
+   "file": "crates/core/src/backup.rs",
+   "owner": "Slot",
+   "fn": "settle",
+   "sha256": "8040d6be95cfe8c595d66571eda22bf071526ddc2dd24a83a885fe04dde8b309"
+  },
+  {
+   "file": "crates/core/src/backup.rs",
+   "owner": "BookData",
+   "fn": "lock",
+   "sha256": "ba77016ed84d6fd92897a76fad72a24d24f95a8e546200e67ea5e573f68e22b8"
+  },
+  {
+   "file": "crates/core/src/backup.rs",
+   "owner": "BookData",
+   "fn": "slots",
+   "sha256": "1d25cced30b904b6ea1b4efd5f9bbe36c44454be08eaef17dc77d00f5a90c976"
+  },
+  {
+   "file": "crates/core/src/backup.rs",
+   "owner": "BookData",
+   "fn": "has_any_slot",
+   "sha256": "3653d3da56204ee70550eb00269399f9487052ab192579905467f6eed5e87620"
+  },
+  {
+   "file": "crates/core/src/backup.rs",
+   "owner": "BookData",
+   "fn": "recover",
+   "sha256": "683282c5fa67637c4d9eb6f057963110dedec580035f2c475db1fda6c38544ba"
+  },
+  {
+   "file": "crates/core/src/backup.rs",
+   "owner": "BookData",
+   "fn": "find_valid",
+   "sha256": "03eac03e4b0c9e143528650db22eaa62cd37a3f7bd94e1662746a807e9ee1a6e"
+  },
+  {
+   "file": "crates/core/src/backup.rs",
+   "owner": "BookData",
+   "fn": "ensure",
+   "sha256": "f0e9c95fb3b8d8c4cddb106be46725abbbde9b1c7d204c1d13b813668f6a8574"
+  },
+  {
+   "file": "crates/core/src/backup.rs",
+   "owner": "BookData",
+   "fn": "create",
+   "sha256": "08441c4a3bc2037dd72e674be8761c8cfabc033e3ccb70f905091acf4a36e260"
+  },
+  {
+   "file": "crates/core/src/backup.rs",
+   "owner": "BookData",
+   "fn": "copy_verified",
+   "sha256": "155f0bf02ade9a876503c3b383912e883d97fa84e210a0748b1979e7e2ca0eed"
+  },
+  {
+   "file": "crates/core/src/commit/seam.rs",
+   "owner": "",
+   "fn": "sync_file",
+   "sha256": "14b99d309ad73417658ac4483258a50e15661956be4c5d2cf961ada1d8383195"
+  },
+  {
+   "file": "crates/core/src/commit/seam.rs",
+   "owner": "",
+   "fn": "sync_dir",
+   "sha256": "52919cf98655762f172830988a6a4643dc0aa52a4574c60a9dcc6ce0159c5730"
+  }
+ ]
+}

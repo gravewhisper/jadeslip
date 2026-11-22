@@ -1,0 +1,733 @@
+{
+ "out": "builds",
+ "steps": [
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-head-e2e",
+   "book": "books/real-serial_a.epub",
+   "book_label": "real",
+   "variant": "warmup",
+   "capture": false
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-48183bb-e2e",
+   "book": "books/real-serial_a.epub",
+   "book_label": "real",
+   "variant": "warmup",
+   "capture": false
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-70bb680-e2e",
+   "book": "books/real-serial_a.epub",
+   "book_label": "real",
+   "variant": "warmup",
+   "capture": false
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-head-e2e",
+   "book": "books/real-serial_a.epub",
+   "book_label": "real",
+   "variant": "head-nocap",
+   "capture": false
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-48183bb-e2e",
+   "book": "books/real-serial_a.epub",
+   "book_label": "real",
+   "variant": "48183bb-nocap",
+   "capture": false
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-70bb680-e2e",
+   "book": "books/real-serial_a.epub",
+   "book_label": "real",
+   "variant": "70bb680-nocap",
+   "capture": false
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-head-e2e",
+   "book": "books/large-h1-p.epub",
+   "book_label": "h1p",
+   "variant": "head-nocap",
+   "capture": false
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-48183bb-e2e",
+   "book": "books/large-h1-p.epub",
+   "book_label": "h1p",
+   "variant": "48183bb-nocap",
+   "capture": false
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-70bb680-e2e",
+   "book": "books/large-h1-p.epub",
+   "book_label": "h1p",
+   "variant": "70bb680-nocap",
+   "capture": false
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-head-e2e",
+   "book": "books/real-serial_a.epub",
+   "book_label": "real",
+   "variant": "head",
+   "capture": true
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-70bb680-e2e",
+   "book": "books/real-serial_a.epub",
+   "book_label": "real",
+   "variant": "70bb680",
+   "capture": true
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-70bb680-e2e",
+   "book": "books/real-serial_a.epub",
+   "book_label": "real",
+   "variant": "70bb680-nocap",
+   "capture": false
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-48183bb-e2e",
+   "book": "books/real-serial_a.epub",
+   "book_label": "real",
+   "variant": "48183bb-nocap",
+   "capture": false
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-head-e2e",
+   "book": "books/real-serial_a.epub",
+   "book_label": "real",
+   "variant": "head-nocap",
+   "capture": false
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-70bb680-e2e",
+   "book": "books/large-h1-p.epub",
+   "book_label": "h1p",
+   "variant": "70bb680-nocap",
+   "capture": false
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-48183bb-e2e",
+   "book": "books/large-h1-p.epub",
+   "book_label": "h1p",
+   "variant": "48183bb-nocap",
+   "capture": false
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-head-e2e",
+   "book": "books/large-h1-p.epub",
+   "book_label": "h1p",
+   "variant": "head-nocap",
+   "capture": false
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-head-e2e",
+   "book": "books/real-serial_a.epub",
+   "book_label": "real",
+   "variant": "head",
+   "capture": true
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-70bb680-e2e",
+   "book": "books/real-serial_a.epub",
+   "book_label": "real",
+   "variant": "70bb680",
+   "capture": true
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-head-e2e",
+   "book": "books/real-serial_a.epub",
+   "book_label": "real",
+   "variant": "head-nocap",
+   "capture": false
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-48183bb-e2e",
+   "book": "books/real-serial_a.epub",
+   "book_label": "real",
+   "variant": "48183bb-nocap",
+   "capture": false
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-70bb680-e2e",
+   "book": "books/real-serial_a.epub",
+   "book_label": "real",
+   "variant": "70bb680-nocap",
+   "capture": false
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-head-e2e",
+   "book": "books/large-h1-p.epub",
+   "book_label": "h1p",
+   "variant": "head-nocap",
+   "capture": false
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-48183bb-e2e",
+   "book": "books/large-h1-p.epub",
+   "book_label": "h1p",
+   "variant": "48183bb-nocap",
+   "capture": false
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-70bb680-e2e",
+   "book": "books/large-h1-p.epub",
+   "book_label": "h1p",
+   "variant": "70bb680-nocap",
+   "capture": false
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-head-e2e",
+   "book": "books/real-serial_a.epub",
+   "book_label": "real",
+   "variant": "head",
+   "capture": true
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-70bb680-e2e",
+   "book": "books/real-serial_a.epub",
+   "book_label": "real",
+   "variant": "70bb680",
+   "capture": true
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-70bb680-e2e",
+   "book": "books/real-serial_a.epub",
+   "book_label": "real",
+   "variant": "70bb680-nocap",
+   "capture": false
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-48183bb-e2e",
+   "book": "books/real-serial_a.epub",
+   "book_label": "real",
+   "variant": "48183bb-nocap",
+   "capture": false
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-head-e2e",
+   "book": "books/real-serial_a.epub",
+   "book_label": "real",
+   "variant": "head-nocap",
+   "capture": false
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-70bb680-e2e",
+   "book": "books/large-h1-p.epub",
+   "book_label": "h1p",
+   "variant": "70bb680-nocap",
+   "capture": false
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-48183bb-e2e",
+   "book": "books/large-h1-p.epub",
+   "book_label": "h1p",
+   "variant": "48183bb-nocap",
+   "capture": false
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-head-e2e",
+   "book": "books/large-h1-p.epub",
+   "book_label": "h1p",
+   "variant": "head-nocap",
+   "capture": false
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-head-e2e",
+   "book": "books/real-serial_a.epub",
+   "book_label": "real",
+   "variant": "head",
+   "capture": true
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-70bb680-e2e",
+   "book": "books/real-serial_a.epub",
+   "book_label": "real",
+   "variant": "70bb680",
+   "capture": true
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-head-e2e",
+   "book": "books/real-serial_a.epub",
+   "book_label": "real",
+   "variant": "head-nocap",
+   "capture": false
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-48183bb-e2e",
+   "book": "books/real-serial_a.epub",
+   "book_label": "real",
+   "variant": "48183bb-nocap",
+   "capture": false
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-70bb680-e2e",
+   "book": "books/real-serial_a.epub",
+   "book_label": "real",
+   "variant": "70bb680-nocap",
+   "capture": false
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-head-e2e",
+   "book": "books/large-h1-p.epub",
+   "book_label": "h1p",
+   "variant": "head-nocap",
+   "capture": false
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-48183bb-e2e",
+   "book": "books/large-h1-p.epub",
+   "book_label": "h1p",
+   "variant": "48183bb-nocap",
+   "capture": false
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-70bb680-e2e",
+   "book": "books/large-h1-p.epub",
+   "book_label": "h1p",
+   "variant": "70bb680-nocap",
+   "capture": false
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-head-e2e",
+   "book": "books/real-serial_a.epub",
+   "book_label": "real",
+   "variant": "head",
+   "capture": true
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-70bb680-e2e",
+   "book": "books/real-serial_a.epub",
+   "book_label": "real",
+   "variant": "70bb680",
+   "capture": true
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-70bb680-e2e",
+   "book": "books/real-serial_a.epub",
+   "book_label": "real",
+   "variant": "70bb680-nocap",
+   "capture": false
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-48183bb-e2e",
+   "book": "books/real-serial_a.epub",
+   "book_label": "real",
+   "variant": "48183bb-nocap",
+   "capture": false
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-head-e2e",
+   "book": "books/real-serial_a.epub",
+   "book_label": "real",
+   "variant": "head-nocap",
+   "capture": false
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-70bb680-e2e",
+   "book": "books/large-h1-p.epub",
+   "book_label": "h1p",
+   "variant": "70bb680-nocap",
+   "capture": false
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-48183bb-e2e",
+   "book": "books/large-h1-p.epub",
+   "book_label": "h1p",
+   "variant": "48183bb-nocap",
+   "capture": false
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-head-e2e",
+   "book": "books/large-h1-p.epub",
+   "book_label": "h1p",
+   "variant": "head-nocap",
+   "capture": false
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-head-e2e",
+   "book": "books/real-serial_a.epub",
+   "book_label": "real",
+   "variant": "head",
+   "capture": true
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-70bb680-e2e",
+   "book": "books/real-serial_a.epub",
+   "book_label": "real",
+   "variant": "70bb680",
+   "capture": true
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-head-e2e",
+   "book": "books/real-serial_a.epub",
+   "book_label": "real",
+   "variant": "head-nocap",
+   "capture": false
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-48183bb-e2e",
+   "book": "books/real-serial_a.epub",
+   "book_label": "real",
+   "variant": "48183bb-nocap",
+   "capture": false
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-70bb680-e2e",
+   "book": "books/real-serial_a.epub",
+   "book_label": "real",
+   "variant": "70bb680-nocap",
+   "capture": false
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-head-e2e",
+   "book": "books/large-h1-p.epub",
+   "book_label": "h1p",
+   "variant": "head-nocap",
+   "capture": false
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-48183bb-e2e",
+   "book": "books/large-h1-p.epub",
+   "book_label": "h1p",
+   "variant": "48183bb-nocap",
+   "capture": false
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-70bb680-e2e",
+   "book": "books/large-h1-p.epub",
+   "book_label": "h1p",
+   "variant": "70bb680-nocap",
+   "capture": false
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-head-e2e",
+   "book": "books/real-serial_a.epub",
+   "book_label": "real",
+   "variant": "head",
+   "capture": true
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-70bb680-e2e",
+   "book": "books/real-serial_a.epub",
+   "book_label": "real",
+   "variant": "70bb680",
+   "capture": true
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-70bb680-e2e",
+   "book": "books/real-serial_a.epub",
+   "book_label": "real",
+   "variant": "70bb680-nocap",
+   "capture": false
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-48183bb-e2e",
+   "book": "books/real-serial_a.epub",
+   "book_label": "real",
+   "variant": "48183bb-nocap",
+   "capture": false
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-head-e2e",
+   "book": "books/real-serial_a.epub",
+   "book_label": "real",
+   "variant": "head-nocap",
+   "capture": false
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-70bb680-e2e",
+   "book": "books/large-h1-p.epub",
+   "book_label": "h1p",
+   "variant": "70bb680-nocap",
+   "capture": false
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-48183bb-e2e",
+   "book": "books/large-h1-p.epub",
+   "book_label": "h1p",
+   "variant": "48183bb-nocap",
+   "capture": false
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-head-e2e",
+   "book": "books/large-h1-p.epub",
+   "book_label": "h1p",
+   "variant": "head-nocap",
+   "capture": false
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-head-e2e",
+   "book": "books/real-serial_a.epub",
+   "book_label": "real",
+   "variant": "head",
+   "capture": true
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-70bb680-e2e",
+   "book": "books/real-serial_a.epub",
+   "book_label": "real",
+   "variant": "70bb680",
+   "capture": true
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-head-e2e",
+   "book": "books/real-serial_a.epub",
+   "book_label": "real",
+   "variant": "head-nocap",
+   "capture": false
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-48183bb-e2e",
+   "book": "books/real-serial_a.epub",
+   "book_label": "real",
+   "variant": "48183bb-nocap",
+   "capture": false
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-70bb680-e2e",
+   "book": "books/real-serial_a.epub",
+   "book_label": "real",
+   "variant": "70bb680-nocap",
+   "capture": false
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-head-e2e",
+   "book": "books/large-h1-p.epub",
+   "book_label": "h1p",
+   "variant": "head-nocap",
+   "capture": false
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-48183bb-e2e",
+   "book": "books/large-h1-p.epub",
+   "book_label": "h1p",
+   "variant": "48183bb-nocap",
+   "capture": false
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-70bb680-e2e",
+   "book": "books/large-h1-p.epub",
+   "book_label": "h1p",
+   "variant": "70bb680-nocap",
+   "capture": false
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-head-e2e",
+   "book": "books/real-serial_a.epub",
+   "book_label": "real",
+   "variant": "head",
+   "capture": true
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-70bb680-e2e",
+   "book": "books/real-serial_a.epub",
+   "book_label": "real",
+   "variant": "70bb680",
+   "capture": true
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-70bb680-e2e",
+   "book": "books/real-serial_a.epub",
+   "book_label": "real",
+   "variant": "70bb680-nocap",
+   "capture": false
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-48183bb-e2e",
+   "book": "books/real-serial_a.epub",
+   "book_label": "real",
+   "variant": "48183bb-nocap",
+   "capture": false
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-head-e2e",
+   "book": "books/real-serial_a.epub",
+   "book_label": "real",
+   "variant": "head-nocap",
+   "capture": false
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-70bb680-e2e",
+   "book": "books/large-h1-p.epub",
+   "book_label": "h1p",
+   "variant": "70bb680-nocap",
+   "capture": false
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-48183bb-e2e",
+   "book": "books/large-h1-p.epub",
+   "book_label": "h1p",
+   "variant": "48183bb-nocap",
+   "capture": false
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-head-e2e",
+   "book": "books/large-h1-p.epub",
+   "book_label": "h1p",
+   "variant": "head-nocap",
+   "capture": false
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-head-e2e",
+   "book": "books/real-serial_a.epub",
+   "book_label": "real",
+   "variant": "head",
+   "capture": true
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-70bb680-e2e",
+   "book": "books/real-serial_a.epub",
+   "book_label": "real",
+   "variant": "70bb680",
+   "capture": true
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-head-e2e",
+   "book": "books/real-serial_a.epub",
+   "book_label": "real",
+   "variant": "head-nocap",
+   "capture": false
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-48183bb-e2e",
+   "book": "books/real-serial_a.epub",
+   "book_label": "real",
+   "variant": "48183bb-nocap",
+   "capture": false
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-70bb680-e2e",
+   "book": "books/real-serial_a.epub",
+   "book_label": "real",
+   "variant": "70bb680-nocap",
+   "capture": false
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-head-e2e",
+   "book": "books/large-h1-p.epub",
+   "book_label": "h1p",
+   "variant": "head-nocap",
+   "capture": false
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-48183bb-e2e",
+   "book": "books/large-h1-p.epub",
+   "book_label": "h1p",
+   "variant": "48183bb-nocap",
+   "capture": false
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-70bb680-e2e",
+   "book": "books/large-h1-p.epub",
+   "book_label": "h1p",
+   "variant": "70bb680-nocap",
+   "capture": false
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-head-e2e",
+   "book": "books/real-serial_a.epub",
+   "book_label": "real",
+   "variant": "head",
+   "capture": true
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-70bb680-e2e",
+   "book": "books/real-serial_a.epub",
+   "book_label": "real",
+   "variant": "70bb680",
+   "capture": true
+  }
+ ]
+}

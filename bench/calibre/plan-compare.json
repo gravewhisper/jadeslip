@@ -1,0 +1,1023 @@
+{
+ "out": "compare",
+ "steps": [
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-head-e2e",
+   "book": "books/large-h1-p.epub",
+   "book_label": "h1p",
+   "variant": "warmup",
+   "capture": true
+  },
+  {
+   "app": "ebook-viewer",
+   "book": "books/large-h1-p.epub",
+   "book_label": "h1p",
+   "variant": "warmup",
+   "profile": "profiles/warmup-viewer",
+   "cap_s": 300
+  },
+  {
+   "app": "ebook-viewer",
+   "book": "books/large-h1-p.epub",
+   "book_label": "h1p",
+   "variant": "warmup",
+   "profile": "profiles/warmup-viewer",
+   "cap_s": 300,
+   "drop_profile": true
+  },
+  {
+   "app": "ebook-edit",
+   "book": "books/large-h1-p.epub",
+   "book_label": "h1p",
+   "variant": "warmup",
+   "profile": "profiles/warmup-edit-open",
+   "cap_s": 120,
+   "drop_profile": true
+  },
+  {
+   "app": "ebook-edit",
+   "book": "books/large-h1-p.epub",
+   "book_label": "h1p",
+   "variant": "warmup",
+   "profile": "profiles/warmup-edit-ch",
+   "cap_s": 120,
+   "args": [
+    "OEBPS/Text/c00000.xhtml"
+   ],
+   "drop_profile": true
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-head-e2e",
+   "book": "books/large-h1-p.epub",
+   "book_label": "h1p",
+   "variant": "head",
+   "capture": true
+  },
+  {
+   "app": "ebook-viewer",
+   "book": "books/large-h1-p.epub",
+   "book_label": "h1p",
+   "variant": "cold",
+   "profile": "profiles/r0-h1p-viewer",
+   "cap_s": 300
+  },
+  {
+   "app": "ebook-viewer",
+   "book": "books/large-h1-p.epub",
+   "book_label": "h1p",
+   "variant": "warm",
+   "profile": "profiles/r0-h1p-viewer",
+   "cap_s": 300,
+   "drop_profile": true
+  },
+  {
+   "app": "ebook-edit",
+   "book": "books/large-h1-p.epub",
+   "book_label": "h1p",
+   "variant": "open",
+   "profile": "profiles/r0-h1p-edit-open",
+   "cap_s": 120,
+   "drop_profile": true
+  },
+  {
+   "app": "ebook-edit",
+   "book": "books/large-h1-p.epub",
+   "book_label": "h1p",
+   "variant": "chapter",
+   "profile": "profiles/r0-h1p-edit-ch",
+   "cap_s": 120,
+   "args": [
+    "OEBPS/Text/c00000.xhtml"
+   ],
+   "drop_profile": true
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-head-e2e",
+   "book": "books/large-h1-p.epub",
+   "book_label": "h1p",
+   "variant": "head",
+   "capture": true
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-head-e2e",
+   "book": "books/real-serial_a.epub",
+   "book_label": "real",
+   "variant": "head",
+   "capture": true
+  },
+  {
+   "app": "ebook-viewer",
+   "book": "books/real-serial_a.epub",
+   "book_label": "real",
+   "variant": "cold",
+   "profile": "profiles/r0-real-viewer",
+   "cap_s": 300
+  },
+  {
+   "app": "ebook-viewer",
+   "book": "books/real-serial_a.epub",
+   "book_label": "real",
+   "variant": "warm",
+   "profile": "profiles/r0-real-viewer",
+   "cap_s": 300,
+   "drop_profile": true
+  },
+  {
+   "app": "ebook-edit",
+   "book": "books/real-serial_a.epub",
+   "book_label": "real",
+   "variant": "open",
+   "profile": "profiles/r0-real-edit-open",
+   "cap_s": 120,
+   "drop_profile": true
+  },
+  {
+   "app": "ebook-edit",
+   "book": "books/real-serial_a.epub",
+   "book_label": "real",
+   "variant": "chapter",
+   "profile": "profiles/r0-real-edit-ch",
+   "cap_s": 120,
+   "args": [
+    "EPUB/volume_1.xhtml"
+   ],
+   "drop_profile": true
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-head-e2e",
+   "book": "books/real-serial_a.epub",
+   "book_label": "real",
+   "variant": "head",
+   "capture": true
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-head-e2e",
+   "book": "books/large-h1-div-br.epub",
+   "book_label": "divbr",
+   "variant": "head",
+   "capture": true
+  },
+  {
+   "app": "ebook-viewer",
+   "book": "books/large-h1-div-br.epub",
+   "book_label": "divbr",
+   "variant": "cold",
+   "profile": "profiles/r0-divbr-viewer",
+   "cap_s": 300
+  },
+  {
+   "app": "ebook-viewer",
+   "book": "books/large-h1-div-br.epub",
+   "book_label": "divbr",
+   "variant": "warm",
+   "profile": "profiles/r0-divbr-viewer",
+   "cap_s": 300,
+   "drop_profile": true
+  },
+  {
+   "app": "ebook-edit",
+   "book": "books/large-h1-div-br.epub",
+   "book_label": "divbr",
+   "variant": "open",
+   "profile": "profiles/r0-divbr-edit-open",
+   "cap_s": 120,
+   "drop_profile": true
+  },
+  {
+   "app": "ebook-edit",
+   "book": "books/large-h1-div-br.epub",
+   "book_label": "divbr",
+   "variant": "chapter",
+   "profile": "profiles/r0-divbr-edit-ch",
+   "cap_s": 120,
+   "args": [
+    "OEBPS/Text/c00000.xhtml"
+   ],
+   "drop_profile": true
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-head-e2e",
+   "book": "books/large-h1-div-br.epub",
+   "book_label": "divbr",
+   "variant": "head",
+   "capture": true
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-head-e2e",
+   "book": "books/large-h1-div-br.epub",
+   "book_label": "divbr",
+   "variant": "head",
+   "capture": true
+  },
+  {
+   "app": "ebook-viewer",
+   "book": "books/large-h1-div-br.epub",
+   "book_label": "divbr",
+   "variant": "cold",
+   "profile": "profiles/r1-divbr-viewer",
+   "cap_s": 300
+  },
+  {
+   "app": "ebook-viewer",
+   "book": "books/large-h1-div-br.epub",
+   "book_label": "divbr",
+   "variant": "warm",
+   "profile": "profiles/r1-divbr-viewer",
+   "cap_s": 300,
+   "drop_profile": true
+  },
+  {
+   "app": "ebook-edit",
+   "book": "books/large-h1-div-br.epub",
+   "book_label": "divbr",
+   "variant": "open",
+   "profile": "profiles/r1-divbr-edit-open",
+   "cap_s": 120,
+   "drop_profile": true
+  },
+  {
+   "app": "ebook-edit",
+   "book": "books/large-h1-div-br.epub",
+   "book_label": "divbr",
+   "variant": "chapter",
+   "profile": "profiles/r1-divbr-edit-ch",
+   "cap_s": 120,
+   "args": [
+    "OEBPS/Text/c00000.xhtml"
+   ],
+   "drop_profile": true
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-head-e2e",
+   "book": "books/large-h1-div-br.epub",
+   "book_label": "divbr",
+   "variant": "head",
+   "capture": true
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-head-e2e",
+   "book": "books/real-serial_a.epub",
+   "book_label": "real",
+   "variant": "head",
+   "capture": true
+  },
+  {
+   "app": "ebook-viewer",
+   "book": "books/real-serial_a.epub",
+   "book_label": "real",
+   "variant": "cold",
+   "profile": "profiles/r1-real-viewer",
+   "cap_s": 300
+  },
+  {
+   "app": "ebook-viewer",
+   "book": "books/real-serial_a.epub",
+   "book_label": "real",
+   "variant": "warm",
+   "profile": "profiles/r1-real-viewer",
+   "cap_s": 300,
+   "drop_profile": true
+  },
+  {
+   "app": "ebook-edit",
+   "book": "books/real-serial_a.epub",
+   "book_label": "real",
+   "variant": "open",
+   "profile": "profiles/r1-real-edit-open",
+   "cap_s": 120,
+   "drop_profile": true
+  },
+  {
+   "app": "ebook-edit",
+   "book": "books/real-serial_a.epub",
+   "book_label": "real",
+   "variant": "chapter",
+   "profile": "profiles/r1-real-edit-ch",
+   "cap_s": 120,
+   "args": [
+    "EPUB/volume_1.xhtml"
+   ],
+   "drop_profile": true
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-head-e2e",
+   "book": "books/real-serial_a.epub",
+   "book_label": "real",
+   "variant": "head",
+   "capture": true
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-head-e2e",
+   "book": "books/large-h1-p.epub",
+   "book_label": "h1p",
+   "variant": "head",
+   "capture": true
+  },
+  {
+   "app": "ebook-viewer",
+   "book": "books/large-h1-p.epub",
+   "book_label": "h1p",
+   "variant": "cold",
+   "profile": "profiles/r1-h1p-viewer",
+   "cap_s": 300
+  },
+  {
+   "app": "ebook-viewer",
+   "book": "books/large-h1-p.epub",
+   "book_label": "h1p",
+   "variant": "warm",
+   "profile": "profiles/r1-h1p-viewer",
+   "cap_s": 300,
+   "drop_profile": true
+  },
+  {
+   "app": "ebook-edit",
+   "book": "books/large-h1-p.epub",
+   "book_label": "h1p",
+   "variant": "open",
+   "profile": "profiles/r1-h1p-edit-open",
+   "cap_s": 120,
+   "drop_profile": true
+  },
+  {
+   "app": "ebook-edit",
+   "book": "books/large-h1-p.epub",
+   "book_label": "h1p",
+   "variant": "chapter",
+   "profile": "profiles/r1-h1p-edit-ch",
+   "cap_s": 120,
+   "args": [
+    "OEBPS/Text/c00000.xhtml"
+   ],
+   "drop_profile": true
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-head-e2e",
+   "book": "books/large-h1-p.epub",
+   "book_label": "h1p",
+   "variant": "head",
+   "capture": true
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-head-e2e",
+   "book": "books/large-h1-p.epub",
+   "book_label": "h1p",
+   "variant": "head",
+   "capture": true
+  },
+  {
+   "app": "ebook-viewer",
+   "book": "books/large-h1-p.epub",
+   "book_label": "h1p",
+   "variant": "cold",
+   "profile": "profiles/r2-h1p-viewer",
+   "cap_s": 300
+  },
+  {
+   "app": "ebook-viewer",
+   "book": "books/large-h1-p.epub",
+   "book_label": "h1p",
+   "variant": "warm",
+   "profile": "profiles/r2-h1p-viewer",
+   "cap_s": 300,
+   "drop_profile": true
+  },
+  {
+   "app": "ebook-edit",
+   "book": "books/large-h1-p.epub",
+   "book_label": "h1p",
+   "variant": "open",
+   "profile": "profiles/r2-h1p-edit-open",
+   "cap_s": 120,
+   "drop_profile": true
+  },
+  {
+   "app": "ebook-edit",
+   "book": "books/large-h1-p.epub",
+   "book_label": "h1p",
+   "variant": "chapter",
+   "profile": "profiles/r2-h1p-edit-ch",
+   "cap_s": 120,
+   "args": [
+    "OEBPS/Text/c00000.xhtml"
+   ],
+   "drop_profile": true
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-head-e2e",
+   "book": "books/large-h1-p.epub",
+   "book_label": "h1p",
+   "variant": "head",
+   "capture": true
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-head-e2e",
+   "book": "books/real-serial_a.epub",
+   "book_label": "real",
+   "variant": "head",
+   "capture": true
+  },
+  {
+   "app": "ebook-viewer",
+   "book": "books/real-serial_a.epub",
+   "book_label": "real",
+   "variant": "cold",
+   "profile": "profiles/r2-real-viewer",
+   "cap_s": 300
+  },
+  {
+   "app": "ebook-viewer",
+   "book": "books/real-serial_a.epub",
+   "book_label": "real",
+   "variant": "warm",
+   "profile": "profiles/r2-real-viewer",
+   "cap_s": 300,
+   "drop_profile": true
+  },
+  {
+   "app": "ebook-edit",
+   "book": "books/real-serial_a.epub",
+   "book_label": "real",
+   "variant": "open",
+   "profile": "profiles/r2-real-edit-open",
+   "cap_s": 120,
+   "drop_profile": true
+  },
+  {
+   "app": "ebook-edit",
+   "book": "books/real-serial_a.epub",
+   "book_label": "real",
+   "variant": "chapter",
+   "profile": "profiles/r2-real-edit-ch",
+   "cap_s": 120,
+   "args": [
+    "EPUB/volume_1.xhtml"
+   ],
+   "drop_profile": true
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-head-e2e",
+   "book": "books/real-serial_a.epub",
+   "book_label": "real",
+   "variant": "head",
+   "capture": true
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-head-e2e",
+   "book": "books/large-h1-div-br.epub",
+   "book_label": "divbr",
+   "variant": "head",
+   "capture": true
+  },
+  {
+   "app": "ebook-viewer",
+   "book": "books/large-h1-div-br.epub",
+   "book_label": "divbr",
+   "variant": "cold",
+   "profile": "profiles/r2-divbr-viewer",
+   "cap_s": 300
+  },
+  {
+   "app": "ebook-viewer",
+   "book": "books/large-h1-div-br.epub",
+   "book_label": "divbr",
+   "variant": "warm",
+   "profile": "profiles/r2-divbr-viewer",
+   "cap_s": 300,
+   "drop_profile": true
+  },
+  {
+   "app": "ebook-edit",
+   "book": "books/large-h1-div-br.epub",
+   "book_label": "divbr",
+   "variant": "open",
+   "profile": "profiles/r2-divbr-edit-open",
+   "cap_s": 120,
+   "drop_profile": true
+  },
+  {
+   "app": "ebook-edit",
+   "book": "books/large-h1-div-br.epub",
+   "book_label": "divbr",
+   "variant": "chapter",
+   "profile": "profiles/r2-divbr-edit-ch",
+   "cap_s": 120,
+   "args": [
+    "OEBPS/Text/c00000.xhtml"
+   ],
+   "drop_profile": true
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-head-e2e",
+   "book": "books/large-h1-div-br.epub",
+   "book_label": "divbr",
+   "variant": "head",
+   "capture": true
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-head-e2e",
+   "book": "books/large-h1-div-br.epub",
+   "book_label": "divbr",
+   "variant": "head",
+   "capture": true
+  },
+  {
+   "app": "ebook-viewer",
+   "book": "books/large-h1-div-br.epub",
+   "book_label": "divbr",
+   "variant": "cold",
+   "profile": "profiles/r3-divbr-viewer",
+   "cap_s": 300
+  },
+  {
+   "app": "ebook-viewer",
+   "book": "books/large-h1-div-br.epub",
+   "book_label": "divbr",
+   "variant": "warm",
+   "profile": "profiles/r3-divbr-viewer",
+   "cap_s": 300,
+   "drop_profile": true
+  },
+  {
+   "app": "ebook-edit",
+   "book": "books/large-h1-div-br.epub",
+   "book_label": "divbr",
+   "variant": "open",
+   "profile": "profiles/r3-divbr-edit-open",
+   "cap_s": 120,
+   "drop_profile": true
+  },
+  {
+   "app": "ebook-edit",
+   "book": "books/large-h1-div-br.epub",
+   "book_label": "divbr",
+   "variant": "chapter",
+   "profile": "profiles/r3-divbr-edit-ch",
+   "cap_s": 120,
+   "args": [
+    "OEBPS/Text/c00000.xhtml"
+   ],
+   "drop_profile": true
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-head-e2e",
+   "book": "books/large-h1-div-br.epub",
+   "book_label": "divbr",
+   "variant": "head",
+   "capture": true
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-head-e2e",
+   "book": "books/real-serial_a.epub",
+   "book_label": "real",
+   "variant": "head",
+   "capture": true
+  },
+  {
+   "app": "ebook-viewer",
+   "book": "books/real-serial_a.epub",
+   "book_label": "real",
+   "variant": "cold",
+   "profile": "profiles/r3-real-viewer",
+   "cap_s": 300
+  },
+  {
+   "app": "ebook-viewer",
+   "book": "books/real-serial_a.epub",
+   "book_label": "real",
+   "variant": "warm",
+   "profile": "profiles/r3-real-viewer",
+   "cap_s": 300,
+   "drop_profile": true
+  },
+  {
+   "app": "ebook-edit",
+   "book": "books/real-serial_a.epub",
+   "book_label": "real",
+   "variant": "open",
+   "profile": "profiles/r3-real-edit-open",
+   "cap_s": 120,
+   "drop_profile": true
+  },
+  {
+   "app": "ebook-edit",
+   "book": "books/real-serial_a.epub",
+   "book_label": "real",
+   "variant": "chapter",
+   "profile": "profiles/r3-real-edit-ch",
+   "cap_s": 120,
+   "args": [
+    "EPUB/volume_1.xhtml"
+   ],
+   "drop_profile": true
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-head-e2e",
+   "book": "books/real-serial_a.epub",
+   "book_label": "real",
+   "variant": "head",
+   "capture": true
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-head-e2e",
+   "book": "books/large-h1-p.epub",
+   "book_label": "h1p",
+   "variant": "head",
+   "capture": true
+  },
+  {
+   "app": "ebook-viewer",
+   "book": "books/large-h1-p.epub",
+   "book_label": "h1p",
+   "variant": "cold",
+   "profile": "profiles/r3-h1p-viewer",
+   "cap_s": 300
+  },
+  {
+   "app": "ebook-viewer",
+   "book": "books/large-h1-p.epub",
+   "book_label": "h1p",
+   "variant": "warm",
+   "profile": "profiles/r3-h1p-viewer",
+   "cap_s": 300,
+   "drop_profile": true
+  },
+  {
+   "app": "ebook-edit",
+   "book": "books/large-h1-p.epub",
+   "book_label": "h1p",
+   "variant": "open",
+   "profile": "profiles/r3-h1p-edit-open",
+   "cap_s": 120,
+   "drop_profile": true
+  },
+  {
+   "app": "ebook-edit",
+   "book": "books/large-h1-p.epub",
+   "book_label": "h1p",
+   "variant": "chapter",
+   "profile": "profiles/r3-h1p-edit-ch",
+   "cap_s": 120,
+   "args": [
+    "OEBPS/Text/c00000.xhtml"
+   ],
+   "drop_profile": true
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-head-e2e",
+   "book": "books/large-h1-p.epub",
+   "book_label": "h1p",
+   "variant": "head",
+   "capture": true
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-head-e2e",
+   "book": "books/large-h1-p.epub",
+   "book_label": "h1p",
+   "variant": "head",
+   "capture": true
+  },
+  {
+   "app": "ebook-viewer",
+   "book": "books/large-h1-p.epub",
+   "book_label": "h1p",
+   "variant": "cold",
+   "profile": "profiles/r4-h1p-viewer",
+   "cap_s": 300
+  },
+  {
+   "app": "ebook-viewer",
+   "book": "books/large-h1-p.epub",
+   "book_label": "h1p",
+   "variant": "warm",
+   "profile": "profiles/r4-h1p-viewer",
+   "cap_s": 300,
+   "drop_profile": true
+  },
+  {
+   "app": "ebook-edit",
+   "book": "books/large-h1-p.epub",
+   "book_label": "h1p",
+   "variant": "open",
+   "profile": "profiles/r4-h1p-edit-open",
+   "cap_s": 120,
+   "drop_profile": true
+  },
+  {
+   "app": "ebook-edit",
+   "book": "books/large-h1-p.epub",
+   "book_label": "h1p",
+   "variant": "chapter",
+   "profile": "profiles/r4-h1p-edit-ch",
+   "cap_s": 120,
+   "args": [
+    "OEBPS/Text/c00000.xhtml"
+   ],
+   "drop_profile": true
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-head-e2e",
+   "book": "books/large-h1-p.epub",
+   "book_label": "h1p",
+   "variant": "head",
+   "capture": true
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-head-e2e",
+   "book": "books/real-serial_a.epub",
+   "book_label": "real",
+   "variant": "head",
+   "capture": true
+  },
+  {
+   "app": "ebook-viewer",
+   "book": "books/real-serial_a.epub",
+   "book_label": "real",
+   "variant": "cold",
+   "profile": "profiles/r4-real-viewer",
+   "cap_s": 300
+  },
+  {
+   "app": "ebook-viewer",
+   "book": "books/real-serial_a.epub",
+   "book_label": "real",
+   "variant": "warm",
+   "profile": "profiles/r4-real-viewer",
+   "cap_s": 300,
+   "drop_profile": true
+  },
+  {
+   "app": "ebook-edit",
+   "book": "books/real-serial_a.epub",
+   "book_label": "real",
+   "variant": "open",
+   "profile": "profiles/r4-real-edit-open",
+   "cap_s": 120,
+   "drop_profile": true
+  },
+  {
+   "app": "ebook-edit",
+   "book": "books/real-serial_a.epub",
+   "book_label": "real",
+   "variant": "chapter",
+   "profile": "profiles/r4-real-edit-ch",
+   "cap_s": 120,
+   "args": [
+    "EPUB/volume_1.xhtml"
+   ],
+   "drop_profile": true
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-head-e2e",
+   "book": "books/real-serial_a.epub",
+   "book_label": "real",
+   "variant": "head",
+   "capture": true
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-head-e2e",
+   "book": "books/large-h1-div-br.epub",
+   "book_label": "divbr",
+   "variant": "head",
+   "capture": true
+  },
+  {
+   "app": "ebook-viewer",
+   "book": "books/large-h1-div-br.epub",
+   "book_label": "divbr",
+   "variant": "cold",
+   "profile": "profiles/r4-divbr-viewer",
+   "cap_s": 300
+  },
+  {
+   "app": "ebook-viewer",
+   "book": "books/large-h1-div-br.epub",
+   "book_label": "divbr",
+   "variant": "warm",
+   "profile": "profiles/r4-divbr-viewer",
+   "cap_s": 300,
+   "drop_profile": true
+  },
+  {
+   "app": "ebook-edit",
+   "book": "books/large-h1-div-br.epub",
+   "book_label": "divbr",
+   "variant": "open",
+   "profile": "profiles/r4-divbr-edit-open",
+   "cap_s": 120,
+   "drop_profile": true
+  },
+  {
+   "app": "ebook-edit",
+   "book": "books/large-h1-div-br.epub",
+   "book_label": "divbr",
+   "variant": "chapter",
+   "profile": "profiles/r4-divbr-edit-ch",
+   "cap_s": 120,
+   "args": [
+    "OEBPS/Text/c00000.xhtml"
+   ],
+   "drop_profile": true
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-head-e2e",
+   "book": "books/large-h1-div-br.epub",
+   "book_label": "divbr",
+   "variant": "head",
+   "capture": true
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-head-e2e",
+   "book": "books/large-h1-div-br.epub",
+   "book_label": "divbr",
+   "variant": "head",
+   "capture": true
+  },
+  {
+   "app": "ebook-viewer",
+   "book": "books/large-h1-div-br.epub",
+   "book_label": "divbr",
+   "variant": "cold",
+   "profile": "profiles/r5-divbr-viewer",
+   "cap_s": 300
+  },
+  {
+   "app": "ebook-viewer",
+   "book": "books/large-h1-div-br.epub",
+   "book_label": "divbr",
+   "variant": "warm",
+   "profile": "profiles/r5-divbr-viewer",
+   "cap_s": 300,
+   "drop_profile": true
+  },
+  {
+   "app": "ebook-edit",
+   "book": "books/large-h1-div-br.epub",
+   "book_label": "divbr",
+   "variant": "open",
+   "profile": "profiles/r5-divbr-edit-open",
+   "cap_s": 120,
+   "drop_profile": true
+  },
+  {
+   "app": "ebook-edit",
+   "book": "books/large-h1-div-br.epub",
+   "book_label": "divbr",
+   "variant": "chapter",
+   "profile": "profiles/r5-divbr-edit-ch",
+   "cap_s": 120,
+   "args": [
+    "OEBPS/Text/c00000.xhtml"
+   ],
+   "drop_profile": true
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-head-e2e",
+   "book": "books/large-h1-div-br.epub",
+   "book_label": "divbr",
+   "variant": "head",
+   "capture": true
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-head-e2e",
+   "book": "books/real-serial_a.epub",
+   "book_label": "real",
+   "variant": "head",
+   "capture": true
+  },
+  {
+   "app": "ebook-viewer",
+   "book": "books/real-serial_a.epub",
+   "book_label": "real",
+   "variant": "cold",
+   "profile": "profiles/r5-real-viewer",
+   "cap_s": 300
+  },
+  {
+   "app": "ebook-viewer",
+   "book": "books/real-serial_a.epub",
+   "book_label": "real",
+   "variant": "warm",
+   "profile": "profiles/r5-real-viewer",
+   "cap_s": 300,
+   "drop_profile": true
+  },
+  {
+   "app": "ebook-edit",
+   "book": "books/real-serial_a.epub",
+   "book_label": "real",
+   "variant": "open",
+   "profile": "profiles/r5-real-edit-open",
+   "cap_s": 120,
+   "drop_profile": true
+  },
+  {
+   "app": "ebook-edit",
+   "book": "books/real-serial_a.epub",
+   "book_label": "real",
+   "variant": "chapter",
+   "profile": "profiles/r5-real-edit-ch",
+   "cap_s": 120,
+   "args": [
+    "EPUB/volume_1.xhtml"
+   ],
+   "drop_profile": true
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-head-e2e",
+   "book": "books/real-serial_a.epub",
+   "book_label": "real",
+   "variant": "head",
+   "capture": true
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-head-e2e",
+   "book": "books/large-h1-p.epub",
+   "book_label": "h1p",
+   "variant": "head",
+   "capture": true
+  },
+  {
+   "app": "ebook-viewer",
+   "book": "books/large-h1-p.epub",
+   "book_label": "h1p",
+   "variant": "cold",
+   "profile": "profiles/r5-h1p-viewer",
+   "cap_s": 300
+  },
+  {
+   "app": "ebook-viewer",
+   "book": "books/large-h1-p.epub",
+   "book_label": "h1p",
+   "variant": "warm",
+   "profile": "profiles/r5-h1p-viewer",
+   "cap_s": 300,
+   "drop_profile": true
+  },
+  {
+   "app": "ebook-edit",
+   "book": "books/large-h1-p.epub",
+   "book_label": "h1p",
+   "variant": "open",
+   "profile": "profiles/r5-h1p-edit-open",
+   "cap_s": 120,
+   "drop_profile": true
+  },
+  {
+   "app": "ebook-edit",
+   "book": "books/large-h1-p.epub",
+   "book_label": "h1p",
+   "variant": "chapter",
+   "profile": "profiles/r5-h1p-edit-ch",
+   "cap_s": 120,
+   "args": [
+    "OEBPS/Text/c00000.xhtml"
+   ],
+   "drop_profile": true
+  },
+  {
+   "app": "spinesprint",
+   "binary": "bin/spinesprint-head-e2e",
+   "book": "books/large-h1-p.epub",
+   "book_label": "h1p",
+   "variant": "head",
+   "capture": true
+  }
+ ]
+}

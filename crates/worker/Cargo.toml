@@ -1,0 +1,22 @@
+[package]
+name = "jadeslip-worker"
+version.workspace = true
+edition.workspace = true
+publish.workspace = true
+license.workspace = true
+repository.workspace = true
+homepage.workspace = true
+
+[[bin]]
+name = "jadeslip-worker"
+path = "src/main.rs"
+
+[dependencies]
+fancy-regex = "0.20"
+jadeslip-core = { path = "../core" }
+
+[dev-dependencies]
+libc = "0.2"
+regex = "1"
+serde_json = "1"
+jadeslip-fixtures = { path = "../fixtures" }

@@ -1,0 +1,47 @@
+name: Release
+
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write
+
+jobs:
+  package:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check the tag matches the version
+        run: |
+          version=$(sed -n 's/^version = "\(.*\)"/\1/p' Cargo.toml | head -1)
+          test "v$version" = "$GITHUB_REF_NAME" || { echo "tag $GITHUB_REF_NAME, Cargo.toml $version"; exit 1; }
+      - name: Install system libraries
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libwebkit2gtk-4.1-dev libgtk-3-dev libsoup-3.0-dev librsvg2-dev patchelf file
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+      - name: Install the Tauri CLI
+        run: cargo install tauri-cli --version "^2" --locked
+      - name: Build the AppImage and .deb
+        run: scripts/package.sh
+      - name: Publish the release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          awk '/^## /{n++} n==1' CHANGELOG.md | tail -n +2 > notes.md
+          gh release create "$GITHUB_REF_NAME" \
+            target/release/bundle/appimage/*.AppImage \
+            target/release/bundle/deb/*.deb \
+            --title "Jadeslip ${GITHUB_REF_NAME#v}" --notes-file notes.md
+      - name: Build a test AppImage with the e2e control socket
+        run: |
+          rm -f target/release/bundle/appimage/*.AppImage
+          cd app
+          cargo tauri build --bundles appimage --config tauri.bundle.json --features e2e -- --locked
+      - uses: actions/upload-artifact@v4
+        with:
+          name: jadeslip-e2e-appimage
+          path: target/release/bundle/appimage/*.AppImage
+          retention-days: 14

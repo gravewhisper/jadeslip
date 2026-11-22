@@ -1,0 +1,8 @@
+/target
+/fixtures/
+/node_modules/
+/.run/
+decisions.tsv
+__pycache__/
+/app/binaries/
+.claude/worktrees/

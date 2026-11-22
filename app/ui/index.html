@@ -1,0 +1,372 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Jadeslip</title>
+<link rel="stylesheet" href="app.css">
+<link rel="preload" href="fonts/literata-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<script type="module" src="main.js"></script>
+</head>
+<body>
+<div class="app dark">
+<svg class="sprite" id="icons" aria-hidden="true"><symbol id="i-arrow-up-down" viewBox="0 0 24 24"><path d="m21 16-4 4-4-4"/><path d="M17 20V4"/><path d="m3 8 4-4 4 4"/><path d="M7 4v16"/></symbol><symbol id="i-bold" viewBox="0 0 24 24"><path d="M6 12h9a4 4 0 0 1 0 8H7a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h7a4 4 0 0 1 0 8"/></symbol><symbol id="i-book-open" viewBox="0 0 24 24"><path d="M12 7v14"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></symbol><symbol id="i-bookmark" viewBox="0 0 24 24"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/></symbol><symbol id="i-bookmark-check" viewBox="0 0 24 24"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2Z"/><path d="m9 10 2 2 4-4"/></symbol><symbol id="i-bookmark-plus" viewBox="0 0 24 24"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/><line x1="12" x2="12" y1="7" y2="13"/><line x1="15" x2="9" y1="10" y2="10"/></symbol><symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol><symbol id="i-chevron-down" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol><symbol id="i-chevron-left" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></symbol><symbol id="i-chevron-right" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></symbol><symbol id="i-chevron-up" viewBox="0 0 24 24"><path d="m18 15-6-6-6 6"/></symbol><symbol id="i-download" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></symbol><symbol id="i-ellipsis" viewBox="0 0 24 24"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></symbol><symbol id="i-file-plus" viewBox="0 0 24 24"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M9 15h6"/><path d="M12 18v-6"/></symbol><symbol id="i-folder-open" viewBox="0 0 24 24"><path d="m6 14 1.5-2.9A2 2 0 0 1 9.24 10H20a2 2 0 0 1 1.94 2.5l-1.54 6a2 2 0 0 1-1.95 1.5H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.69.9l.81 1.2a2 2 0 0 0 1.67.9H18a2 2 0 0 1 2 2v2"/></symbol><symbol id="i-hard-drive" viewBox="0 0 24 24"><line x1="22" x2="2" y1="12" y2="12"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/><line x1="6" x2="6.01" y1="16" y2="16"/><line x1="10" x2="10.01" y1="16" y2="16"/></symbol><symbol id="i-hash" viewBox="0 0 24 24"><line x1="4" x2="20" y1="9" y2="9"/><line x1="4" x2="20" y1="15" y2="15"/><line x1="10" x2="8" y1="3" y2="21"/><line x1="16" x2="14" y1="3" y2="21"/></symbol><symbol id="i-heading-2" viewBox="0 0 24 24"><path d="M4 12h8"/><path d="M4 18V6"/><path d="M12 18V6"/><path d="M21 18h-4c0-4 4-3 4-6 0-1.5-2-2.5-4-1"/></symbol><symbol id="i-history" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l4 2"/></symbol><symbol id="i-italic" viewBox="0 0 24 24"><line x1="19" x2="10" y1="4" y2="4"/><line x1="14" x2="5" y1="20" y2="20"/><line x1="15" x2="9" y1="4" y2="20"/></symbol><symbol id="i-keyboard" viewBox="0 0 24 24"><path d="M10 8h.01"/><path d="M12 12h.01"/><path d="M14 8h.01"/><path d="M16 12h.01"/><path d="M18 8h.01"/><path d="M6 8h.01"/><path d="M7 16h10"/><path d="M8 12h.01"/><rect width="20" height="16" x="2" y="4" rx="2"/></symbol><symbol id="i-layout-grid" viewBox="0 0 24 24"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></symbol><symbol id="i-library" viewBox="0 0 24 24"><path d="m16 6 4 14"/><path d="M12 6v14"/><path d="M8 8v12"/><path d="M4 4v16"/></symbol><symbol id="i-list" viewBox="0 0 24 24"><path d="M3 12h.01"/><path d="M3 18h.01"/><path d="M3 6h.01"/><path d="M8 12h13"/><path d="M8 18h13"/><path d="M8 6h13"/></symbol><symbol id="i-maximize" viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M21 8V5a2 2 0 0 0-2-2h-3"/><path d="M3 16v3a2 2 0 0 0 2 2h3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></symbol><symbol id="i-moon" viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></symbol><symbol id="i-panel-left" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M9 3v18"/></symbol><symbol id="i-panel-left-close" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M9 3v18"/><path d="m16 15-3-3 3-3"/></symbol><symbol id="i-pen-line" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.376 3.622a1 1 0 0 1 3.002 3.002L7.368 18.635a2 2 0 0 1-.855.506l-2.872.838a.5.5 0 0 1-.62-.62l.838-2.872a2 2 0 0 1 .506-.854z"/></symbol><symbol id="i-pencil" viewBox="0 0 24 24"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/><path d="m15 5 4 4"/></symbol><symbol id="i-plus" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M12 5v14"/></symbol><symbol id="i-redo-2" viewBox="0 0 24 24"><path d="m15 14 5-5-5-5"/><path d="M20 9H9.5A5.5 5.5 0 0 0 4 14.5A5.5 5.5 0 0 0 9.5 20H13"/></symbol><symbol id="i-rotate-ccw" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></symbol><symbol id="i-save" viewBox="0 0 24 24"><path d="M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7"/><path d="M7 3v4a1 1 0 0 0 1 1h7"/></symbol><symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></symbol><symbol id="i-settings" viewBox="0 0 24 24"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></symbol><symbol id="i-sparkles" viewBox="0 0 24 24"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/><path d="M20 3v4"/><path d="M22 5h-4"/><path d="M4 17v2"/><path d="M5 18H3"/></symbol><symbol id="i-spell-check" viewBox="0 0 24 24"><path d="m6 16 6-12 6 12"/><path d="M8 12h8"/><path d="m16 20 2 2 4-4"/></symbol><symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></symbol><symbol id="i-text-quote" viewBox="0 0 24 24"><path d="M17 6H3"/><path d="M21 12H8"/><path d="M21 18H8"/><path d="M3 12v6"/></symbol><symbol id="i-trash-2" viewBox="0 0 24 24"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></symbol><symbol id="i-type" viewBox="0 0 24 24"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" x2="15" y1="20" y2="20"/><line x1="12" x2="12" y1="4" y2="20"/></symbol><symbol id="i-undo-2" viewBox="0 0 24 24"><path d="M9 14 4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 5.5 5.5a5.5 5.5 0 0 1-5.5 5.5H11"/></symbol><symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></symbol></svg>
+<div class="view" id="library" hidden>
+<header class="top">
+<span class="brand"><svg class="icon" aria-hidden="true"><use href="#i-book-open"/></svg>Jadeslip</span>
+<label class="search"><svg class="icon" aria-hidden="true"><use href="#i-search"/></svg><input class="field" id="shelf-filter" type="search" aria-label="Search title or author" placeholder="Search title or author"></label>
+<span class="grow"></span>
+<button class="btn ibtn" id="shelf-theme"><svg class="icon" aria-hidden="true"><use href="#i-sun"/></svg></button>
+<button class="btn ibtn" id="shelf-prefs" aria-label="Preferences" aria-haspopup="dialog"><svg class="icon" aria-hidden="true"><use href="#i-settings"/></svg></button>
+<button class="btn" id="shelf-new"><svg class="icon" aria-hidden="true"><use href="#i-file-plus"/></svg>New book</button>
+<button class="btn" id="shelf-open" title="Read an EPUB where it is, without adding it to the shelf"><svg class="icon" aria-hidden="true"><use href="#i-folder-open"/></svg>Open EPUB</button>
+<button class="btn line" id="shelf-add" title="Copy an EPUB into Jadeslip's library and put it on the shelf"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg>Add to shelf</button>
+</header>
+<div class="failbar" id="shelf-failure" role="alert" hidden><span class="grow" id="shelf-failure-text"></span></div>
+<div class="movebar" id="shelf-moving" role="status" title="Click to close" hidden><span class="spinner" aria-hidden="true"></span><span class="grow" id="shelf-moving-text"></span></div>
+<main class="lib" id="lib">
+<section class="recent" id="recent" aria-labelledby="recent-title">
+<div class="sechead"><h2 class="sectitle" id="recent-title">Pick up where you left off</h2><span class="grow"></span><span class="secnote" id="recent-note">Last 3 books you opened</span><button class="btn small" id="recent-fold" aria-expanded="true" aria-controls="recent-cards"><svg class="icon" aria-hidden="true"><use href="#i-chevron-up"/></svg><span id="recent-fold-label">Hide</span></button></div>
+<div class="recents" id="recent-cards"></div>
+</section>
+<div class="libtools" id="lib-tools">
+<div class="tabs" role="tablist" aria-label="Show books" id="shelf-tabs"></div>
+<span class="grow"></span>
+<button class="btn" id="shelf-sort" aria-haspopup="menu" aria-expanded="false" aria-controls="sort-menu"><svg class="icon" aria-hidden="true"><use href="#i-arrow-up-down"/></svg><span id="shelf-sort-label"></span><svg class="icon" aria-hidden="true"><use href="#i-chevron-down"/></svg></button>
+<div class="seg" role="group" aria-label="View"><button id="view-grid" aria-label="Grid" aria-pressed="true"><svg class="icon" aria-hidden="true"><use href="#i-layout-grid"/></svg></button><button id="view-list" aria-label="List" aria-pressed="false"><svg class="icon" aria-hidden="true"><use href="#i-list"/></svg></button></div>
+</div>
+<div class="grid" id="shelf-grid" role="list" aria-label="Your books"></div>
+<div class="listview" id="shelf-list" hidden>
+<div class="table">
+<div class="thead" id="shelf-head"><button class="th" data-sort="title">Title</button><button class="th" data-sort="progress">Progress</button><button class="th num" data-sort="chapters">Chapters</button><button class="th num" data-sort="size">Size</button><button class="th" data-sort="opened">Last opened</button></div>
+<div class="tbody" id="shelf-rows" role="list" aria-label="Your books"></div>
+<div class="tstatus" id="shelf-status"></div>
+</div>
+<aside class="detail" id="shelf-detail" aria-label="Selected book">
+<div class="dtop"><div class="cover" id="detail-cover"></div><div class="dhead"><p class="kick" id="detail-kicker"></p><h3 class="dtitle" id="detail-title"></h3><p class="dauthor" id="detail-author"></p></div></div>
+<div class="dwhere"><p class="wlabel">Where you stopped</p><p class="pline" id="detail-line"></p><blockquote class="quote" id="detail-quote"></blockquote><div class="prog" id="detail-prog"><span class="track"><span class="fill" id="detail-fill"></span></span><span class="stat" id="detail-stat"></span></div></div>
+<div class="dacts"><button class="btn primary tall grow" id="detail-go"></button><button class="btn line tall ibtn" id="detail-more" aria-label="More for this book" aria-haspopup="menu"><svg class="icon" aria-hidden="true"><use href="#i-ellipsis"/></svg></button></div>
+<dl class="facts" id="detail-facts"></dl>
+</aside>
+</div>
+<p class="shelfnone" id="shelf-none" hidden>No books match. Try another word or tab.</p>
+<div class="empty" id="shelf-empty" hidden>
+<div class="emico"><svg class="icon" aria-hidden="true"><use href="#i-book-open"/></svg></div>
+<h2>Your shelf is empty</h2>
+<p>Add an EPUB, or start a book of your own. Jadeslip keeps its own copy of every book you add, and the file you added it from stays as it is. You can also drop EPUB files here.</p>
+<div class="emptyacts"><button class="btn primary tall" id="shelf-empty-add"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg>Add to shelf</button><button class="btn line tall" id="shelf-empty-new"><svg class="icon" aria-hidden="true"><use href="#i-file-plus"/></svg>New book</button></div>
+</div>
+<p class="drop" id="shelf-drop">Drop EPUB files here to add them to your shelf. Jadeslip keeps its own copy, and the files you drop stay as they are.</p>
+</main>
+</div>
+<div class="view" id="reader" hidden>
+<header class="top">
+<button class="btn ibtn" id="go-library" aria-label="Library"><svg class="icon" aria-hidden="true"><use href="#i-library"/></svg></button>
+<button class="btn ibtn on" id="toggle-contents" aria-label="Contents" aria-controls="contents-rail" aria-expanded="true" disabled><svg class="icon" aria-hidden="true"><use href="#i-panel-left"/></svg></button>
+<span class="crumb grow" id="crumb"></span>
+<button class="btn small line" id="add-to-shelf" title="Copy this book into Jadeslip's library and put it on the shelf" hidden><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg>Add to shelf</button>
+<div class="tools edittools" role="group" aria-label="Undo history">
+<span class="status warn" id="unsaved" hidden>Unsaved changes</span>
+<button class="btn ibtn tool" id="tool-undo" aria-label="Undo"><svg class="icon" aria-hidden="true"><use href="#i-undo-2"/></svg></button>
+<button class="btn ibtn tool" id="tool-redo" aria-label="Redo"><svg class="icon" aria-hidden="true"><use href="#i-redo-2"/></svg></button>
+<button class="btn tool" id="tool-history" aria-label="History and snapshots"><svg class="icon" aria-hidden="true"><use href="#i-history"/></svg>History</button>
+<button class="btn tool" id="tool-revert" aria-label="Revert to backup"><svg class="icon" aria-hidden="true"><use href="#i-rotate-ccw"/></svg>Revert</button>
+</div>
+<div class="tools" role="group" aria-label="Panels">
+<button class="btn ibtn" id="open-palette" aria-label="Jump" disabled><svg class="icon" aria-hidden="true"><use href="#i-hash"/></svg></button>
+<button class="btn ibtn" id="toggle-search" aria-label="Search" disabled><svg class="icon" aria-hidden="true"><use href="#i-search"/></svg></button>
+<button class="btn ibtn" id="toggle-notes" aria-label="Notes"><svg class="icon" aria-hidden="true"><use href="#i-bookmark"/></svg></button>
+<button class="btn ibtn" id="toggle-comfort" aria-label="Text size, font and spacing" disabled><svg class="icon" aria-hidden="true"><use href="#i-type"/></svg></button>
+<button class="btn ibtn" id="toggle-focus" aria-label="Focus" disabled><svg class="icon" aria-hidden="true"><use href="#i-maximize"/></svg></button>
+<button class="btn ibtn" id="reader-more" aria-label="More for this book" aria-haspopup="menu" aria-expanded="false" aria-controls="reader-menu"><svg class="icon" aria-hidden="true"><use href="#i-ellipsis"/></svg></button>
+</div>
+<div class="seg" role="group" aria-label="Mode"><button class="on" id="mode-read"><svg class="icon" aria-hidden="true"><use href="#i-book-open"/></svg>Read</button><button id="mode-edit"><svg class="icon" aria-hidden="true"><use href="#i-pencil"/></svg>Edit</button></div>
+</header>
+<div class="toolbar" id="toolbar" role="toolbar" aria-label="Formatting" hidden>
+<div class="tools" role="group" aria-label="Format">
+<button class="btn ibtn tool" id="tool-bold" aria-label="Bold"><svg class="icon" aria-hidden="true"><use href="#i-bold"/></svg></button>
+<button class="btn ibtn tool" id="tool-italic" aria-label="Italic"><svg class="icon" aria-hidden="true"><use href="#i-italic"/></svg></button>
+<button class="btn ibtn tool" id="tool-heading" aria-label="Heading"><svg class="icon" aria-hidden="true"><use href="#i-heading-2"/></svg></button>
+<button class="btn ibtn tool" id="tool-quote" aria-label="Quote"><svg class="icon" aria-hidden="true"><use href="#i-text-quote"/></svg></button>
+<button class="btn ibtn tool" id="tool-list" aria-label="List"><svg class="icon" aria-hidden="true"><use href="#i-list"/></svg></button>
+</div>
+</div>
+<div class="offerbar" id="fix-offer" role="status" hidden><span class="grow" id="fix-offer-text"></span><button class="btn primary small" id="fix-offer-fix" disabled>Fix everywhere</button><button class="btn small" id="fix-offer-dismiss">Dismiss</button></div>
+<div class="offerbar" id="draft-offer" role="alert" hidden><span class="grow" id="draft-offer-text"></span><button class="btn primary small" id="draft-recover">Recover unsaved edits</button><button class="btn small" id="draft-discard">Discard</button></div>
+<div class="failbar" id="failbar" role="alert" hidden><span class="grow" id="fail-text"></span><button class="btn line" id="fail-reload" hidden>Reload book</button></div>
+<div class="body">
+<div class="panel" id="panel">
+<div class="seg paneltabs" role="group" aria-label="Panel"><button id="tab-contents">Contents</button><button id="tab-search">Search</button><button id="tab-notes">Notes</button></div>
+<nav class="rail toc" id="contents-rail" aria-label="Table of contents">
+<div class="railhead"><div class="filterrow"><input class="field" id="filter" aria-label="Filter contents" placeholder="Filter chapters" disabled><button class="btn ibtn" id="add-chapter" aria-label="Add chapter" title="Add chapter" hidden><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg></button><button class="btn ibtn" id="hide-contents" aria-label="Hide contents" aria-controls="contents-rail" aria-expanded="true"><svg class="icon" aria-hidden="true"><use href="#i-panel-left-close"/></svg></button></div></div>
+<div class="scroll toclist" id="toc-list"><div class="spacer" id="toc-spacer"><div class="rail-actions" id="rail-actions" hidden><button class="mini" id="rail-up" aria-label="Move up"><svg class="icon" aria-hidden="true"><use href="#i-chevron-up"/></svg></button><button class="mini" id="rail-down" aria-label="Move down"><svg class="icon" aria-hidden="true"><use href="#i-chevron-down"/></svg></button><button class="mini" id="rail-rename-open" aria-label="Rename chapter"><svg class="icon" aria-hidden="true"><use href="#i-pencil"/></svg></button><button class="mini" id="rail-delete" aria-label="Delete chapter"><svg class="icon" aria-hidden="true"><use href="#i-trash-2"/></svg></button></div><input class="field rail-rename" id="rail-rename" aria-label="Chapter title" hidden><div class="rail-drop" id="rail-drop" hidden></div></div><p class="tocempty" id="toc-empty" hidden>No chapters match.</p></div>
+<div class="count"><span id="count"></span><button class="btn small" id="deleted-open" hidden>Deleted chapters</button></div>
+</nav>
+<aside class="rail right" id="search-pane" aria-label="Search" hidden>
+<div class="railhead">
+<div class="searchrow"><svg class="icon" aria-hidden="true"><use href="#i-search"/></svg><input id="search-input" aria-label="Search this book" placeholder="Find in book, or pick a saved search" autocomplete="off"><button class="toggle" id="search-case" aria-label="Match case" title="Match case" aria-pressed="false">Aa</button><button class="toggle mono" id="search-regex" aria-label="Regular expression" title="Regular expression">.*</button><button class="mini" id="search-save" aria-label="Save this search" title="Save this search"><svg class="icon" aria-hidden="true"><use href="#i-bookmark-plus"/></svg></button><button class="mini" id="search-saved" aria-label="Saved and recent searches" title="Saved and recent searches" aria-controls="search-memory" aria-expanded="false"><svg class="icon" aria-hidden="true"><use href="#i-list"/></svg></button><span class="barwhere" id="search-where"></span><button class="mini baronly" id="search-prev" aria-label="Previous match"><svg class="icon" aria-hidden="true"><use href="#i-chevron-up"/></svg></button><button class="mini baronly" id="search-next" aria-label="Next match"><svg class="icon" aria-hidden="true"><use href="#i-chevron-down"/></svg></button><button class="mini baronly" id="search-close" aria-label="Close search"><svg class="icon" aria-hidden="true"><use href="#i-x"/></svg></button></div>
+<p class="barhints"><span><kbd>↵</kbd> next match</span><span><kbd>Ctrl ↵</kbd> all results in the panel</span><span><kbd>Esc</kbd> close</span></p>
+<p class="barhints listhints"><span><kbd>↑ ↓</kbd> pick</span><span><kbd>↵</kbd> run it</span><span>or just start typing</span></p>
+<div class="ssmenu" id="search-memory" role="listbox" aria-label="Saved and recent searches" hidden></div>
+<div class="ssform" id="search-save-form" hidden><input class="field" id="search-save-name" aria-label="Name for this saved search" placeholder="Name this search"><button class="btn small primary" id="search-save-ok">Save</button><button class="btn small line" id="search-save-cancel">Cancel</button></div>
+<p class="search-message" id="search-save-error" role="alert" hidden></p>
+<div class="sschips" id="search-chips" hidden></div>
+<div class="chipmenu" id="search-chip-menu" role="menu" aria-label="Saved search" hidden><button class="menuitem" id="search-chip-rename" role="menuitem">Rename</button><button class="menuitem" id="search-chip-delete" role="menuitem">Delete</button></div>
+<div class="cleanhead" id="clean-head" hidden><strong>Clean-up preview</strong><span id="clean-rules"></span></div>
+<div class="searchopts"><div class="seg span" id="search-range" role="group" aria-label="Search range"><button id="search-before" class="on" aria-pressed="true"><svg class="icon" aria-hidden="true"><use href="#i-chevron-left"/></svg>Earlier</button><button class="here" id="search-here">This chapter</button><button id="search-after" class="on" aria-pressed="true">Later<svg class="icon" aria-hidden="true"><use href="#i-chevron-right"/></svg></button></div><button class="btn small" id="search-plain" hidden>Plain text</button><button class="btn small" id="replace-toggle">Replace…</button></div>
+<div class="status" id="search-status" hidden><span class="scanned" id="search-scanned"></span><span class="track"><span class="fill" id="search-fill"></span></span><button class="btn small" id="search-action">Stop</button></div>
+<p class="search-message" id="search-message" role="alert" hidden></p>
+<div class="replace" id="replace-section" hidden>
+<input class="field" id="replace-input" aria-label="Replace with" placeholder="Replace with">
+<div class="status wrap" id="replace-summary" role="status"></div>
+<button class="btn primary center" id="replace-apply" disabled>Apply to whole book</button>
+</div>
+</div>
+<div class="scroll results" id="search-results"><div class="spacer" id="search-spacer"></div></div>
+<div class="count" id="search-count" role="status"></div>
+</aside>
+<aside class="rail right" id="notes-pane" aria-label="Bookmarks and notes" hidden>
+<div class="railhead">
+<input class="field" id="note-text" aria-label="Note for this chapter" placeholder="Note on this chapter (optional)">
+<button class="btn primary center" id="note-add">Bookmark this chapter</button>
+</div>
+<div class="scroll notes" id="notes-list"></div>
+<div class="count">Kept outside the EPUB, so the book file stays unchanged.</div>
+</aside>
+</div>
+<main class="page" id="scroller">
+<div class="failcard" id="open-failure" hidden><section class="dialog" role="alert" aria-labelledby="open-failure-title"><h2 id="open-failure-title"></h2><p id="open-failure-text"></p><div class="actions"><button class="btn line" id="failure-remove" hidden>Remove from shelf</button><button class="btn line" id="failure-back">Back to shelf</button><button class="btn primary" id="failure-find" hidden>Find the file</button></div></section></div>
+<article class="sheet">
+<p class="notice" id="notice" role="status" hidden></p>
+<div class="prose" id="book-host"></div>
+</article>
+</main>
+</div>
+<footer class="foot">
+<div class="bar"><div class="fill" id="fill"></div></div>
+<div class="footrow">
+<button class="btn ibtn" id="prev" aria-label="Previous chapter" disabled><svg class="icon" aria-hidden="true"><use href="#i-chevron-left"/></svg></button>
+<button class="btn small line" id="back" hidden><span id="back-label"></span><span class="key">Alt ←</span></button>
+<span class="where"><span class="wheretitle" id="where-title"></span></span>
+<span class="mono pagewhere" id="page-where" hidden></span>
+<span class="mono pct" id="pct"></span>
+<span class="wordcount" id="word-count"></span><button class="btn tool" id="save" aria-label="Save" hidden><svg class="icon clean" aria-hidden="true"><use href="#i-check"/></svg><svg class="icon dirty" aria-hidden="true"><use href="#i-save"/></svg><span id="save-label">Saved</span></button><button class="btn ibtn" id="next" aria-label="Next chapter" disabled><svg class="icon" aria-hidden="true"><use href="#i-chevron-right"/></svg></button>
+</div>
+</footer>
+</div>
+<div class="scrim" id="dialog" hidden><div class="dialog" role="dialog" aria-modal="true" aria-labelledby="dialog-title">
+<h2 id="dialog-title">Save your changes?</h2>
+<p>This chapter has edits that are not saved yet.</p>
+<div class="actions">
+<button class="btn line" id="dialog-keep">Keep editing</button>
+<button class="btn line" id="dialog-discard">Discard</button>
+<button class="btn primary" id="dialog-save">Save</button>
+</div>
+</div></div>
+<div class="scrim" id="fix-dialog" hidden><div class="dialog" role="dialog" aria-modal="true" aria-labelledby="fix-dialog-title">
+<h2 id="fix-dialog-title"></h2>
+<p id="fix-dialog-text"></p>
+<div class="actions">
+<button class="btn line" id="fix-dialog-cancel">Cancel</button>
+<button class="btn line" id="fix-dialog-review">Review each</button>
+<button class="btn primary" id="fix-dialog-apply">Fix everywhere</button>
+</div>
+</div></div>
+<div class="scrim" id="cleanup-dialog" hidden><div class="dialog wide" role="dialog" aria-modal="true" aria-labelledby="cleanup-title">
+<h2 id="cleanup-title">Clean up this book</h2>
+<p id="cleanup-intro"></p>
+<div class="cleanup-rules" id="cleanup-rules"></div>
+<div class="status cleanup-progress" id="cleanup-progress" role="status"><span class="grow" id="cleanup-status"></span><button class="btn line small" id="cleanup-stop">Stop</button></div>
+<div class="actions">
+<button class="btn line" id="cleanup-cancel">Cancel</button>
+<button class="btn line" id="cleanup-show" disabled>Show matches</button>
+<button class="btn primary" id="cleanup-apply" disabled>Clean up</button>
+</div>
+</div></div>
+<div class="scrim" id="apply-dialog" hidden><div class="dialog" role="dialog" aria-modal="true" aria-labelledby="apply-title">
+<h2 id="apply-title"></h2>
+<p id="apply-progress"></p>
+<div class="status"><span class="track"><span class="fill" id="apply-fill"></span></span><button class="btn line small" id="apply-stop">Stop</button></div>
+</div></div>
+<div class="scrim" id="chapter-dialog" hidden><div class="dialog" role="dialog" aria-modal="true" aria-labelledby="chapter-dialog-title">
+<h2 id="chapter-dialog-title"></h2>
+<p id="chapter-dialog-text"></p>
+<div class="actions">
+<button class="btn line" id="chapter-dialog-cancel">Cancel</button>
+<button class="btn primary" id="chapter-dialog-ok"></button>
+</div>
+</div></div>
+<div class="scrim" id="deleted-dialog" hidden><div class="dialog" role="dialog" aria-modal="true" aria-labelledby="deleted-dialog-title">
+<h2 id="deleted-dialog-title">Deleted chapters</h2>
+<p>Each one can go back to where it was. Reverting the whole book also brings them back.</p>
+<div class="deleted-rows" id="deleted-rows"></div>
+<div class="actions"><button class="btn line" id="deleted-close">Close</button></div>
+</div></div>
+<div class="scrim" id="newbook-dialog" hidden><div class="dialog" role="dialog" aria-modal="true" aria-labelledby="newbook-title">
+<h2 id="newbook-title">New book</h2>
+<div class="formrows">
+<label class="poplabel" for="newbook-name">Title</label><input class="field" id="newbook-name">
+<label class="poplabel" for="newbook-author">Author</label><input class="field" id="newbook-author">
+<label class="poplabel" for="newbook-language">Language</label><input class="field" id="newbook-language" value="en">
+<label class="poplabel" for="newbook-first">First chapter</label><input class="field" id="newbook-first" value="Chapter 1">
+</div>
+<p class="search-message" id="newbook-error" role="alert" hidden></p>
+<div class="actions">
+<button class="btn line" id="newbook-cancel">Cancel</button>
+<button class="btn primary" id="newbook-create">Choose where to save</button>
+</div>
+</div></div>
+<div class="scrim" id="revert-dialog" hidden><div class="dialog" role="dialog" aria-modal="true" aria-labelledby="revert-title">
+<h2 id="revert-title">Revert to backup</h2>
+<p id="revert-text"></p>
+<div class="deleted-rows" id="revert-restores" hidden></div>
+<div class="actions">
+<button class="btn line" id="revert-cancel">Cancel</button>
+<button class="btn line" id="revert-chapter">Revert chapter</button>
+<button class="btn primary" id="revert-whole">Revert whole book</button>
+</div>
+</div></div>
+<div class="scrim" id="history-dialog" hidden><div class="dialog wide" role="dialog" aria-modal="true" aria-labelledby="history-title">
+<h2 id="history-title">History</h2>
+<div class="history-take" id="history-take-row"><input class="field" id="history-name" aria-label="Snapshot name" placeholder="Name a snapshot, like before rewrite" maxlength="200"><button class="btn line" id="history-take">Take snapshot</button></div>
+<div class="history-list" id="history-list"></div>
+<p class="history-empty" id="history-empty" hidden>Nothing saved yet. Each save keeps the old version of every chapter it changes, so you can come back to it here.</p>
+<div id="history-point" hidden><p id="history-point-text"></p><div class="deleted-rows" id="history-changes"></div></div>
+<div class="history-diff" id="history-diff" hidden></div>
+<div class="actions">
+<button class="btn line" id="history-back" hidden>Back</button>
+<button class="btn line" id="history-close">Close</button>
+<button class="btn primary" id="history-whole" hidden>Restore whole book</button>
+</div>
+</div></div>
+<div class="scrim" id="picker-wait" hidden><div class="dialog" role="status"><p>Waiting for the file window. Choose a file there, or cancel it.</p></div></div>
+<div class="scrim" id="keys-dialog" hidden><div class="dialog keysdialog" role="dialog" aria-modal="true" aria-labelledby="keys-title">
+<h2 id="keys-title">Keyboard shortcuts</h2>
+<div class="keysheet" id="keys-list"></div>
+<div class="actions"><button class="btn line" id="keys-close">Close</button></div>
+</div></div>
+<div class="scrim" id="prefs-dialog" hidden><div class="dialog prefsdialog" role="dialog" aria-modal="true" aria-labelledby="prefs-title">
+<div class="prefsnav">
+<h2 id="prefs-title">Preferences</h2>
+<div class="prefstabs" id="prefs-nav" role="tablist" aria-orientation="vertical" aria-labelledby="prefs-title">
+<button class="prefstab on" id="prefs-nav-general" role="tab" aria-selected="true" aria-controls="prefs-section-general"><svg class="icon" aria-hidden="true"><use href="#i-settings"/></svg>General</button>
+<button class="prefstab" id="prefs-nav-reading" role="tab" aria-selected="false" aria-controls="prefs-section-reading" tabindex="-1"><svg class="icon" aria-hidden="true"><use href="#i-type"/></svg>Reading</button>
+<button class="prefstab" id="prefs-nav-spelling" role="tab" aria-selected="false" aria-controls="prefs-section-spelling" tabindex="-1"><svg class="icon" aria-hidden="true"><use href="#i-spell-check"/></svg>Spelling</button>
+<button class="prefstab" id="prefs-nav-storage" role="tab" aria-selected="false" aria-controls="prefs-section-storage" tabindex="-1"><svg class="icon" aria-hidden="true"><use href="#i-hard-drive"/></svg>Storage</button>
+<button class="prefstab" id="prefs-nav-shortcuts" role="tab" aria-selected="false" aria-controls="prefs-section-shortcuts" tabindex="-1"><svg class="icon" aria-hidden="true"><use href="#i-keyboard"/></svg>Shortcuts</button>
+</div>
+</div>
+<div class="prefsbody" id="prefs-body">
+<section class="prefssec" id="prefs-section-general" role="tabpanel" aria-labelledby="prefs-nav-general">
+<h3>General</h3>
+<div class="prefsrow"><div class="prefsname">Theme</div><div class="seg" role="group" aria-label="Theme"><button id="prefs-theme-dark">Dark</button><button id="prefs-theme-light">Light</button></div></div>
+<div class="prefsrow"><div><div class="prefsname">Page view</div><p class="prefshint">Auto shows one or two pages to fit the window.</p></div><div class="seg" role="group" aria-label="Page view"><button id="prefs-pages-scroll">Scroll</button><button id="prefs-pages-auto">Auto</button></div></div>
+</section>
+<section class="prefssec" id="prefs-section-reading" role="tabpanel" aria-labelledby="prefs-nav-reading" hidden>
+<h3>Reading</h3>
+<p class="prefshint">These apply to every book. While reading, Aa (Ctrl Shift A) changes the same settings.</p>
+<div class="prefsrow"><div class="prefsname">Spacing</div><div class="seg" role="group" aria-label="Spacing presets"><button id="prefs-preset-compact">Compact</button><button id="prefs-preset-comfortable">Comfortable</button></div></div>
+<div class="prefsrow"><div class="prefsname">Text size</div><div class="seg" role="group" aria-label="Text size"><button id="prefs-font-smaller" aria-label="Smaller text">A−</button><button class="value" id="prefs-font-now" disabled></button><button id="prefs-font-larger" aria-label="Larger text">A+</button></div></div>
+<div class="prefsrow"><label class="prefsname" for="prefs-font">Reading font</label><select class="field" id="prefs-font"></select></div>
+<div class="prefsrow"><div><div class="prefsname">Reading look</div><p class="prefshint">Puts back column width, margins, spacing, indent and font. Text size and theme stay.</p></div><button class="btn line" id="prefs-reset-look">Reset reading look</button></div>
+</section>
+<section class="prefssec" id="prefs-section-spelling" role="tabpanel" aria-labelledby="prefs-nav-spelling" hidden>
+<h3>Spelling</h3>
+<div class="prefsrow"><div><div class="prefsname">Spelling marks</div><p class="prefshint">Marks words the dictionary does not know, in every book.</p></div><div class="seg" role="group" aria-label="Spelling marks"><button id="prefs-spelling-on">On</button><button id="prefs-spelling-off">Off</button></div></div>
+<h4>Dictionaries</h4>
+<div class="prefslist" id="prefs-dictionaries" role="list" aria-label="Dictionaries"></div>
+<p class="prefshint" id="prefs-dictionaries-status" hidden></p>
+<p class="prefshint">To add a language, put its Hunspell pair in the dictionaries folder, named like de_DE.aff and de_DE.dic. Each book's language is chosen in Aa, on the Spelling tab.</p>
+<div><button class="btn line" id="prefs-dictionaries-folder"><svg class="icon" aria-hidden="true"><use href="#i-folder-open"/></svg>Open dictionaries folder</button></div>
+</section>
+<section class="prefssec" id="prefs-section-storage" role="tabpanel" aria-labelledby="prefs-nav-storage" hidden>
+<h3>Storage</h3>
+<div class="prefsrow"><div class="grow"><div class="prefsname">Data folder</div><p class="prefspath" id="prefs-data-dir"></p></div><button class="btn line" id="prefs-data-reveal"><svg class="icon" aria-hidden="true"><use href="#i-folder-open"/></svg>Show in folder</button></div>
+<div class="prefsrow"><div class="prefsname">Total</div><span class="prefsnum" id="prefs-total"></span></div>
+<h4>Snapshot cleanup</h4>
+<div class="prefsrow"><div class="prefsname">Keep automatic snapshots for</div><div class="seg" role="group" aria-label="Keep automatic snapshots for" id="prefs-keep"><button id="prefs-keep-days7">7 days</button><button id="prefs-keep-days30">30 days</button><button id="prefs-keep-days90">90 days</button><button id="prefs-keep-year">1 year</button><button id="prefs-keep-forever">Forever</button></div></div>
+<p class="prefshint">Named snapshots and original backups are always kept.</p>
+<div class="prefsclean"><button class="btn line" id="prefs-clean-now">Clean up now</button><span id="prefs-clean-result" role="status"></span></div>
+<p class="prefshint" id="prefs-last-cleanup"></p>
+<h4>Books</h4>
+<div class="prefstable" role="table" aria-label="Data kept for each book">
+<div class="prow phead" role="row"><span role="columnheader">Book</span><span class="num" role="columnheader">Book file</span><span class="num" role="columnheader">History</span><span class="num" role="columnheader">Original backup</span><span class="num" role="columnheader">Other</span><span class="num" role="columnheader">Total</span></div>
+<div id="prefs-books" role="rowgroup"></div>
+<p class="prefshint pempty" id="prefs-books-status" hidden></p>
+</div>
+</section>
+<section class="prefssec" id="prefs-section-shortcuts" role="tabpanel" aria-labelledby="prefs-nav-shortcuts" hidden>
+<h3>Shortcuts</h3>
+<div class="keysheet" id="prefs-keys"></div>
+</section>
+</div>
+<div class="actions prefsfoot"><button class="btn line" id="prefs-close">Close</button></div>
+</div></div>
+<div class="scrim" id="prefs-confirm" hidden><div class="dialog" role="alertdialog" aria-modal="true" aria-labelledby="prefs-confirm-title" aria-describedby="prefs-confirm-text">
+<h2 id="prefs-confirm-title"></h2>
+<p id="prefs-confirm-text"></p>
+<div class="actions"><button class="btn line" id="prefs-confirm-cancel">Cancel</button><button class="btn primary" id="prefs-confirm-ok"></button></div>
+</div></div>
+<div class="menu" id="book-menu" role="menu" aria-label="Book" hidden>
+<button class="menuitem" role="menuitem" id="menu-go"><svg class="icon" aria-hidden="true"><use id="menu-go-icon" href="#i-book-open"/></svg><span class="grow" id="menu-go-label"></span><span class="menukey">Enter</span></button>
+<button class="menuitem" role="menuitem" id="menu-alt"><svg class="icon" aria-hidden="true"><use id="menu-alt-icon" href="#i-pencil"/></svg><span class="grow" id="menu-alt-label"></span><span class="menukey">E</span></button>
+<button class="menuitem" role="menuitem" id="menu-own"><svg class="icon" aria-hidden="true"><use href="#i-pen-line"/></svg><span class="grow" id="menu-own-label"></span></button>
+<div class="menusep" role="separator"></div>
+<button class="menuitem" role="menuitem" id="menu-folder"><svg class="icon" aria-hidden="true"><use href="#i-folder-open"/></svg><span class="grow">Show file in folder</span></button>
+<button class="menuitem" role="menuitem" id="menu-export"><svg class="icon" aria-hidden="true"><use href="#i-download"/></svg><span class="grow">Export a copy</span></button>
+<button class="menuitem" role="menuitem" id="menu-clean"><svg class="icon" aria-hidden="true"><use href="#i-sparkles"/></svg><span class="grow">Clean up book…</span></button>
+<div class="menusep" role="separator"></div>
+<button class="menuitem" role="menuitem" id="menu-remove"><svg class="icon" aria-hidden="true"><use href="#i-trash-2"/></svg><span class="grow">Remove from shelf</span></button>
+</div>
+<div class="menu" id="sort-menu" role="menu" aria-label="Sort by" hidden></div>
+<div class="menu" id="reader-menu" role="menu" aria-label="This book" hidden>
+<button class="menuitem" role="menuitem" id="reader-clean"><svg class="icon" aria-hidden="true"><use href="#i-sparkles"/></svg><span class="grow">Clean up book…</span></button>
+<button class="menuitem" role="menuitem" id="reader-history"><svg class="icon" aria-hidden="true"><use href="#i-history"/></svg><span class="grow">History and snapshots</span></button>
+<button class="menuitem" role="menuitem" id="reader-export"><svg class="icon" aria-hidden="true"><use href="#i-download"/></svg><span class="grow">Export a copy</span></button>
+<button class="menuitem" role="menuitem" id="open-prefs"><svg class="icon" aria-hidden="true"><use href="#i-settings"/></svg><span class="grow">Preferences</span></button>
+</div>
+<div class="scrim" id="remove-dialog" hidden><div class="dialog" role="dialog" aria-modal="true" aria-labelledby="remove-title">
+<h2 id="remove-title"></h2>
+<p id="remove-text"></p>
+<label class="check"><input type="checkbox" id="remove-data"><span id="remove-data-label"></span></label>
+<label class="check" id="remove-file-row"><input type="checkbox" id="remove-file"><span id="remove-file-label"></span></label>
+<p class="search-message" id="remove-error" role="alert" hidden></p>
+<div class="actions"><button class="btn line" id="remove-cancel">Cancel</button><button class="btn primary" id="remove-ok">Remove from shelf</button></div>
+</div></div>
+<div class="scrim" id="dup-dialog" hidden><div class="dialog" role="dialog" aria-modal="true" aria-labelledby="dup-title">
+<h2 id="dup-title">Already on your shelf</h2>
+<p id="dup-text"></p>
+<div class="actions"><button class="btn line" id="dup-cancel"></button><button class="btn primary" id="dup-open"></button></div>
+</div></div>
+<div class="undobar" id="undo-bar" role="status" hidden><span id="undo-text"></span><button class="btn small" id="undo-action">Undo</button></div>
+<div class="pop" id="comfort" hidden>
+<div class="seg tabs" role="tablist" aria-label="Reading settings"><button class="on" id="comfort-tab-text" role="tab" aria-selected="true">Text</button><button id="comfort-tab-layout" role="tab" aria-selected="false">Layout</button><button id="comfort-tab-spelling" role="tab" aria-selected="false" hidden>Spelling</button></div>
+<div class="poptab" id="comfort-text" role="tabpanel" aria-labelledby="comfort-tab-text">
+<div><div class="poplabel">Spacing</div><div class="seg" role="group" aria-label="Spacing presets"><button id="preset-compact">Compact</button><button id="preset-comfortable">Comfortable</button></div></div>
+<div><div class="poplabel">Text size</div><div class="seg"><button id="font-smaller" aria-label="Smaller text">A−</button><button class="value" id="font-now" disabled></button><button id="font-larger" aria-label="Larger text">A+</button></div></div>
+<div><label class="poplabel" for="layout-font">Reading font</label><select class="field" id="layout-font"></select></div>
+<div class="layout" id="layout-spacing"></div>
+</div>
+<div class="poptab" id="comfort-layout" role="tabpanel" aria-labelledby="comfort-tab-layout" hidden>
+<div class="layout" id="layout-controls">
+<div class="layout" id="layout-column"></div>
+<div class="slides" id="layout-margins" role="group" aria-label="Margins"><div class="poplabel">Margins</div></div>
+<div class="layoutacts"><button class="btn line" id="toggle-fullscreen" aria-label="Full screen">Full screen</button><button class="btn line" id="layout-reset">Reset layout</button></div>
+</div>
+</div>
+<div class="poptab spellpop" id="comfort-spelling" role="tabpanel" aria-labelledby="comfort-tab-spelling" hidden>
+<div id="spelling-language" hidden><div class="poplabel">Spelling language</div><div class="seg wrap" id="spelling-languages"></div><p class="pophint" id="spelling-auto"></p></div>
+</div>
+</div>
+<button class="btn exitfocus" id="exit-focus" hidden>Exit focus <span class="key" id="exit-focus-key">Esc</span></button>
+<div class="scrim upper" id="palette" hidden><div class="palette" role="dialog" aria-modal="true" aria-label="Quick jump">
+<input class="palinput" id="palette-input" aria-label="Jump to a chapter or run a command" placeholder="Chapter number, title or command">
+<div id="palette-rows"></div>
+<p class="palempty" id="palette-empty" hidden>Nothing matches.</p>
+<div class="palfoot"><span id="palette-foot"></span><button class="btn palclose" id="palette-close">Close <span class="key">Esc</span></button></div>
+</div></div>
+<div class="toast" id="toast" role="status" hidden></div>
+<div class="readout" id="size-readout" role="status" hidden></div>
+<div class="spellmenu" id="spell-menu" role="menu" hidden></div>
+</div>
+</body>
+</html>

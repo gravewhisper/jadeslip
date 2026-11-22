@@ -1,0 +1,19 @@
+{
+  "bundle": {
+    "active": true,
+    "targets": [
+      "appimage",
+      "deb"
+    ],
+    "category": "Productivity",
+    "shortDescription": "A fast EPUB reader that lets you fix the book while you read it",
+    "longDescription": "Jadeslip opens very large EPUBs quickly and lets you correct typos and formatting in place. Fixes are saved back into the EPUB, with backups and history so any save can be undone.",
+    "license": "MIT",
+    "licenseFile": "../LICENSE",
+    "copyright": "Copyright (c) 2026 gravewhisper",
+    "homepage": "https://github.com/gravewhisper/jadeslip",
+    "externalBin": [
+      "binaries/jadeslip-worker"
+    ]
+  }
+}
