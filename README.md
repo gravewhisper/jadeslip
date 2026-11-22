@@ -171,8 +171,7 @@ cargo run --release -p jadeslip-fixtures --bin gen-fixtures   # generate the tes
 cargo test --workspace     # unit and integration tests
 scripts/verify.sh quick    # tests, clippy for both builds, and the repo's style checks
 scripts/verify.sh full     # plus every real-app suite
-scripts/screenshots.sh     # retake the README screenshots in the real app
-scripts/demo-gif.sh        # re-record the README demo GIF in the real app
+scripts/screenshots.sh     # retake the README screenshots and demo GIF in the real app
 ```
 
 `verify.sh` also runs the tests that need real books. Those aren't in the repo, so put a few EPUBs of your own in `fixtures/real/` first (the folder is gitignored). The real-app suites in `full` drive the actual window with real clicks and key presses on a hidden Hyprland output, so they need Hyprland.
