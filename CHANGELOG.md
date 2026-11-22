@@ -4,7 +4,7 @@ Jadeslip uses [semantic versioning](https://semver.org). Before 1.0, a minor rel
 
 ## 0.1.0 (2026-11-22)
 
-The first public release. Linux only, as an AppImage, a `.deb`, or built from source.
+The first public release. Linux only, built from source.
 
 ### What's in it
 
@@ -39,4 +39,4 @@ A review of the archive reader, the book sanitiser, file handling, the app's int
 ### Known issues
 
 - A colour set with `!important` on a single element inside a book can still beat the dark theme.
-- Regex search needs the `jadeslip-worker` program next to `jadeslip`. The AppImage and `.deb` include it.
+- Regex search needs the `jadeslip-worker` program next to `jadeslip`. `scripts/install-local.sh` and `scripts/package.sh` put it there.

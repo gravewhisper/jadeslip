@@ -84,16 +84,7 @@ Other numbers: a one-chapter save takes about 55 ms, and a plain search through 
 
 Jadeslip is Linux-first (developed on Hyprland/Wayland).
 
-**Download.** Each [release](https://github.com/gravewhisper/jadeslip/releases) has an AppImage and a `.deb` for x86_64:
-
-```sh
-chmod +x Jadeslip_*_amd64.AppImage && ./Jadeslip_*_amd64.AppImage   # any distro
-sudo apt install ./Jadeslip_*_amd64.deb                              # Debian / Ubuntu
-```
-
-What changed in each version is in [`CHANGELOG.md`](CHANGELOG.md).
-
-**Or build from source.**
+There are no prebuilt downloads. Build it from source. What changed in each version is in [`CHANGELOG.md`](CHANGELOG.md).
 
 **1. Get the dependencies.** Rust (stable, 2024 edition) and the WebKitGTK 4.1 development files:
 
