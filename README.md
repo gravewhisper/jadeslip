@@ -28,6 +28,8 @@ Calibre is great, but opening a huge web novel in it is slow, and fixing one wro
 - **Reading and editing are one switch.** The same view, the same place in the chapter. A typo fix is a two-second interruption, not a context switch.
 - **Your book is safe.** Saves are atomic, a no-change save leaves the file byte-for-byte identical, and there is always a way back.
 
+Jadeslip is not a replacement for Calibre. Calibre converts between formats, sends books to e-readers, fetches metadata and has a full editor for every file inside a book. Jadeslip does none of that. It is a reader with a small, simple editor for fixing text as you go. For bigger jobs, keep using Calibre or Sigil.
+
 ## Features
 
 | | |
