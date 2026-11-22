@@ -93,8 +93,11 @@ There are no prebuilt downloads. Build it from source. What changed in each vers
 sudo pacman -S --needed rust webkit2gtk-4.1 base-devel
 
 # Debian / Ubuntu
-sudo apt install build-essential libwebkit2gtk-4.1-dev libgtk-3-dev libsoup-3.0-dev
+sudo apt install build-essential curl libwebkit2gtk-4.1-dev libgtk-3-dev libsoup-3.0-dev
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 ```
+
+On Debian and Ubuntu, Rust comes from rustup because the packaged Rust is too old. Open a new terminal afterwards, or run `. ~/.cargo/env`, so `cargo` is found.
 
 **2. Run it straight from the repo:**
 
