@@ -14,7 +14,7 @@ Open a 6,000-chapter web novel in about a quarter of a second, spot a typo, pres
 [![Platform: Linux](https://img.shields.io/badge/platform-Linux-FCC624?style=flat-square&logo=linux&logoColor=black)](#install)
 [![Plain JS, no build step](https://img.shields.io/badge/UI-plain_JS,_no_build_step-F7DF1E?style=flat-square&logo=javascript&logoColor=black)](app/ui)
 
-<img src="docs/screenshots/reader.png" alt="Jadeslip reading a book, with the contents list on the left" width="860">
+<img src="docs/screenshots/demo.gif" alt="Fixing a typo: press E on the misspelled word recieved, type received, press Esc, and the book is saved" width="860">
 
 </div>
 
@@ -172,6 +172,7 @@ cargo test --workspace     # unit and integration tests
 scripts/verify.sh quick    # tests, clippy for both builds, and the repo's style checks
 scripts/verify.sh full     # plus every real-app suite
 scripts/screenshots.sh     # retake the README screenshots in the real app
+scripts/demo-gif.sh        # re-record the README demo GIF in the real app
 ```
 
 `verify.sh` also runs the tests that need real books. Those aren't in the repo, so put a few EPUBs of your own in `fixtures/real/` first (the folder is gitignored). The real-app suites in `full` drive the actual window with real clicks and key presses on a hidden Hyprland output, so they need Hyprland.

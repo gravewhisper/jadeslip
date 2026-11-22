@@ -4,7 +4,7 @@ export TZ=UTC
 cd "$(dirname "$0")/.."
 ROOT="$PWD"
 S="$ROOT/.claude/skills/verify-jadeslip/scripts"
-SHOTS=(library reader reader-light search edit)
+SHOTS=(library reader-light search edit)
 
 cargo run --release -q -p jadeslip-fixtures --bin gen-samples >/dev/null
 "$S/launch.sh" >/dev/null
@@ -51,7 +51,6 @@ ctl click '#prev'
 at 'The Lamp on Harrow Point'
 until_true "document.getElementById('back').hidden"
 park_in_reader
-ctl shot reader
 
 switch_theme
 dark false
