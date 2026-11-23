@@ -1,4 +1,8 @@
-# Installed copy
+# Installing
+
+Most people should use the downloads described in the [README](../README.md#download). This page covers installing a copy you built yourself, building the packages, and adding spelling dictionaries.
+
+## Installed copy
 
 Regex search runs in `jadeslip-worker`, which the app looks for beside its own binary. A plain `target/release/jadeslip` copied alone keeps working, but regex search then says it could not start.
 
@@ -11,7 +15,7 @@ scripts/install-local.sh ~/.local/opt/jadeslip
 
 The script runs `cargo install` twice with `--root`, so nothing goes outside that folder. It also copies the dictionary's licence notice and the app's `LICENSE` to `share/doc/jadeslip/`. Move the folder as a whole, because the two binaries must stay side by side. The UI, fonts and dictionary are compiled into the app binary, so no other files are needed. The machine still needs `webkit2gtk-4.1`.
 
-To package it yourself, `scripts/package.sh` builds an AppImage and a `.deb`, which needs `cargo tauri`. It puts them in `target/linux/` with a `SHA256SUMS` file, so `sha256sum -c SHA256SUMS` run in that folder checks them.
+To package it yourself, `scripts/package.sh` builds an AppImage and a `.deb`, which needs `cargo tauri`. It puts them in `target/linux/` with a `SHA256SUMS` file, so `sha256sum -c SHA256SUMS` run in that folder checks them. Built on your own system, the AppImage only runs on systems with your glibc or newer. `scripts/package-linux.sh` builds the same two files inside Ubuntu 22.04 with Docker, so the AppImage also runs on older distributions. It builds the last commit, not uncommitted changes. `scripts/package-windows.sh` cross-builds the Windows installer into `target/windows/` the same way.
 
 ## Spelling in other languages
 

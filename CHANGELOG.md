@@ -2,6 +2,22 @@
 
 Jadeslip uses [semantic versioning](https://semver.org). Before 1.0, a minor release (0.2, 0.3) can change behaviour or the data folder layout; the release notes say so when it does.
 
+## 0.2.0 (2026-11-23)
+
+The first release with downloads: a Windows installer, a Linux AppImage and a `.deb`, each listed in `SHA256SUMS`.
+
+### What's new
+
+- Jadeslip runs on 64-bit Windows 10 and 11, tested on Windows 11. The installer adds it to the Start menu, and its data folder is `%LOCALAPPDATA%\dev.jadeslip.app`.
+- The Linux AppImage is built on Ubuntu 22.04, so it runs on that and on newer distributions. It was tested on Ubuntu 22.04, Fedora 41 and Arch, and the `.deb` on Ubuntu 24.04.
+
+### Known issues
+
+- The Windows installer is not signed, so Windows shows "Windows protected your PC" until you click **More info**, then **Run anyway**.
+- On Windows, removing a book from the shelf cannot delete its files yet, because sending files to the Recycle Bin is not done. The remove dialog only offers taking the book off the shelf there.
+- The uninstaller's box that deletes app data also deletes the books on your shelf, because Jadeslip's copies live in that folder. The box is off by default and says so.
+- There is no macOS build yet.
+
 ## 0.1.0 (2026-11-22)
 
 The first public release. Linux only, built from source.

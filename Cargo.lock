@@ -1576,7 +1576,7 @@ checksum = "8f42a60cbdf9a97f5d2305f08a87dc4e09308d1276d28c869c684d7777685682"
 
 [[package]]
 name = "jadeslip"
-version = "0.1.0"
+version = "0.2.0"
 dependencies = [
  "cairo-rs",
  "gdk-sys",
@@ -1596,7 +1596,7 @@ dependencies = [
 
 [[package]]
 name = "jadeslip-core"
-version = "0.1.0"
+version = "0.2.0"
 dependencies = [
  "crc32fast",
  "cssparser 0.38.0",
@@ -1619,7 +1619,7 @@ dependencies = [
 
 [[package]]
 name = "jadeslip-e2e"
-version = "0.1.0"
+version = "0.2.0"
 dependencies = [
  "jadeslip-core",
  "jadeslip-fixtures",
@@ -1631,7 +1631,7 @@ dependencies = [
 
 [[package]]
 name = "jadeslip-fixtures"
-version = "0.1.0"
+version = "0.2.0"
 dependencies = [
  "crc32fast",
  "encoding_rs",
@@ -1643,7 +1643,7 @@ dependencies = [
 
 [[package]]
 name = "jadeslip-worker"
-version = "0.1.0"
+version = "0.2.0"
 dependencies = [
  "fancy-regex",
  "jadeslip-core",
