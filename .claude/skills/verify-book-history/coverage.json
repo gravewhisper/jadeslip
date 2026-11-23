@@ -1,5 +1,5 @@
 {
- "sync_commit": "ba47b58a31408e289205fc06f0b554e6e6063002",
+ "sync_commit": "c7dec952031f4025c6329f9ebb8f240cb4c61813",
  "items": [
   {
    "file": "crates/core/src/history.rs",
@@ -23,7 +23,7 @@
    "file": "crates/core/src/history.rs",
    "owner": "",
    "fn": "scan_from",
-   "sha256": "2387372319dfdcd91796b34dbdef8f424dcf537356c96e526587bbcc8e72ea32"
+   "sha256": "aa47350d317e9dbe1d0b2e0536488d6933870cf5878d7f3d19b98d5184b16c68"
   },
   {
    "file": "crates/core/src/history.rs",
@@ -65,13 +65,37 @@
    "file": "crates/core/src/history.rs",
    "owner": "History",
    "fn": "copy_of",
-   "sha256": "a06efe4fb81b56671416e2302e5925ea99228105931cd618c92247bd1b06e67c"
+   "sha256": "44b3f757281567a189078abffda4128312508a1025d2ede81c277cc69c428908"
   },
   {
    "file": "crates/core/src/history.rs",
    "owner": "",
    "fn": "text_within",
-   "sha256": "525a4bef3aacd6f6ccefd5d3f57be036142410edb13ea694edaaf8f882520ccf"
+   "sha256": "00b92a2cc5b88bf8766e09ae173d49d21fff50bfef031e4b7b4a80160ab0bede"
+  },
+  {
+   "file": "crates/core/src/history.rs",
+   "owner": "",
+   "fn": "read_key",
+   "sha256": "08502a601ec37efab34e9400550d62a038a41c09f53220c9746a7e02faac3d6c"
+  },
+  {
+   "file": "crates/core/src/history.rs",
+   "owner": "",
+   "fn": "read_copy",
+   "sha256": "26e9f3b88d0848f18aa464303fd23430be30e4c747da17de73012496005025d4"
+  },
+  {
+   "file": "crates/core/src/history.rs",
+   "owner": "",
+   "fn": "pick",
+   "sha256": "ae939382bf06a4dacb807255cca4261e0ac9ecc45d383e80aec2366bc46f35d4"
+  },
+  {
+   "file": "crates/core/src/history.rs",
+   "owner": "History",
+   "fn": "blob_meta",
+   "sha256": "5e5067079bf61b81e898ef6bf89025522e8a959916fb311f8beaf898ded51d90"
   },
   {
    "file": "crates/core/src/history.rs",
@@ -95,13 +119,13 @@
    "file": "crates/core/src/history.rs",
    "owner": "History",
    "fn": "append",
-   "sha256": "2a9a74b166d5b0f529b686ad157d04d1c2dc41848e2c2304023f5b509181780d"
+   "sha256": "a762abcc0f8ae68039ec4e36bcd8c61ff4c56469c9f3ec3ed428c4135084774e"
   },
   {
    "file": "crates/core/src/history.rs",
    "owner": "History",
    "fn": "stage",
-   "sha256": "5a34b452710104c73ea8928d0988332655faeee9b6718a0d6ebe2c93697d6eda"
+   "sha256": "252dbf676e849190489d3f305b5da2afca8a371a7c77c8fb051cef396cdc9fbb"
   },
   {
    "file": "crates/core/src/history.rs",
@@ -114,6 +138,12 @@
    "owner": "Staged",
    "fn": "finish",
    "sha256": "d0c902fe6c65bd1bd1c62418de49e93564a483710df95d5e5d82b0b38f83f80e"
+  },
+  {
+   "file": "crates/core/src/history.rs",
+   "owner": "History",
+   "fn": "finish",
+   "sha256": "4e7cd1d4826958de63448238e13ce356a7f561797675bbfa9208f46b460bb4fc"
   },
   {
    "file": "crates/core/src/history.rs",
@@ -167,7 +197,7 @@
    "file": "crates/core/src/commit/history.rs",
    "owner": "Syncing",
    "fn": "finish",
-   "sha256": "78de644c23510f203143fc40ae513d924e12b3be7967589cde8aaf189e1d80af"
+   "sha256": "a7269cc45d2ed5f1cb38c917455d9b00385dd36762c1f66f8f4d63960eba4029"
   },
   {
    "file": "crates/core/src/commit/history.rs",
@@ -227,7 +257,7 @@
    "file": "crates/core/src/commit.rs",
    "owner": "Book",
    "fn": "commit",
-   "sha256": "d242afe80312e535ac582086305305684317346bb41264322084869ce0f03f30"
+   "sha256": "a8acb44cb4497bb8685a0ba3dde63608859c25c2dc5aee7719baf6b300409945"
   },
   {
    "file": "crates/core/src/backup.rs",
@@ -293,7 +323,7 @@
    "file": "crates/core/src/history/prune.rs",
    "owner": "History",
    "fn": "replace_with",
-   "sha256": "07d671c96e730e1bd1a715d4ec1b36d23a4c5889c421047c3026b59b86210c40"
+   "sha256": "7192601ca97af897d09e0124103b83d35b090155884a7b1d406db55902cd298b"
   },
   {
    "file": "crates/core/src/history/prune.rs",

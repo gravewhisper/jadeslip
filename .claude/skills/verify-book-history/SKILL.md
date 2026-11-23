@@ -116,7 +116,7 @@ A point's id was its position in the log until 2026-11-22. A cleanup in another 
 
 ## Coverage
 
-The model was last confirmed against the code at **commit `ba47b58`** (2026-11-22). `coverage.json` stores a hash of each covered function body at that commit. `run.sh drift` names each function whose text has changed since.
+The model was last confirmed against the code at **commit `c7dec95`** (2026-11-24). `coverage.json` stores a hash of each covered function body at that commit. `run.sh drift` names each function whose text has changed since.
 
 | Model action or operator | Code |
 |---|---|
