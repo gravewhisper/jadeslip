@@ -477,6 +477,7 @@ pub fn removal_info(session: State<'_, Session>, key: String) -> Result<RemovalV
     })
 }
 
+#[cfg(not(windows))]
 #[tauri::command(async)]
 pub fn remove_book(
     session: State<'_, Session>,
@@ -491,6 +492,22 @@ pub fn remove_book(
             .shelf()?
             .remove_with(key_of(&key)?, data, file, &trash)
             .map_err(no_message)
+    })
+}
+
+#[cfg(windows)]
+#[tauri::command(async)]
+pub fn remove_book(
+    session: State<'_, Session>,
+    key: String,
+    data: bool,
+    file: bool,
+) -> Result<(), String> {
+    guarded(|| {
+        if data || file {
+            return Err("On Windows, Jadeslip cannot move a book's files to the Recycle Bin yet, so nothing was removed. Untick both boxes to take the book off the shelf and keep its files.".to_owned());
+        }
+        session.shelf()?.remove(key_of(&key)?).map_err(no_message)
     })
 }
 
