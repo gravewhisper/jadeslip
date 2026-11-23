@@ -460,6 +460,7 @@ pub struct RemovalView {
     title: String,
     data_bytes: u64,
     file_bytes: Option<u64>,
+    can_trash: bool,
 }
 
 #[tauri::command(async)]
@@ -473,6 +474,7 @@ pub fn removal_info(session: State<'_, Session>, key: String) -> Result<RemovalV
             title: short(&removal.title),
             data_bytes: removal.data_bytes,
             file_bytes: removal.file_bytes,
+            can_trash: cfg!(not(windows)),
         })
     })
 }

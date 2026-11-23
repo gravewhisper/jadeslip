@@ -154,8 +154,8 @@ export function removalText(info) {
   return {
     title: `Remove ${info.title} from the shelf?`,
     body: "Jadeslip's copy of the book, its backups, history, notes and reading place stay, and adding the book again brings them back. The file you added it from is never touched.",
-    data: `Also delete Jadeslip's data for this book (${sizeText(info.dataBytes)}): backups, history, notes and highlights, drafts, reading place and cover`,
-    file: info.fileBytes == null ? null : `Also delete Jadeslip's copy of the EPUB (${sizeText(info.fileBytes)})`,
+    data: info.canTrash === false ? null : `Also delete Jadeslip's data for this book (${sizeText(info.dataBytes)}): backups, history, notes and highlights, drafts, reading place and cover`,
+    file: info.fileBytes == null || info.canTrash === false ? null : `Also delete Jadeslip's copy of the EPUB (${sizeText(info.fileBytes)})`,
   };
 }
 

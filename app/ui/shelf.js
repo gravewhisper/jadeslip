@@ -474,7 +474,8 @@ export function createShelf({ openBook, openPicker, addPicker, newBook, switchTh
     removing = book.key;
     element('remove-title').textContent = text.title;
     element('remove-text').textContent = text.body;
-    element('remove-data-label').textContent = text.data;
+    element('remove-data-row').hidden = text.data === null;
+    element('remove-data-label').textContent = text.data ?? '';
     element('remove-data').checked = false;
     element('remove-file').checked = false;
     element('remove-file-row').hidden = text.file === null;

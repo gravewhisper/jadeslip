@@ -141,6 +141,9 @@ test('the remove dialog says what stays and what can go', () => {
   assert.match(text.data, /\(2\.4 MB\)/);
   assert.equal(text.file, "Also delete Jadeslip's copy of the EPUB (48.0 MB)");
   assert.equal(removalText({ title: 'Gone', dataBytes: 0, fileBytes: null }).file, null);
+  const kept = removalText({ title: 'Monsoon', dataBytes: 2_400_000, fileBytes: 48_000_000, canTrash: false });
+  assert.equal(kept.data, null, 'no delete choice where files cannot go to a trash');
+  assert.equal(kept.file, null);
 });
 
 test('the move notice counts books and names what changed', () => {
