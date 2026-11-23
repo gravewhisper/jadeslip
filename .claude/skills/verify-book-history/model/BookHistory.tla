@@ -246,7 +246,7 @@ SyncHistory ==
     /\ pc' = "synced"
     /\ \/ /\ log' = SyncedAll(log)
           /\ pending' = (pending /\ Mutant = "no_dir_sync")
-          /\ UNCHANGED <<fails, warned, clean>>
+          /\ UNCHANGED <<fails, warned, clean, crashes>>
        \/ /\ fails < MaxFlushFails
           /\ \E S \in SUBSET Unsynced(log) :
                 /\ S # {}
@@ -254,8 +254,21 @@ SyncHistory ==
           /\ fails' = fails + 1
           /\ warned' = warned \cup {cur}
           /\ clean' = FALSE
-          /\ UNCHANGED pending
-    /\ UNCHANGED <<disk, bookCands, view, idx, target, cur, nextId, appends, crashes, cuts, externals, vouched, oldLog, prunes, pruned, untrusted, held>>
+          /\ UNCHANGED <<pending, crashes>>
+    /\ UNCHANGED <<disk, bookCands, view, idx, target, cur, nextId, appends, cuts, externals, vouched, oldLog, prunes, pruned, untrusted, held>>
+
+KilledBeforeCut ==
+    /\ pc = "staged"
+    /\ fails < MaxFlushFails
+    /\ crashes < MaxCrashes
+    /\ \E S \in SUBSET Unsynced(log) :
+          /\ S # {}
+          /\ log' = LostSome(log, S)
+    /\ fails' = fails + 1
+    /\ crashes' = crashes + 1
+    /\ clean' = FALSE
+    /\ pc' = "closed"
+    /\ UNCHANGED <<disk, bookCands, view, idx, target, cur, nextId, appends, cuts, externals, warned, vouched, oldLog, pending, prunes, pruned, untrusted, held>>
 
 Rename ==
     /\ pc = "synced"
@@ -500,6 +513,7 @@ Next ==
     \/ Hold
     \/ \E c \in Contents : Stage(c)
     \/ SyncHistory
+    \/ KilledBeforeCut
     \/ Rename
     \/ Finish
     \/ Snapshot
