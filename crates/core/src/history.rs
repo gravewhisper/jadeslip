@@ -247,13 +247,14 @@ impl FileId {
 struct Index {
     file: Option<FileId>,
     end: u64,
-    blobs: HashMap<BlobKey, BlobMeta>,
+    blobs: HashMap<BlobKey, Vec<BlobMeta>>,
     records: Vec<Record>,
 }
 
 pub(crate) struct History {
     log: PathBuf,
     index: Option<Index>,
+    trusted: HashSet<BlobKey>,
 }
 
 fn frame(kind: u8, payload: &[u8]) -> Vec<u8> {
@@ -344,7 +345,7 @@ fn scan_from(file: &File, len: u64, index: &mut Index) -> io::Result<()> {
             };
             let mut key = [0u8; KEY_LEN];
             key.copy_from_slice(&payload[..KEY_LEN]);
-            index.blobs.entry(BlobKey(key)).or_insert(BlobMeta {
+            index.blobs.entry(BlobKey(key)).or_default().push(BlobMeta {
                 at: body,
                 len: payload.len() as u64,
                 crc32: le32(&payload, sizes_at),
@@ -412,41 +413,62 @@ fn text_within(
     key: &BlobKey,
     newer: Option<(&BlobKey, &[u8])>,
 ) -> Option<Stored> {
-    let mut chain = vec![(*key, *index.blobs.get(key)?)];
-    let mut known = None;
-    while let Some(base) = chain.last().and_then(|(_, meta)| meta.form.base()) {
-        if let Some((newer_key, newer_text)) = newer
-            && *newer_key == base
-        {
-            known = Some(newer_text.to_vec());
-            break;
-        }
-        if chain.len() > MAX_CHAIN {
-            return None;
-        }
-        chain.push((base, *index.blobs.get(&base)?));
-    }
-    let mut text = match known {
-        Some(text) => text,
-        None => {
-            let (key, meta) = chain.pop()?;
-            let payload = checked_payload(file, &meta, &key)?;
-            match meta.form {
-                Form::Packed => {
-                    let packed = packed_from(&payload, &meta, &key)?;
-                    if chain.is_empty() {
-                        return Some(Stored::Packed(packed));
-                    }
-                    packed.unpack("").ok()?
-                }
-                Form::Text(_) => rebuilt(&payload, &meta, None)?,
-            }
-        }
+    read_key(file, index, key, newer, 0)
+}
+
+fn read_key(
+    file: &File,
+    index: &Index,
+    key: &BlobKey,
+    newer: Option<(&BlobKey, &[u8])>,
+    depth: usize,
+) -> Option<Stored> {
+    index
+        .blobs
+        .get(key)?
+        .iter()
+        .find_map(|meta| read_copy(file, index, key, meta, newer, depth))
+}
+
+fn read_copy(
+    file: &File,
+    index: &Index,
+    key: &BlobKey,
+    meta: &BlobMeta,
+    newer: Option<(&BlobKey, &[u8])>,
+    depth: usize,
+) -> Option<Stored> {
+    let payload = checked_payload(file, meta, key)?;
+    let base = match meta.form {
+        Form::Packed => return packed_from(&payload, meta, key).map(Stored::Packed),
+        Form::Text(None) => None,
+        Form::Text(Some(base)) => Some(match newer {
+            Some((newer_key, newer_text)) if *newer_key == base => newer_text.to_vec(),
+            _ if depth >= MAX_CHAIN => return None,
+            _ => match read_key(file, index, &base, newer, depth + 1)? {
+                Stored::Packed(packed) => packed.unpack("").ok()?,
+                Stored::Text(text) => text,
+            },
+        }),
     };
-    for (key, meta) in chain.iter().rev() {
-        text = rebuilt(&checked_payload(file, meta, key)?, meta, Some(&text))?;
+    rebuilt(&payload, meta, base.as_deref()).map(Stored::Text)
+}
+
+fn pick(file: &File, index: &Index, key: &BlobKey) -> Option<BlobMeta> {
+    let copies = index.blobs.get(key)?;
+    if let [only] = copies.as_slice() {
+        return Some(*only);
     }
-    Some(Stored::Text(text))
+    copies
+        .iter()
+        .find(|meta| read_copy(file, index, key, meta, None, 0).is_some())
+        .or_else(|| {
+            copies
+                .iter()
+                .find(|meta| checked_payload(file, meta, key).is_some())
+        })
+        .or(copies.first())
+        .copied()
 }
 
 fn blob_payload(key: BlobKey, packed: &Packed) -> Vec<u8> {
@@ -473,7 +495,11 @@ impl History {
     }
 
     fn at(log: PathBuf) -> History {
-        History { log, index: None }
+        History {
+            log,
+            index: None,
+            trusted: HashSet::new(),
+        }
     }
 
     fn dir(&self) -> &Path {
@@ -508,8 +534,10 @@ impl History {
         Ok(&self.refresh()?.records)
     }
 
-    pub(crate) fn blob_meta(&self, key: &BlobKey) -> Option<BlobMeta> {
-        self.index.as_ref()?.blobs.get(key).copied()
+    pub(crate) fn blob_meta(&mut self, key: &BlobKey) -> Option<BlobMeta> {
+        let file = File::open(&self.log).ok()?;
+        let index = self.refresh_from(&file).ok()?;
+        pick(&file, index, key)
     }
 
     fn stored(&mut self, key: &BlobKey, newer: Option<(&BlobKey, &[u8])>) -> Result<Stored, Error> {
@@ -546,7 +574,7 @@ impl History {
 
     fn copy_of(&mut self, key: &BlobKey) -> Option<Vec<u8>> {
         let file = File::open(&self.log).ok()?;
-        let meta = *self.refresh_from(&file).ok()?.blobs.get(key)?;
+        let meta = pick(&file, self.refresh_from(&file).ok()?, key)?;
         let payload = checked_payload(&file, &meta, key)?;
         match meta.form {
             Form::Packed => packed_from(&payload, &meta, key).map(|_| frame(BLOB, &payload)),
@@ -557,16 +585,30 @@ impl History {
     pub(crate) fn append(&mut self, blobs: Vec<Packed>, record: Record) -> io::Result<()> {
         let staged = self.stage(blobs, record)?;
         let synced = staged.sync();
-        staged.finish(synced)
+        self.finish(&staged, synced)
+    }
+
+    pub(crate) fn finish(&mut self, staged: &Staged, synced: io::Result<()>) -> io::Result<()> {
+        staged.finish(synced)?;
+        self.trusted.extend(&staged.keys);
+        Ok(())
     }
 
     pub(crate) fn stage(&mut self, blobs: Vec<Packed>, record: Record) -> io::Result<Staged> {
-        let end = self.refresh()?.end;
+        let index = self.refresh()?;
+        let end = index.end;
+        let indexed: HashSet<BlobKey> = blobs
+            .iter()
+            .map(BlobKey::of)
+            .filter(|key| index.blobs.contains_key(key))
+            .collect();
+        let reusable: HashSet<&BlobKey> = indexed.intersection(&self.trusted).collect();
         let mut out = Vec::new();
-        let mut written = HashSet::new();
+        let mut keys = Vec::new();
         for packed in &blobs {
             let key = BlobKey::of(packed);
-            if self.blob_meta(&key).is_none() && written.insert(key) {
+            if !reusable.contains(&key) && !keys.contains(&key) {
+                keys.push(key);
                 out.extend_from_slice(&frame(BLOB, &blob_payload(key, packed)));
             }
         }
@@ -593,6 +635,7 @@ impl History {
             start: end,
             dir: self.dir().to_owned(),
             created,
+            keys,
         })
     }
 }
@@ -602,6 +645,7 @@ pub(crate) struct Staged {
     start: u64,
     dir: PathBuf,
     created: bool,
+    keys: Vec<BlobKey>,
 }
 
 impl Staged {
@@ -616,7 +660,7 @@ impl Staged {
         Ok(())
     }
 
-    pub(crate) fn finish(&self, synced: io::Result<()>) -> io::Result<()> {
+    fn finish(&self, synced: io::Result<()>) -> io::Result<()> {
         let finished = synced.and_then(|()| hit(Step::HistorySynced));
         if finished.is_err() {
             self.file.set_len(self.start).ok();

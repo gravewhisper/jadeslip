@@ -223,7 +223,7 @@ impl Plan {
         let mut size = 0;
         for record in &self.records {
             for key in cited(record) {
-                if let Some(meta) = index.blobs.get(&key)
+                if let Some(meta) = index.blobs.get(&key).and_then(|copies| copies.first())
                     && counted.insert(key)
                 {
                     size += HEAD_LEN + meta.len;
@@ -344,6 +344,7 @@ impl History {
         plan.verify(self, old, current, &written, temp)?;
         let bytes_after = fs::metadata(temp).map_err(prune_failed)?.len();
         fs::rename(temp, &self.log).map_err(prune_failed)?;
+        self.trusted.extend(written);
         Ok(bytes_after)
     }
 

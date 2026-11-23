@@ -1026,7 +1026,7 @@ fn a_damaged_base_makes_the_versions_built_on_it_damaged_never_wrong() {
         let scratch = Scratch::new("compact-damaged-base");
         let (mut history, versions) = saved_versions(&scratch, &texts);
         history.prune(file(45), 0, false).unwrap();
-        let meta = reopened(&scratch).refresh().unwrap().blobs[&BlobKey::of(&versions[43])];
+        let meta = reopened(&scratch).refresh().unwrap().blobs[&BlobKey::of(&versions[43])][0];
         assert_eq!(meta.form, Form::Text(Some(BlobKey::of(&versions[44]))));
         let mut bytes = fs::read(scratch.log()).unwrap();
         bytes[meta.at as usize + TEXT_META_LEN + 9] ^= 0x10;
@@ -1054,7 +1054,7 @@ fn damage_to_the_newest_version_reaches_at_most_twenty_versions_back() {
     let texts = edited(45, 20_000);
     let (mut history, versions) = saved_versions(&scratch, &texts);
     history.prune(file(45), 0, false).unwrap();
-    let at = reopened(&scratch).refresh().unwrap().blobs[&BlobKey::of(&versions[44])].at;
+    let at = reopened(&scratch).refresh().unwrap().blobs[&BlobKey::of(&versions[44])][0].at;
     let mut bytes = fs::read(scratch.log()).unwrap();
     bytes[at as usize + 60] ^= 0x10;
     fs::write(scratch.log(), &bytes).unwrap();
@@ -1132,7 +1132,7 @@ fn a_rewrite_that_would_not_give_back_every_version_is_refused_and_the_old_log_s
     let key = BlobKey::of(&versions[10]);
     install(move |step| {
         if step == Step::PruneSynced {
-            let at = History::at(temp.clone()).refresh()?.blobs[&key].at;
+            let at = History::at(temp.clone()).refresh()?.blobs[&key][0].at;
             let mut bytes = fs::read(&temp)?;
             bytes[at as usize + TEXT_META_LEN + 9] ^= 0x10;
             reframed(&mut bytes, at);

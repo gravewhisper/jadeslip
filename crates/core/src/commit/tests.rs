@@ -2210,6 +2210,32 @@ fn a_version_lost_in_a_failed_flush_is_stored_again_by_a_later_save() {
 }
 
 #[test]
+fn a_version_left_unflushed_by_a_killed_save_is_stored_again_after_reopening() {
+    let scratch = Scratch::new("history-killed-reuse");
+    scratch.place(&fixture(SMALL));
+    let book = scratch.open();
+    let original = first_document(&book.read());
+    let restore_original = || NewEntry::deflate(original.name.clone(), &original.bytes);
+    book.save_entries(vec![restore_original()]).unwrap();
+    let start = history_len(&scratch);
+    fail_at(Step::HistoryWritten);
+    edit_first_chapter(&book, "QQQONE");
+    install(|_| Ok(()));
+    let end = history_len(&scratch);
+    drop(book);
+    let reopened = scratch.open();
+    reopened.save_entries(vec![restore_original()]).unwrap();
+    let report = edit_first_chapter(&reopened, "QQQTWO");
+    assert!(report.warnings.is_empty(), "{:?}", report.warnings);
+    lose_history(&scratch, start, end, Loss::BlobBodies);
+    let latest = reopened.history().unwrap()[0].id;
+    reopened
+        .restore_point(latest, RevertTarget::Chapter(original.name.clone()))
+        .unwrap();
+    assert!(!String::from_utf8_lossy(&chapter_bytes(&reopened, &original.name)).contains("QQQ"));
+}
+
+#[test]
 fn a_version_torn_by_a_power_cut_is_stored_again_by_the_next_save() {
     let scratch = Scratch::new("history-torn-reuse");
     scratch.place(&fixture(SMALL));

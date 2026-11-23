@@ -1196,7 +1196,9 @@ impl Book {
 
         let timer = Instant::now();
         let pending = slot.set_pending(hash).map_err(save_failed);
-        if let Some(Err(detail)) = syncing.map(|started| started.and_then(Syncing::finish)) {
+        if let Some(Err(detail)) =
+            syncing.map(|started| started.and_then(|sync| sync.finish(&mut state.history)))
+        {
             warnings.push(history_warning(&detail));
         }
         phases.ledger_pending = timer.elapsed();

@@ -67,6 +67,7 @@ run_one() {
 for kind in checks findings mutants; do
     [ "$GROUP" = all ] || [ "$GROUP" = "$kind" ] || continue
     for cfg in "$MODEL/$kind"/*.cfg; do
+        [ -e "$cfg" ] || continue
         run_one "$cfg" "$kind"
     done
 done

@@ -23,16 +23,16 @@ VARIABLES
     pc, view, idx, target, cur,
     nextId, appends, crashes, cuts, externals, fails,
     warned, vouched, clean,
-    oldLog, pending, prunes, pruned, untrusted, held
+    oldLog, pending, prunes, pruned, untrusted, held, trusted
 
 vars == <<disk, bookCands, log, pc, view, idx, target, cur,
           nextId, appends, crashes, cuts, externals, fails, warned, vouched, clean,
-          oldLog, pending, prunes, pruned, untrusted, held>>
+          oldLog, pending, prunes, pruned, untrusted, held, trusted>>
 
 Last(s) == s[Len(s)]
 Front(s) == SubSeq(s, 1, Len(s) - 1)
 
-Intact(f) == f.st = "ok" \/ (f.kind = "blob" /\ f.st = "body" /\ Mutant = "no_blob_crc")
+Intact(f) == f.st = "ok"
 
 RECURSIVE ScanFrom(_, _)
 ScanFrom(lg, ix) ==
@@ -45,22 +45,32 @@ ScanFrom(lg, ix) ==
                     ELSE ix
               [] f.kind \in {"blob", "text"} ->
                     ScanFrom(lg, [ix EXCEPT !.end = at,
-                        !.blobs = IF f.key \in DOMAIN ix.blobs THEN ix.blobs ELSE ix.blobs @@ (f.key :> at)])
+                        !.blobs = IF f.key \in DOMAIN ix.blobs
+                                  THEN [ix.blobs EXCEPT ![f.key] = Append(@, at)]
+                                  ELSE ix.blobs @@ (f.key :> <<at>>)])
               [] OTHER -> ScanFrom(lg, [ix EXCEPT !.end = at, !.recs = Append(ix.recs, f.rec)])
 
 Refresh(lg, ix) == ScanFrom(lg, IF ix.end > Len(lg) THEN EmptyIx ELSE ix)
 
-Indexed(lg, ix, k) ==
-    /\ k \in DOMAIN ix.blobs
-    /\ ix.blobs[k] <= Len(lg)
-    /\ lg[ix.blobs[k]].kind \in {"blob", "text"}
-    /\ lg[ix.blobs[k]].key = k
-    /\ lg[ix.blobs[k]].st = "ok"
+Min(S) == CHOOSE x \in S : \A y \in S : x <= y
 
-RECURSIVE ReadBack(_, _, _, _)
-ReadBack(lg, ix, k, depth) ==
-    IF ~Indexed(lg, ix, k) THEN Bad
-    ELSE LET f == lg[ix.blobs[k]]
+Copies(ix, k) ==
+    IF k \notin DOMAIN ix.blobs THEN <<>>
+    ELSE IF Mutant = "first_copy" THEN SubSeq(ix.blobs[k], 1, 1)
+    ELSE ix.blobs[k]
+
+FrameOk(lg, p, k) ==
+    /\ p <= Len(lg)
+    /\ lg[p].kind \in {"blob", "text"}
+    /\ lg[p].key = k
+    /\ lg[p].st = "ok"
+
+Indexed(lg, ix, k) == \E i \in 1..Len(Copies(ix, k)) : FrameOk(lg, Copies(ix, k)[i], k)
+
+RECURSIVE ReadBack(_, _, _, _), ReadAt(_, _, _, _, _), FirstRead(_, _, _, _, _, _)
+ReadAt(lg, ix, p, k, depth) ==
+    IF ~FrameOk(lg, p, k) THEN Bad
+    ELSE LET f == lg[p]
          IN IF f.base = 0 THEN k
             ELSE IF depth >= MaxChain THEN Bad
             ELSE LET t == ReadBack(lg, ix, f.base, depth + 1)
@@ -68,6 +78,19 @@ ReadBack(lg, ix, k, depth) ==
                     ELSE IF t = f.from THEN k
                     ELSE IF Mutant = "wrong_base_unchecked" THEN Garbled
                     ELSE Bad
+
+FirstRead(lg, ix, cs, i, k, depth) ==
+    IF i > Len(cs) THEN Bad
+    ELSE LET r == ReadAt(lg, ix, cs[i], k, depth)
+         IN IF r # Bad THEN r ELSE FirstRead(lg, ix, cs, i + 1, k, depth)
+
+ReadBack(lg, ix, k, depth) == FirstRead(lg, ix, Copies(ix, k), 1, k, depth)
+
+Pick(lg, ix, k) ==
+    LET cs == Copies(ix, k)
+        good == {i \in 1..Len(cs) : ReadAt(lg, ix, cs[i], k, 0) # Bad}
+        ok == {i \in 1..Len(cs) : FrameOk(lg, cs[i], k)}
+    IN cs[IF good # {} THEN Min(good) ELSE IF ok # {} THEN Min(ok) ELSE 1]
 
 ReadText(lg, ix, k) == IF k = 0 THEN 0 ELSE ReadBack(lg, ix, k, 0)
 
@@ -179,7 +202,7 @@ LostSome(lg, S) ==
         ELSE IF lg[i].dur = "unsynced" THEN [lg[i] EXCEPT !.dur = "ok"]
         ELSE lg[i]]
 
-AfterFail(lg, start, S) == LostSome(IF Mutant = "keep_failed" THEN lg ELSE SubSeq(lg, 1, start), S)
+AfterFail(lg, start, S) == LostSome(SubSeq(lg, 1, start), S)
 
 Init ==
     /\ disk = Original
@@ -205,6 +228,7 @@ Init ==
     /\ pruned = {}
     /\ untrusted = {}
     /\ held = {}
+    /\ trusted = {}
 
 Open ==
     /\ \/ pc = "closed"
@@ -213,7 +237,12 @@ Open ==
     /\ view' = disk
     /\ idx' = EmptyIx
     /\ bookCands' = {disk}
+    /\ trusted' = {}
     /\ UNCHANGED <<disk, log, target, cur, nextId, appends, crashes, cuts, externals, fails, warned, vouched, clean, oldLog, pending, prunes, pruned, untrusted, held>>
+
+Reusable(ix) == IF Mutant = "trust_any" THEN DOMAIN ix.blobs ELSE trusted \cap DOMAIN ix.blobs
+
+Written(lg, from) == {lg[i].key : i \in {i \in (from + 1)..Len(lg) : lg[i].kind \in {"blob", "text"}}}
 
 Stage(c) ==
     /\ pc = "idle"
@@ -224,7 +253,7 @@ Stage(c) ==
            ch == {e \in Entries : c[e] # disk[e]}
            rec == [kind |-> "save", before |-> disk, after |-> c,
                    changes |-> [e \in ch |-> disk[e]], carried |-> NoChanges, id |-> nextId]
-           keys == {disk[e] : e \in ch} \ ({0} \cup DOMAIN ix.blobs)
+           keys == {disk[e] : e \in ch} \ ({0} \cup Reusable(ix))
            fr == (IF Mutant = "skip_blobs" THEN <<>> ELSE BlobSeq(keys)) \o <<RecFrame(rec)>>
        IN /\ idx' = ix
           /\ \/ /\ log' = Kept(ix) \o fr
@@ -239,13 +268,14 @@ Stage(c) ==
                 /\ UNCHANGED <<target, cur>>
     /\ nextId' = nextId + 1
     /\ appends' = appends + 1
-    /\ UNCHANGED <<disk, bookCands, view, cuts, externals, fails, warned, vouched, clean, oldLog, pending, prunes, pruned, untrusted, held>>
+    /\ UNCHANGED <<disk, bookCands, view, cuts, externals, fails, warned, vouched, clean, oldLog, pending, prunes, pruned, untrusted, held, trusted>>
 
 SyncHistory ==
     /\ pc = "staged"
     /\ pc' = "synced"
     /\ \/ /\ log' = SyncedAll(log)
           /\ pending' = (pending /\ Mutant = "no_dir_sync")
+          /\ trusted' = trusted \cup Written(log, idx.end)
           /\ UNCHANGED <<fails, warned, clean, crashes>>
        \/ /\ fails < MaxFlushFails
           /\ \E S \in SUBSET Unsynced(log) :
@@ -254,7 +284,7 @@ SyncHistory ==
           /\ fails' = fails + 1
           /\ warned' = warned \cup {cur}
           /\ clean' = FALSE
-          /\ UNCHANGED <<pending, crashes>>
+          /\ UNCHANGED <<pending, crashes, trusted>>
     /\ UNCHANGED <<disk, bookCands, view, idx, target, cur, nextId, appends, cuts, externals, vouched, oldLog, prunes, pruned, untrusted, held>>
 
 KilledBeforeCut ==
@@ -268,7 +298,7 @@ KilledBeforeCut ==
     /\ crashes' = crashes + 1
     /\ clean' = FALSE
     /\ pc' = "closed"
-    /\ UNCHANGED <<disk, bookCands, view, idx, target, cur, nextId, appends, cuts, externals, warned, vouched, oldLog, pending, prunes, pruned, untrusted, held>>
+    /\ UNCHANGED <<disk, bookCands, view, idx, target, cur, nextId, appends, cuts, externals, warned, vouched, oldLog, pending, prunes, pruned, untrusted, held, trusted>>
 
 Rename ==
     /\ pc = "synced"
@@ -278,7 +308,7 @@ Rename ==
             /\ pc' = "renamed"
        ELSE /\ pc' = "idle"
             /\ UNCHANGED <<disk, bookCands>>
-    /\ UNCHANGED <<log, view, idx, target, cur, nextId, appends, crashes, cuts, externals, fails, warned, vouched, clean, oldLog, pending, prunes, pruned, untrusted, held>>
+    /\ UNCHANGED <<log, view, idx, target, cur, nextId, appends, crashes, cuts, externals, fails, warned, vouched, clean, oldLog, pending, prunes, pruned, untrusted, held, trusted>>
 
 Finish ==
     /\ pc = "renamed"
@@ -286,7 +316,7 @@ Finish ==
     /\ view' = target
     /\ pc' = "idle"
     /\ vouched' = IF cur \in warned THEN vouched ELSE vouched \cup {[id |-> cur, before |-> view]}
-    /\ UNCHANGED <<disk, log, idx, target, cur, nextId, appends, crashes, cuts, externals, fails, warned, clean, oldLog, pending, prunes, pruned, untrusted, held>>
+    /\ UNCHANGED <<disk, log, idx, target, cur, nextId, appends, crashes, cuts, externals, fails, warned, clean, oldLog, pending, prunes, pruned, untrusted, held, trusted>>
 
 Snapshot ==
     /\ pc = "idle"
@@ -310,14 +340,14 @@ Snapshot ==
                 /\ UNCHANGED <<vouched, pending>>
     /\ nextId' = nextId + 1
     /\ appends' = appends + 1
-    /\ UNCHANGED <<disk, bookCands, pc, view, target, cur, crashes, cuts, externals, oldLog, prunes, pruned, untrusted, held>>
+    /\ UNCHANGED <<disk, bookCands, pc, view, target, cur, crashes, cuts, externals, oldLog, prunes, pruned, untrusted, held, trusted>>
 
 Crash ==
     /\ pc \in {"idle", "staged", "synced", "renamed"}
     /\ crashes < MaxCrashes
     /\ pc' = "closed"
     /\ crashes' = crashes + 1
-    /\ UNCHANGED <<disk, bookCands, log, view, idx, target, cur, nextId, appends, cuts, externals, fails, warned, vouched, clean, oldLog, pending, prunes, pruned, untrusted, held>>
+    /\ UNCHANGED <<disk, bookCands, log, view, idx, target, cur, nextId, appends, cuts, externals, fails, warned, vouched, clean, oldLog, pending, prunes, pruned, untrusted, held, trusted>>
 
 Settle(f) ==
     CASE f.st # "ok" -> {[f EXCEPT !.dur = "ok"]}
@@ -342,14 +372,14 @@ PowerCut ==
     /\ pc' = "closed"
     /\ cuts' = cuts + 1
     /\ pending' = FALSE
-    /\ UNCHANGED <<view, idx, target, cur, nextId, appends, crashes, externals, fails, warned, vouched, clean, oldLog, prunes, pruned, untrusted, held>>
+    /\ UNCHANGED <<view, idx, target, cur, nextId, appends, crashes, externals, fails, warned, vouched, clean, oldLog, prunes, pruned, untrusted, held, trusted>>
 
 Evict ==
     /\ \E i \in 1..Len(log), s \in {"body", "gone"} :
           /\ log[i].dur = "lost"
           /\ log[i].st = "ok"
           /\ log' = [log EXCEPT ![i].st = s]
-    /\ UNCHANGED <<disk, bookCands, pc, view, idx, target, cur, nextId, appends, crashes, cuts, externals, fails, warned, vouched, clean, oldLog, pending, prunes, pruned, untrusted, held>>
+    /\ UNCHANGED <<disk, bookCands, pc, view, idx, target, cur, nextId, appends, crashes, cuts, externals, fails, warned, vouched, clean, oldLog, pending, prunes, pruned, untrusted, held, trusted>>
 
 OutsideWrite ==
     /\ externals < MaxExternal
@@ -358,7 +388,7 @@ OutsideWrite ==
           /\ bookCands' = {d}
     /\ externals' = externals + 1
     /\ clean' = FALSE
-    /\ UNCHANGED <<log, pc, view, idx, target, cur, nextId, appends, crashes, cuts, fails, warned, vouched, oldLog, pending, prunes, pruned, untrusted, held>>
+    /\ UNCHANGED <<log, pc, view, idx, target, cur, nextId, appends, crashes, cuts, fails, warned, vouched, oldLog, pending, prunes, pruned, untrusted, held, trusted>>
 
 
 Verified == Mutant \notin {"fold_gaps", "fold_last", "drop_named", "drop_newest", "prune_skip_blobs", "prune_no_sync",
@@ -431,8 +461,8 @@ CompactFrom(links, i, ix, D, st) ==
              b == IF links[i].base \in st.placed THEN links[i].base ELSE 0
              next == IF k \notin DOMAIN ix.blobs THEN st
                      ELSE IF ~Readable(log, ix, k)
-                     THEN IF log[ix.blobs[k]].kind = "text" THEN [st EXCEPT !.lost = @ \cup {k}] ELSE st
-                     ELSE IF Recompute(log[ix.blobs[k]], b, k, D)
+                     THEN IF log[Pick(log, ix, k)].kind = "text" THEN [st EXCEPT !.lost = @ \cup {k}] ELSE st
+                     ELSE IF Recompute(log[Pick(log, ix, k)], b, k, D)
                      THEN [st EXCEPT !.placed = @ \cup {k}, !.texts = @ @@ (k :> NewText(k, b, D))]
                      ELSE [st EXCEPT !.placed = @ \cup {k}]
          IN CompactFrom(links, i + 1, ix, D, next)
@@ -441,7 +471,7 @@ Compact(links, ix, D) == CompactFrom(links, 1, ix, D, [placed |-> {}, texts |-> 
 
 Squeezable(links) == SUBSET {links[i].key : i \in {i \in 1..Len(links) : links[i].base # 0}}
 
-CopyOf(k, ix, cp) == IF k \in DOMAIN cp.texts THEN cp.texts[k] ELSE [log[ix.blobs[k]] EXCEPT !.dur = "unsynced"]
+CopyOf(k, ix, cp) == IF k \in DOMAIN cp.texts THEN cp.texts[k] ELSE [log[Pick(log, ix, k)] EXCEPT !.dur = "unsynced"]
 
 RECURSIVE Rewrite(_, _, _, _, _, _)
 Rewrite(recs, i, ix, cp, written, out) ==
@@ -496,6 +526,7 @@ Prune(c) ==
                              /\ \A n \in (k + 1)..m : ~KeepPoint(pts, n, c) /\ ~GapBefore(pts, n)
                              /\ ~\E v \in vouched : v.id = pts[m].rec.id}}
                /\ idx' = EmptyIx
+               /\ trusted' = trusted \cup Written(new, 0)
     /\ bookCands' = IF Mutant = "closed_no_sync" THEN bookCands ELSE {disk}
     /\ prunes' = prunes + 1
     /\ UNCHANGED <<disk, pc, view, target, cur, nextId, appends, crashes, cuts, externals, fails, warned, vouched, clean, held>>
@@ -506,7 +537,7 @@ Hold ==
     /\ view = disk
     /\ LET pts == Shown(Refresh(log, idx))
        IN \E j \in 1..Len(pts) : held' = held \cup {[id |-> pts[j].rec.id, handle |-> Handle(pts, j)]}
-    /\ UNCHANGED <<disk, bookCands, log, pc, view, idx, target, cur, nextId, appends, crashes, cuts, externals, fails, warned, vouched, clean, oldLog, pending, prunes, pruned, untrusted>>
+    /\ UNCHANGED <<disk, bookCands, log, pc, view, idx, target, cur, nextId, appends, crashes, cuts, externals, fails, warned, vouched, clean, oldLog, pending, prunes, pruned, untrusted, trusted>>
 
 Next ==
     \/ Open

@@ -121,11 +121,11 @@ impl Syncing {
         }))
     }
 
-    pub(super) fn finish(self) -> Result<(), String> {
+    pub(super) fn finish(self, history: &mut History) -> Result<(), String> {
         self.0
             .join()
             .map_err(|_| io::Error::other("the history sync stopped"))
-            .and_then(|(staged, synced)| staged.finish(synced))
+            .and_then(|(staged, synced)| history.finish(&staged, synced))
             .map_err(|error| crate::plain_io(&error).to_owned())
     }
 }
