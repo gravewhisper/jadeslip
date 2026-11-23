@@ -267,7 +267,7 @@ fn titles_of(reader: &Reader<File>) -> HashMap<u32, String> {
 fn options() -> SearchOptions {
     let worker_exe = std::env::current_exe()
         .ok()
-        .map(|exe| exe.with_file_name("jadeslip-worker"));
+        .map(|exe| exe.with_file_name(format!("jadeslip-worker{}", std::env::consts::EXE_SUFFIX)));
     SearchOptions {
         max_hits: MAX_HITS,
         worker_exe,

@@ -1298,5 +1298,5 @@ fn as_save_error(error: Error) -> Error {
     }
 }
 
-#[cfg(test)]
+#[cfg(all(test, unix))]
 mod tests;

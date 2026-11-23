@@ -5,9 +5,9 @@ use crate::commands::{
 use crate::session::{Session, guarded};
 use serde::{Deserialize, Serialize};
 use jadeslip_core::{
-    AddOutcome, AnchorResolution, BackupStatus, Book, BookKey, ChapterIx, ChapterRev,
-    CommitReport, CoverFound, CoverStamp, DomRange, EntryName, Mark, Reader, ResumePoint,
-    RevertKind, RevertTarget, ShelfAdd, VisRange, key_hex, parse_key,
+    AddOutcome, AnchorResolution, BOOK_URL_PREFIX, BackupStatus, Book, BookKey, ChapterIx,
+    ChapterRev, CommitReport, CoverFound, CoverStamp, DomRange, EntryName, Mark, Reader,
+    ResumePoint, RevertKind, RevertTarget, ShelfAdd, VisRange, key_hex, parse_key,
 };
 use std::path::{Path, PathBuf};
 use tauri::{AppHandle, State};
@@ -62,7 +62,7 @@ pub struct ShelfRow {
 fn cover_url(key: BookKey, cover: Option<CoverStamp>) -> Option<String> {
     cover
         .filter(|cover| cover.found == CoverFound::Thumbnail)
-        .map(|cover| format!("jadeslip-book://cover/{}?v={}", key_hex(key), cover.file))
+        .map(|cover| format!("{BOOK_URL_PREFIX}cover/{}?v={}", key_hex(key), cover.file))
 }
 
 pub fn shelf_rows(session: &Session) -> Vec<ShelfRow> {

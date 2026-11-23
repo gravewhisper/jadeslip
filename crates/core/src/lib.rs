@@ -1,4 +1,10 @@
 mod anchor;
+
+#[cfg(not(windows))]
+pub const BOOK_URL_PREFIX: &str = "jadeslip-book://";
+#[cfg(windows)]
+pub const BOOK_URL_PREFIX: &str = "http://jadeslip-book.localhost/";
+
 mod backup;
 mod book;
 mod canon;

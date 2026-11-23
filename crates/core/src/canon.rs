@@ -32,7 +32,7 @@ pub(crate) struct SourceAtom {
     pub(crate) span: Span,
 }
 
-const SCHEME_PREFIX: &str = "jadeslip-book://";
+use crate::BOOK_URL_PREFIX as SCHEME_PREFIX;
 const SESSION_HEX_LEN: usize = 16;
 
 fn without_session(value: String) -> String {

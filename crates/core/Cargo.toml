@@ -25,6 +25,9 @@ spellbook = "0.4"
 zlib-rs = { version = "0.6", default-features = false, features = ["std", "rust-allocator"] }
 image = { version = "0.25", default-features = false, features = ["jpeg", "png"] }
 
+[target.'cfg(windows)'.dependencies]
+windows-sys = { version = "0.61", features = ["Win32_Foundation", "Win32_Security", "Win32_Storage_FileSystem", "Win32_System_JobObjects", "Win32_System_Threading"] }
+
 [dev-dependencies]
 proptest = "1"
 roxmltree = "0.21"

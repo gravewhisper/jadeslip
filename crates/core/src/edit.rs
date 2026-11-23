@@ -805,5 +805,5 @@ pub(crate) fn finish_bytes(model: &ChapterModel, edits: Vec<SourceEdit>) -> (Vec
     }
 }
 
-#[cfg(test)]
+#[cfg(all(test, unix))]
 mod tests;

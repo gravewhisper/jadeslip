@@ -5,15 +5,39 @@ use tauri::http::{Request, Response, Uri, header};
 
 pub const UI_SCHEME: &str = "jadeslip";
 pub const BOOK_SCHEME: &str = "jadeslip-book";
+#[cfg(not(windows))]
 pub const UI_URL: &str = "jadeslip://localhost/index.html";
+#[cfg(windows)]
+pub const UI_URL: &str = "http://jadeslip.localhost/index.html";
 
-pub const UI_CSP: &str = "default-src 'none'; script-src 'self'; \
-    style-src 'self' 'unsafe-inline'; img-src jadeslip-book:; font-src 'self' jadeslip-book:; \
-    media-src jadeslip-book:; connect-src ipc: http://ipc.localhost; frame-src 'none'; \
-    object-src 'none'; base-uri 'none'; form-action 'none'";
+#[cfg(not(windows))]
+macro_rules! book_source {
+    () => {
+        "jadeslip-book:"
+    };
+}
+#[cfg(windows)]
+macro_rules! book_source {
+    () => {
+        "http://jadeslip-book.localhost"
+    };
+}
 
-const RESOURCE_CSP: &str =
-    "sandbox; default-src 'none'; style-src 'unsafe-inline'; img-src jadeslip-book:";
+pub const UI_CSP: &str = concat!(
+    "default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src ",
+    book_source!(),
+    "; font-src 'self' ",
+    book_source!(),
+    "; media-src ",
+    book_source!(),
+    "; connect-src ipc: http://ipc.localhost; frame-src 'none'; ",
+    "object-src 'none'; base-uri 'none'; form-action 'none'"
+);
+
+const RESOURCE_CSP: &str = concat!(
+    "sandbox; default-src 'none'; style-src 'unsafe-inline'; img-src ",
+    book_source!()
+);
 
 macro_rules! font {
     ($name:literal) => {
@@ -321,20 +345,38 @@ pub fn cover_response(library: &Library, uri: &Uri) -> Response<Cow<'static, [u8
         .unwrap_or_else(|_| not_found())
 }
 
+#[cfg(not(windows))]
+fn book_uri(uri: &Uri) -> (Uri, String) {
+    (uri.clone(), uri.to_string())
+}
+
+#[cfg(windows)]
+fn book_uri(uri: &Uri) -> (Uri, String) {
+    let tail = uri
+        .path_and_query()
+        .map_or("", |path| path.as_str())
+        .trim_start_matches('/');
+    let routed = format!("jadeslip-book://{tail}")
+        .parse()
+        .unwrap_or_else(|_| uri.clone());
+    (routed, format!("{}{tail}", jadeslip_core::BOOK_URL_PREFIX))
+}
+
 pub fn book_response(
     session: &Session,
     request: &Request<Vec<u8>>,
 ) -> Response<Cow<'static, [u8]>> {
-    if request.uri().host() == Some(COVER_HOST) {
+    let (uri, url) = book_uri(request.uri());
+    if uri.host() == Some(COVER_HOST) {
         return match session.library() {
-            Ok(library) => cover_response(library, request.uri()),
+            Ok(library) => cover_response(library, &uri),
             Err(_) => not_found(),
         };
     }
     let Ok(reader) = session.reader() else {
         return not_found();
     };
-    let Some(entry) = reader.entry_of_url(&request.uri().to_string()) else {
+    let Some(entry) = reader.entry_of_url(&url) else {
         return not_found();
     };
     let Ok(resource) = reader.resource(&entry) else {

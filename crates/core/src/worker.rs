@@ -4,7 +4,9 @@ use crate::{ChapterIx, Limits, Reader};
 use serde::{Deserialize, Serialize};
 use std::fs::File;
 use std::io::{self, BufRead, BufReader, BufWriter, Read, Write};
+#[cfg(unix)]
 use std::os::fd::{AsRawFd, FromRawFd};
+#[cfg(unix)]
 use std::os::unix::process::CommandExt;
 use std::path::Path;
 use std::process::{Child, ChildStdin, Command, Stdio};
@@ -12,7 +14,9 @@ use std::sync::Arc;
 use std::sync::mpsc::{self, Receiver, RecvTimeoutError};
 use std::time::{Duration, Instant};
 
+#[cfg(unix)]
 const BOOK_FD: i32 = 3;
+#[cfg(unix)]
 const WORKER_NICE: i32 = 10;
 const COMPILE_DEADLINE: Duration = Duration::from_secs(5);
 const LOAD_DEADLINE: Duration = Duration::from_secs(15);
@@ -40,6 +44,7 @@ enum Request {
         pattern: String,
         case: Case,
         limits: Limits,
+        book: u64,
     },
     Chapter {
         ix: u32,
@@ -210,9 +215,10 @@ fn worker_main<E: PatternEngine>() -> Option<()> {
                 pattern,
                 case,
                 limits,
+                book,
             } => match E::compile(&pattern, case) {
                 Ok(ready) => {
-                    let file = unsafe { File::from_raw_fd(BOOK_FD) };
+                    let file = unsafe { adopt_book(book) };
                     reader = Some(Reader::open(file, limits).ok()?);
                     compiled = Some(ready);
                     send(&mut out, &Reply::Ready).ok()?;
@@ -249,10 +255,24 @@ pub fn run_worker<E: PatternEngine>() -> ! {
     std::process::exit(if outcome.is_some() { 0 } else { 1 })
 }
 
+#[cfg(unix)]
+unsafe fn adopt_book(book: u64) -> File {
+    unsafe { File::from_raw_fd(book as i32) }
+}
+
+#[cfg(windows)]
+unsafe fn adopt_book(book: u64) -> File {
+    use std::os::windows::io::FromRawHandle;
+    unsafe { File::from_raw_handle(book as usize as *mut std::ffi::c_void) }
+}
+
 struct Worker {
     child: Child,
     stdin: ChildStdin,
     replies: Receiver<Reply>,
+    book: u64,
+    #[cfg(windows)]
+    _job: Option<job::Job>,
 }
 
 impl Drop for Worker {
@@ -262,6 +282,7 @@ impl Drop for Worker {
     }
 }
 
+#[cfg(unix)]
 fn harden_child(book_fd: i32, parent: libc::pid_t, memory_cap: u64) -> io::Result<()> {
     let check = |result: libc::c_int| {
         if result == -1 {
@@ -305,8 +326,88 @@ fn harden_child(book_fd: i32, parent: libc::pid_t, memory_cap: u64) -> io::Resul
     Ok(())
 }
 
+#[cfg(windows)]
+mod job {
+    use std::fs::File;
+    use std::io;
+    use std::os::windows::io::AsRawHandle;
+    use std::process::Child;
+    use windows_sys::Win32::Foundation::{CloseHandle, DuplicateHandle, HANDLE};
+    use windows_sys::Win32::Storage::FileSystem::FILE_GENERIC_READ;
+    use windows_sys::Win32::System::JobObjects::{
+        AssignProcessToJobObject, CreateJobObjectW, JOB_OBJECT_LIMIT_DIE_ON_UNHANDLED_EXCEPTION,
+        JOB_OBJECT_LIMIT_KILL_ON_JOB_CLOSE, JOB_OBJECT_LIMIT_PROCESS_MEMORY,
+        JOBOBJECT_EXTENDED_LIMIT_INFORMATION, JobObjectExtendedLimitInformation,
+        SetInformationJobObject,
+    };
+    use windows_sys::Win32::System::Threading::GetCurrentProcess;
+
+    pub(super) const CREATE_NO_WINDOW: u32 = 0x0800_0000;
+    pub(super) const BELOW_NORMAL_PRIORITY_CLASS: u32 = 0x0000_4000;
+
+    pub(super) struct Job(HANDLE);
+
+    unsafe impl Send for Job {}
+
+    impl Drop for Job {
+        fn drop(&mut self) {
+            unsafe { CloseHandle(self.0) };
+        }
+    }
+
+    fn check(ok: i32) -> io::Result<()> {
+        if ok == 0 {
+            Err(io::Error::last_os_error())
+        } else {
+            Ok(())
+        }
+    }
+
+    impl Job {
+        pub(super) fn confine(child: &Child, memory_cap: u64) -> io::Result<Job> {
+            let handle = unsafe { CreateJobObjectW(std::ptr::null(), std::ptr::null()) };
+            if handle.is_null() {
+                return Err(io::Error::last_os_error());
+            }
+            let job = Job(handle);
+            let mut limits: JOBOBJECT_EXTENDED_LIMIT_INFORMATION = unsafe { std::mem::zeroed() };
+            limits.BasicLimitInformation.LimitFlags = JOB_OBJECT_LIMIT_KILL_ON_JOB_CLOSE
+                | JOB_OBJECT_LIMIT_PROCESS_MEMORY
+                | JOB_OBJECT_LIMIT_DIE_ON_UNHANDLED_EXCEPTION;
+            limits.ProcessMemoryLimit = usize::try_from(memory_cap).unwrap_or(usize::MAX);
+            check(unsafe {
+                SetInformationJobObject(
+                    job.0,
+                    JobObjectExtendedLimitInformation,
+                    (&raw const limits).cast(),
+                    size_of::<JOBOBJECT_EXTENDED_LIMIT_INFORMATION>() as u32,
+                )
+            })?;
+            check(unsafe { AssignProcessToJobObject(job.0, child.as_raw_handle()) })?;
+            Ok(job)
+        }
+    }
+
+    pub(super) fn lend_book(book: &File, child: &Child) -> io::Result<u64> {
+        let mut lent: HANDLE = std::ptr::null_mut();
+        check(unsafe {
+            DuplicateHandle(
+                GetCurrentProcess(),
+                book.as_raw_handle(),
+                child.as_raw_handle(),
+                &mut lent,
+                FILE_GENERIC_READ,
+                0,
+                0,
+            )
+        })?;
+        Ok(lent as usize as u64)
+    }
+}
+
 impl Worker {
-    fn spawn(exe: &Path, reader: &Reader<File>, memory_cap: u64) -> io::Result<Worker> {
+    #[cfg(unix)]
+    fn launch(exe: &Path, reader: &Reader<File>, memory_cap: u64) -> io::Result<Worker> {
         let book_fd = reader.source().as_raw_fd();
         let parent = unsafe { libc::getpid() };
         let mut command = Command::new(exe);
@@ -317,7 +418,35 @@ impl Worker {
         unsafe {
             command.pre_exec(move || harden_child(book_fd, parent, memory_cap));
         }
+        Worker::connect(command.spawn()?, BOOK_FD as u64)
+    }
+
+    #[cfg(windows)]
+    fn launch(exe: &Path, reader: &Reader<File>, memory_cap: u64) -> io::Result<Worker> {
+        use std::os::windows::process::CommandExt;
+        let mut command = Command::new(exe);
+        command
+            .stdin(Stdio::piped())
+            .stdout(Stdio::piped())
+            .stderr(Stdio::null())
+            .creation_flags(job::CREATE_NO_WINDOW | job::BELOW_NORMAL_PRIORITY_CLASS);
         let mut child = command.spawn()?;
+        let confined = job::Job::confine(&child, memory_cap)
+            .and_then(|confined| Ok((confined, job::lend_book(reader.source(), &child)?)));
+        let (confined, book) = match confined {
+            Ok(done) => done,
+            Err(error) => {
+                let _ = child.kill();
+                let _ = child.wait();
+                return Err(error);
+            }
+        };
+        let mut worker = Worker::connect(child, book)?;
+        worker._job = Some(confined);
+        Ok(worker)
+    }
+
+    fn connect(mut child: Child, book: u64) -> io::Result<Worker> {
         let stdin = child.stdin.take().ok_or(io::ErrorKind::BrokenPipe)?;
         let stdout = child.stdout.take().ok_or(io::ErrorKind::BrokenPipe)?;
         let (replies_in, replies) = mpsc::channel();
@@ -333,6 +462,9 @@ impl Worker {
             child,
             stdin,
             replies,
+            book,
+            #[cfg(windows)]
+            _job: None,
         })
     }
 
@@ -351,6 +483,7 @@ impl Worker {
             pattern: pattern.to_owned(),
             case,
             limits,
+            book: self.book,
         })
         .map_err(|_| Started::Died)?;
         let deadline = Instant::now() + COMPILE_DEADLINE;
@@ -434,7 +567,7 @@ struct Pattern {
 }
 
 fn start_worker(run: &Run, pattern: &Pattern) -> Result<Worker, Started> {
-    let mut worker = Worker::spawn(&pattern.exe, &run.reader, run.options.memory_cap)
+    let mut worker = Worker::launch(&pattern.exe, &run.reader, run.options.memory_cap)
         .map_err(|_| Started::NoWorker)?;
     worker.compile(&pattern.text, pattern.case, run.reader.limits(), &|| {
         run.is_stopped()
@@ -504,7 +637,7 @@ pub fn probe_worker(
     memory_cap: u64,
     bytes: u64,
 ) -> io::Result<(bool, u32)> {
-    let mut worker = Worker::spawn(exe, reader, memory_cap)?;
+    let mut worker = Worker::launch(exe, reader, memory_cap)?;
     worker.request(&Request::Probe { bytes })?;
     match worker.replies.recv_timeout(Duration::from_secs(5)) {
         Ok(Reply::Probed { refused }) => Ok((refused, worker.child.id())),

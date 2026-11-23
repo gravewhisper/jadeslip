@@ -6,7 +6,6 @@ use crate::{ChapterIx, Error, FileHash};
 use serde::{Deserialize, Serialize};
 use std::fs::{self, File};
 use std::io;
-use std::os::unix::fs::MetadataExt;
 use std::path::{Path, PathBuf};
 use std::sync::atomic::{AtomicU64, Ordering};
 use std::time::{SystemTime, UNIX_EPOCH};
@@ -86,9 +85,38 @@ fn lock_of(dir: &Path, id: &str) -> PathBuf {
     dir.join(format!("{id}.lock"))
 }
 
+#[cfg(unix)]
 fn same_file(file: &File, path: &Path) -> bool {
+    use std::os::unix::fs::MetadataExt;
     match (file.metadata(), fs::metadata(path)) {
         (Ok(held), Ok(named)) => held.dev() == named.dev() && held.ino() == named.ino(),
+        _ => false,
+    }
+}
+
+#[cfg(windows)]
+fn same_file(file: &File, path: &Path) -> bool {
+    use std::os::windows::fs::OpenOptionsExt;
+    use std::os::windows::io::AsRawHandle;
+    use windows_sys::Win32::Storage::FileSystem::{
+        BY_HANDLE_FILE_INFORMATION, FILE_SHARE_DELETE, FILE_SHARE_READ, FILE_SHARE_WRITE,
+        GetFileInformationByHandle,
+    };
+    fn identity(file: &File) -> Option<(u32, u32, u32)> {
+        let mut info: BY_HANDLE_FILE_INFORMATION = unsafe { std::mem::zeroed() };
+        let ok = unsafe { GetFileInformationByHandle(file.as_raw_handle(), &mut info) };
+        (ok != 0).then_some((
+            info.dwVolumeSerialNumber,
+            info.nFileIndexHigh,
+            info.nFileIndexLow,
+        ))
+    }
+    let named = fs::OpenOptions::new()
+        .access_mode(0)
+        .share_mode(FILE_SHARE_READ | FILE_SHARE_WRITE | FILE_SHARE_DELETE)
+        .open(path);
+    match (identity(file), named.ok().as_ref().and_then(identity)) {
+        (Some(held), Some(named)) => held == named,
         _ => false,
     }
 }
@@ -338,5 +366,5 @@ impl Book {
     }
 }
 
-#[cfg(test)]
+#[cfg(all(test, unix))]
 mod tests;

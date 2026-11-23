@@ -10,7 +10,7 @@ use std::ops::Range;
 const XHTML_NS: &str = "http://www.w3.org/1999/xhtml";
 const SVG_NS: &str = "http://www.w3.org/2000/svg";
 const MATH_NS: &str = "http://www.w3.org/1998/Math/MathML";
-const SCHEME_PREFIX: &str = "jadeslip-book://";
+use crate::BOOK_URL_PREFIX as SCHEME_PREFIX;
 
 #[derive(Clone)]
 pub(crate) struct UrlMap {

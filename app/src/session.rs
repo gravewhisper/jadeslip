@@ -192,12 +192,20 @@ pub(crate) fn data_dir() -> Result<PathBuf, Error> {
         "Test builds need JADESLIP_DATA_DIR, so they never touch the real data folder."
             .to_owned(),
     ));
-    #[cfg(not(feature = "e2e"))]
-    std::env::var_os("HOME")
+    #[cfg(all(not(feature = "e2e"), not(windows)))]
+    return std::env::var_os("HOME")
         .map(|home| PathBuf::from(home).join(".local/share/jadeslip"))
         .ok_or_else(|| {
             Error::Book("The HOME folder is not set, so backups have nowhere to go.".to_owned())
-        })
+        });
+    #[cfg(all(not(feature = "e2e"), windows))]
+    return std::env::var_os("LOCALAPPDATA")
+        .map(|local| PathBuf::from(local).join("dev.jadeslip.app"))
+        .ok_or_else(|| {
+            Error::Book(
+                "The LOCALAPPDATA folder is not set, so backups have nowhere to go.".to_owned(),
+            )
+        });
 }
 
 fn start_of(
