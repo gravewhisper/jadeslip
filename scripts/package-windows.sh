@@ -6,6 +6,8 @@ image=jadeslip-wincross
 triple=x86_64-pc-windows-msvc
 cache="${JADESLIP_WIN_CACHE:-$HOME/.cache/jadeslip-windows}"
 mkdir -p "$cache/target" "$cache/registry" "$cache/xwin"
+stamp=$(mktemp)
+trap 'rm -f "$stamp"' EXIT
 
 if ! docker image inspect "$image" >/dev/null 2>&1; then
     docker build -t "$image" - <<'EOF'
@@ -34,6 +36,8 @@ docker run --rm -m "${JADESLIP_WIN_MEMORY:-8g}" --cpus 6 -e CARGO_BUILD_JOBS="${
             fi
         done
     "
+rm -rf target/windows
 mkdir -p target/windows
-cp "$cache/target/$triple/release/bundle/nsis/"*.exe target/windows/
+find "$cache/target/$triple/release/bundle/nsis" -maxdepth 1 -name '*.exe' -newer "$stamp" -exec cp {} target/windows/ \;
+(cd target/windows && sha256sum -- *.exe > SHA256SUMS)
 ls -l target/windows

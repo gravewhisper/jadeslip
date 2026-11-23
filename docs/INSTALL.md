@@ -11,7 +11,7 @@ scripts/install-local.sh ~/.local/opt/jadeslip
 
 The script runs `cargo install` twice with `--root`, so nothing goes outside that folder. It also copies the dictionary's licence notice and the app's `LICENSE` to `share/doc/jadeslip/`. Move the folder as a whole, because the two binaries must stay side by side. The UI, fonts and dictionary are compiled into the app binary, so no other files are needed. The machine still needs `webkit2gtk-4.1`.
 
-To package it yourself, `scripts/package.sh` builds an AppImage and a `.deb`, which needs `cargo tauri`.
+To package it yourself, `scripts/package.sh` builds an AppImage and a `.deb`, which needs `cargo tauri`. It puts them in `target/linux/` with a `SHA256SUMS` file, so `sha256sum -c SHA256SUMS` run in that folder checks them.
 
 ## Spelling in other languages
 
